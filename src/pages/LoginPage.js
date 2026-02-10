@@ -27,7 +27,7 @@ const LoginPage = () => {
     };
 
     return (
-        <div className="bg-background-light min-h-screen flex font-sans antialiased overflow-hidden">
+        <div className="bg-background-light min-h-screen flex font-sans antialiased overflow-x-hidden">
             <div className="hidden lg:flex w-[35%] organic-bg flex-col justify-between p-14 text-white relative shadow-2xl z-20 overflow-hidden">
                 <div className="absolute inset-0 opacity-10 pointer-events-none mix-blend-overlay">
                     <svg className="w-full h-full" preserveAspectRatio="none" viewBox="0 0 100 100">
@@ -70,7 +70,7 @@ const LoginPage = () => {
                     </div>
                 </div>
             </div>
-            <div className="flex-1 flex flex-col justify-center items-center p-8 right-pattern relative">
+            <div className="flex-1 flex flex-col items-center p-8 right-pattern relative min-h-screen">
                 <div className="absolute inset-0 animal-watermark opacity-40 pointer-events-none"></div>
                 <div className="lg:hidden absolute top-8 left-8 flex items-center gap-2 text-primary">
                     <span className="material-symbols-outlined text-3xl">pets</span>
