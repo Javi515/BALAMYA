@@ -76,7 +76,7 @@ const LoginPage = () => {
                     <span className="material-symbols-outlined text-3xl">pets</span>
                     <span className="font-bold tracking-widest text-lg">BALAMYA</span>
                 </div>
-                <div className="w-full max-w-lg bg-white p-14 rounded-3xl shadow-card-enterprise border border-gray-100 relative z-10">
+                <div className="w-full max-w-lg bg-white p-14 rounded-3xl shadow-card-enterprise border border-gray-100 relative z-10 my-auto">
                     <div className="flex justify-center mb-6">
                         <div className="h-14 w-14 bg-blue-100 rounded-2xl flex items-center justify-center text-blue-600 shadow-sm border border-blue-200/50">
                             <span className="material-symbols-outlined text-3xl">medical_services</span>
@@ -159,7 +159,7 @@ const LoginPage = () => {
                         </div>
                     </form>
                 </div>
-                <div className="absolute bottom-8 w-full px-12 z-10">
+                <div className="w-full px-12 z-10 mt-8">
                     <div className="flex flex-col md:flex-row justify-between items-center gap-4 text-xs font-medium text-gray-400 border-t border-gray-200/60 pt-6 max-w-4xl mx-auto">
                         <div className="flex gap-6 tracking-wide">
                             <button type="button" className="hover:text-primary transition-colors bg-transparent border-0 p-0 cursor-pointer">Centro de Ayuda</button>
