@@ -1,0 +1,79 @@
+/* src/styles/VaccinationPrint.css */
+/* Styles based on DewormingCalendar.css for consistent look */
+
+/*
+  Print-specific styles for VaccinationForm
+*/
+@media print {
+
+    /* Hide interface elements that are not part of the form content */
+    .sidebar,
+    .topbar,
+    .back-button,
+    .form-actions,
+    .modal-overlay,
+    .add-record-button-container,
+    .form-footer,
+    .action-button-container {
+        display: none !important;
+    }
+
+    /* Reset body and remove layout constraints */
+    body {
+        background-color: #FFFFFF !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        width: 100% !important;
+    }
+
+    /* Reset the main content area */
+    .main-layout .content {
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+
+    /* Expand the form card and scale it to fit the page width safely */
+    .vaccination-card {
+        width: 95% !important;
+        max-width: 100% !important;
+        margin: 0 auto !important;
+        /* Center the card */
+        padding: 10px !important;
+        box-shadow: none !important;
+        border: none !important;
+        border-radius: 0 !important;
+    }
+
+    /* Ensure the table container uses the available space */
+    .table-container {
+        width: 100% !important;
+        overflow: visible;
+    }
+
+    /* Ensure table borders are visible and reduce font size for print */
+    .vaccination-table th,
+    .vaccination-table td {
+        border: 1px solid #000 !important;
+        font-size: 10px;
+        /* Smaller font to help table fit */
+        padding: 6px;
+        color: #000 !important;
+    }
+
+    /* Ensure text colors are print-friendly */
+    .vaccination-header-title,
+    .vaccination-header-subtitle,
+    h4,
+    .vaccination-form-label,
+    .vaccination-form-input,
+    .header-subtitle-right {
+        color: #000 !important;
+    }
+
+    /* Ensure table header has a background for clarity in print */
+    .vaccination-table th {
+        background-color: #f2f2f2 !important;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+    }
+}

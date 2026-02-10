@@ -1,0 +1,162 @@
+/* --- Records List --- */
+.records-container {
+    background: white;
+    border-radius: 15px;
+    padding: 20px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03);
+    overflow-x: auto;
+}
+
+.records-header-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.records-count-badge {
+    background: #e3f2fd;
+    color: #1976d2;
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: bold;
+}
+
+/* --- Table Styles (Fluid Layout with Wrapping) --- */
+.records-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    table-layout: auto;
+    /* Allow browser to adjust based on content */
+}
+
+.records-table th {
+    text-align: left;
+    padding: 10px 8px;
+    color: #7f8c8d;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    border-bottom: 2px solid #eee;
+    white-space: nowrap;
+    /* Keep headers single line if possible */
+}
+
+.records-table td {
+    padding: 10px 8px;
+    border-bottom: 1px solid #f5f5f5;
+    color: #333;
+    font-size: 0.85rem;
+    vertical-align: top;
+    /* Align to top for wrapped text consistency */
+    white-space: normal;
+    /* Allow text wrapping! */
+    line-height: 1.3;
+}
+
+.records-table tr:hover {
+    background-color: #f9f9f9;
+}
+
+/* Column Specifics */
+/* ID: Keep it compact but allow wrap if absolutely necessary (e.g. mobile), usually nowrap is better for IDs */
+.records-table td:nth-child(1) {
+    white-space: nowrap;
+    font-weight: 600;
+    font-size: 0.8rem;
+}
+
+/* Date: Always keep on one line */
+.records-table td:nth-child(5) {
+    white-space: nowrap;
+}
+
+/* Action: Ensure button has space */
+.records-table td:last-child {
+    text-align: center;
+    white-space: nowrap;
+    min-width: 120px;
+}
+
+/* Badges & Icons */
+.status-badge {
+    padding: 4px 8px;
+    border-radius: 6px;
+    font-size: 0.7rem;
+    font-weight: 700;
+    display: inline-block;
+    text-align: center;
+    white-space: nowrap;
+}
+
+.status-normal {
+    background: #e8f5e9;
+    color: #2e7d32;
+}
+
+.status-observation {
+    background: #fff3e0;
+    color: #ef6c00;
+}
+
+.status-critical {
+    background: #ffebee;
+    color: #c62828;
+}
+
+.status-recuperacion {
+    background: #fce4ec;
+    color: #c2185b;
+}
+
+.status-alta {
+    background: #e0f2f1;
+    color: #00695c;
+}
+
+.status-tratamiento {
+    background: #ffebee;
+    color: #c62828;
+}
+
+.species-icon-circle {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.9rem;
+    margin-right: 8px;
+    flex-shrink: 0;
+}
+
+/* Location Badge Style */
+.records-table td:nth-child(4) span {
+    display: inline-block;
+    white-space: normal;
+    /* Allow location badges to wrap text internally */
+    text-align: center;
+}
+
+.bg-aves {
+    background-color: #e1f5fe;
+    color: #0288d1;
+}
+
+.bg-mamiferos {
+    background-color: #fff3e0;
+    color: #ef6c00;
+}
+
+.bg-reptiles {
+    background-color: #e8f5e9;
+    color: #2e7d32;
+}
+
+.bg-anfibios {
+    background-color: #f3e5f5;
+    color: #7b1fa2;
+}

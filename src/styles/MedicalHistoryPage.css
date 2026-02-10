@@ -1,0 +1,31 @@
+/* MedicalHistoryPage.css */
+
+.medical-history-container {
+    padding: 30px;
+    background-color: #f4f7fa;
+    min-height: 100vh;
+}
+
+.medical-history-header {
+    margin-bottom: 30px;
+}
+
+.medical-history-title {
+    font-size: 2rem;
+    color: #2c3e50;
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+.medical-history-subtitle {
+    font-size: 1rem;
+    color: #7f8c8d;
+}
+
+/* --- Mobile Responsiveness (Page Level) --- */
+@media (max-width: 768px) {
+    .medical-history-container {
+        padding: 15px;
+        /* Reduce overall padding */
+    }
+}

@@ -1,0 +1,375 @@
+/* src/styles/NecropsyReportForm.css */
+
+/* Main Container */
+.necropsy-report-form {
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+    max-width: 1000px;
+    margin: 20px auto;
+    font-family: Arial, sans-serif;
+    color: #333;
+}
+
+/* --- Header --- */
+.necropsy-report-form .form-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    margin-bottom: 30px;
+    border-bottom: 1px solid #e0e0e0;
+    padding-bottom: 15px;
+    width: 100%;
+}
+
+/* Header Text Styles */
+.necropsy-report-form .header-subtitle,
+.necropsy-report-form .header-title,
+.necropsy-report-form .header-department,
+.necropsy-report-form .header-form-name {
+    font-weight: 700;
+    color: #333;
+    text-transform: uppercase;
+    margin: 3px 0;
+    letter-spacing: 0.5px;
+    line-height: 1.3;
+}
+
+.necropsy-report-form .header-subtitle {
+    font-size: 1rem;
+}
+
+.necropsy-report-form .header-title {
+    font-size: 1.2rem;
+}
+
+.necropsy-report-form .header-department {
+    font-size: 1.1rem;
+}
+
+.necropsy-report-form .header-form-name {
+    font-size: 1.2rem;
+    margin-top: 10px;
+}
+
+
+/* --- Layout Grids --- */
+.necropsy-report-form .form-section {
+    margin-bottom: 35px;
+    border: none;
+}
+
+.necropsy-report-form .section-title {
+    font-size: 0.9rem;
+    font-weight: bold;
+    color: #333;
+    background-color: #f8f9fa;
+    padding: 10px 15px;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    border-left: 4px solid #007bff;
+}
+
+.necropsy-report-form .form-row {
+    display: flex;
+    gap: 40px;
+    margin-bottom: 25px;
+    flex-wrap: wrap;
+}
+
+.necropsy-report-form .header-info-row {
+    gap: 20px;
+    justify-content: space-between;
+    flex-wrap: nowrap;
+    /* Force single line */
+}
+
+.necropsy-report-form .form-col {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* --- Form Fields --- */
+.necropsy-report-form .form-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 5px;
+}
+
+.necropsy-report-form .form-group label {
+    font-size: 0.75rem;
+    font-weight: bold;
+    color: #555;
+    margin-bottom: 5px;
+    text-transform: uppercase;
+}
+
+.necropsy-report-form .form-input,
+.necropsy-report-form .form-textarea {
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #fff;
+    padding: 8px 10px;
+    font-size: 1rem;
+    font-family: inherit;
+    transition: border-color 0.3s;
+    width: 100%;
+}
+
+.necropsy-report-form .form-input:focus,
+.necropsy-report-form .form-textarea:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.1);
+}
+
+.necropsy-report-form .form-textarea {
+    line-height: 1.5;
+    resize: vertical;
+    min-height: 100px;
+}
+
+/* Specific class for simple textareas (if used) */
+.necropsy-report-form .simple-textarea {
+    border: 1px solid #ccc !important;
+    background: #fff !important;
+    line-height: 1.5 !important;
+    padding: 10px !important;
+    border-radius: 4px !important;
+}
+
+/* Inline Groups */
+.necropsy-report-form .form-group.inline {
+    flex-direction: row;
+    align-items: center;
+    gap: 15px;
+    /* Increased gap for better separation */
+}
+
+.necropsy-report-form .form-group.inline label {
+    margin-bottom: 0;
+    white-space: nowrap;
+    /* Prevent label wrapping */
+    font-size: 0.85rem;
+    /* Slightly larger for readability */
+}
+
+/* Professional Underline Input Style */
+.necropsy-report-form .form-input.underline-input {
+    border: none;
+    border-bottom: 1px solid #333;
+    /* Darker, clearer line */
+    border-radius: 0;
+    padding: 5px 0;
+    background-color: transparent;
+    font-weight: 500;
+    text-align: center;
+    /* Center the date/text */
+    min-width: 150px;
+}
+
+.necropsy-report-form .form-input.underline-input:focus {
+    border-bottom-color: #007bff;
+    box-shadow: none;
+    /* Remove box shadow for clean look */
+}
+
+/* Professional Left-Aligned Input for Body */
+.necropsy-report-form .form-input.professional-text-input {
+    border: none;
+    border-bottom: 1px solid #ccc;
+    border-radius: 0;
+    padding: 8px 0;
+    background-color: transparent;
+    font-size: 1rem;
+    transition: border-color 0.3s;
+}
+
+.necropsy-report-form .form-input.professional-text-input:focus {
+    outline: none;
+    border-bottom: 1px solid #007bff;
+    box-shadow: none;
+}
+
+
+/* Radio & Checkboxes */
+.necropsy-report-form .radio-group {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    padding: 8px 0;
+}
+
+.necropsy-report-form .radio-group label {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-weight: normal;
+    font-size: 0.95rem;
+    color: #333;
+    text-transform: none;
+    margin-bottom: 0;
+}
+
+.necropsy-report-form .radio-group input[type="radio"] {
+    accent-color: #007bff;
+    width: 1.1em;
+    height: 1.1em;
+}
+
+
+/* Sample Grid */
+.necropsy-report-form .sample-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 25px;
+    padding: 10px 0;
+    align-items: center;
+}
+
+.necropsy-report-form .sample-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 0;
+    border-bottom: none;
+}
+
+.necropsy-report-form .sample-item label {
+    margin: 0;
+    font-size: 0.85rem;
+    color: #444;
+    font-weight: normal;
+    text-transform: none;
+    white-space: nowrap;
+}
+
+.necropsy-report-form .sample-item input[type="checkbox"] {
+    accent-color: #007bff;
+    width: 1.1em;
+    height: 1.1em;
+    margin: 0;
+    cursor: pointer;
+}
+
+
+/* Date Input Fixes */
+.necropsy-report-form input[type="date"]:invalid::-webkit-datetime-edit {
+    color: transparent;
+}
+
+.necropsy-report-form input[type="date"]:focus::-webkit-datetime-edit {
+    color: inherit;
+}
+
+.necropsy-report-form input[type="date"]::-webkit-calendar-picker-indicator {
+    cursor: pointer;
+    filter: invert(0.4);
+}
+
+
+/* Signature Section */
+.necropsy-report-form .signature-section {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 60px;
+    align-items: flex-start;
+}
+
+.necropsy-report-form .signature-block {
+    text-align: center;
+    width: 35%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.necropsy-report-form .signature-input {
+    border: none;
+    border-bottom: 2px solid #000;
+    width: 350px;
+    text-align: center;
+    font-size: 1.1rem;
+    background: transparent;
+    padding: 5px;
+    margin-bottom: 5px;
+    outline: none;
+}
+
+.necropsy-report-form .signature-input:focus {
+    border-bottom-color: #007bff;
+}
+
+/* Page Management */
+.necropsy-report-form .form-page {
+    display: none;
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+.necropsy-report-form .form-page.active {
+    display: block;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* --- Standardized Button Styles --- */
+.form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 15px;
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px solid #eee;
+}
+
+.necropsy-report-form .form-button {
+    padding: 10px 25px;
+    border: none;
+    border-radius: 5px;
+    /* Consistent rounded corners */
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: white;
+}
+
+.necropsy-report-form .save-btn {
+    background-color: #007bff;
+}
+
+.necropsy-report-form .save-btn:hover {
+    background-color: #0056b3;
+}
+
+.necropsy-report-form .secondary-btn {
+    background-color: #6c757d;
+}
+
+.necropsy-report-form .secondary-btn:hover {
+    background-color: #5a6268;
+}
+
+/* Specific overrides if needed for print */
+
+/* Print Styles */
+/* Print styles moved to NecropsyPrint.css */

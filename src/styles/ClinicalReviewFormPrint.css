@@ -1,0 +1,399 @@
+@media print {
+
+    /**********************************************************
+     * 1. RESET PARENT CONTAINERS (Global within Print)
+     **********************************************************/
+    .card {
+        background: none !important;
+        background-color: transparent !important;
+        box-shadow: none !important;
+        border: none !important;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+
+    @page {
+        size: letter;
+        margin: 0.4cm;
+    }
+
+    /* Hide global UI elements */
+    .sidebar,
+    .topbar,
+    .form-actions,
+    .secondary-btn,
+    .save-btn,
+    .next-button-container,
+    .page-break,
+    button,
+    .MuiButton-root,
+    .MuiBackdrop-root,
+    .MuiDrawer-root,
+    .MuiAppBar-root {
+        display: none !important;
+    }
+
+    /* SCOPED: Main form container properties */
+    .clinical-review-form {
+        margin: 0 !important;
+        padding: 0 !important;
+        width: 100% !important;
+        background: none !important;
+        background-color: transparent !important;
+        border: none !important;
+        box-shadow: none !important;
+        filter: none !important;
+
+        font-family: Arial, sans-serif !important;
+        font-size: 8.5pt !important;
+        line-height: 1.25 !important;
+        color: #000 !important;
+    }
+
+    /* SCOPED: Reset all children */
+    .clinical-review-form * {
+        background: transparent !important;
+        background-color: transparent !important;
+        box-shadow: none !important;
+        text-shadow: none !important;
+        border-radius: 0 !important;
+    }
+
+    /* 4. FORCE DISPLAY */
+    .clinical-review-form .form-page {
+        display: block !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+        position: static !important;
+        width: 100% !important;
+        height: auto !important;
+        overflow: visible !important;
+        background: transparent !important;
+    }
+
+    /* SCOPED TYPOGRAPHY */
+    .clinical-review-form h1 {
+        font-size: 12.5pt !important;
+        margin: 0 0 4px 0 !important;
+        text-align: center;
+        color: #000 !important;
+        font-weight: bold !important;
+        background: transparent !important;
+    }
+
+    .clinical-review-form h2 {
+        font-size: 10.5pt !important;
+        margin: 0 0 4px 0 !important;
+        text-align: center;
+        color: #000 !important;
+        background: transparent !important;
+    }
+
+    /* Unhide H3 */
+    .clinical-review-form h3 {
+        display: block !important;
+        font-size: 10pt !important;
+        margin: 5px 0 10px 0 !important;
+        text-align: center;
+        font-weight: bold !important;
+        color: #000 !important;
+        background: transparent !important;
+    }
+
+    /* Explicitly HIDE the page title (Revisión Clínica - Hoja 2) everywhere on print */
+    .clinical-review-form .page-title {
+        display: none !important;
+        height: 0 !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        overflow: hidden !important;
+    }
+
+    .clinical-review-form h5 {
+        display: none !important;
+    }
+
+    /* Default H4 styling (Page 1 mostly) */
+    .clinical-review-form h4 {
+        font-size: 9.5pt !important;
+        margin: 10px 0 5px 0 !important;
+        font-weight: bold;
+        text-transform: uppercase;
+        border-bottom: 2px solid #000;
+        padding-bottom: 2px !important;
+        color: #000 !important;
+        line-height: 1.2 !important;
+        background: transparent !important;
+    }
+
+    /* 6. LABELS AND INPUTS (Scoped) */
+    .clinical-review-form label {
+        font-size: 8.2pt !important;
+        font-weight: bold !important;
+        margin-right: 5px !important;
+        color: #000 !important;
+        display: inline-block;
+        white-space: nowrap;
+    }
+
+    /* Specific fix for Signature Label Centering */
+    .clinical-review-form .signature-block label,
+    .clinical-review-form .signature-input-dark+label,
+    .clinical-review-form .signature-section .form-group label {
+        display: block !important;
+        text-align: center !important;
+        margin-right: 0 !important;
+        margin-left: 0 !important;
+        width: 100% !important;
+    }
+
+    .clinical-review-form input,
+    .clinical-review-form textarea,
+    .clinical-review-form .form-input,
+    .clinical-review-form .form-textarea,
+    .clinical-review-form .signature-input-dark {
+        background: transparent !important;
+        border: none !important;
+        border-bottom: 1px solid #000 !important;
+        padding: 3px 0 !important;
+        margin: 0 !important;
+        font-size: 8.8pt !important;
+        color: #000 !important;
+        resize: none !important;
+        min-height: auto !important;
+        line-height: 1.25 !important;
+        height: auto !important;
+        -webkit-appearance: none;
+        appearance: none;
+        box-shadow: none;
+    }
+
+    .clinical-review-form textarea {
+        border-bottom: 1px solid #000 !important;
+    }
+
+    .clinical-review-form input[type="text"],
+    .clinical-review-form input[type="number"],
+    .clinical-review-form textarea {
+        -webkit-appearance: none;
+        appearance: none;
+        box-shadow: none;
+        background-color: transparent !important;
+    }
+
+    /* 7. SPACING AND LAYOUT (Scoped) */
+    .clinical-review-form .form-section {
+        margin-bottom: 12px !important;
+        page-break-inside: avoid;
+    }
+
+    .clinical-review-form .form-group {
+        margin-bottom: 6px !important;
+        align-items: baseline !important;
+    }
+
+    .clinical-review-form .form-subsection {
+        margin-top: 6px !important;
+        page-break-inside: avoid;
+    }
+
+    /* 8. PAGE 1 SPECIFICS */
+    .clinical-review-form #hoja1 {
+        page-break-before: avoid !important;
+        page-break-after: always;
+        break-after: page;
+        display: block !important;
+        width: 100% !important;
+        margin-top: 0 !important;
+        padding-top: 0 !important;
+        height: 100% !important;
+        min-height: 100% !important;
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: space-between !important;
+    }
+
+    .clinical-review-form #hoja1 .general-data-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        column-gap: 18px !important;
+        row-gap: 6px !important;
+        margin-bottom: 10px !important;
+    }
+
+    .clinical-review-form #hoja1 .general-data-grid .form-group {
+        display: flex;
+        align-items: baseline;
+    }
+
+    .clinical-review-form #hoja1 .phys-constants {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        column-gap: 12px !important;
+        margin-bottom: 10px !important;
+    }
+
+    /* Relaxed Textareas Page 1 */
+    .clinical-review-form #hoja1 .form-section:nth-of-type(2) textarea {
+        height: 110px !important;
+        min-height: 110px !important;
+    }
+
+    .clinical-review-form #hoja1 .form-subsection textarea {
+        height: 45px !important;
+        min-height: 45px !important;
+    }
+
+    /* 9. PAGE 2 SPECIFICS - SLIGHTLY ADJUSTED (LESS COMPACT BUT NOT TOO MUCH) */
+    .clinical-review-form #hoja2 {
+        page-break-before: always;
+        break-before: page;
+        display: block !important;
+        padding-top: 1cm !important;
+        width: 100% !important;
+    }
+
+    /* HIDE "Revisión de Sistemas (Continuación)" */
+    .clinical-review-form #hoja2 .form-section:nth-of-type(1) h4,
+    .clinical-review-form #hoja2>.form-section:first-of-type h4,
+    .clinical-review-form #hoja2 h4:first-of-type {
+        display: none !important;
+        height: 0 !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        overflow: hidden !important;
+        border: none !important;
+        position: absolute;
+    }
+
+    /* 
+       CUSTOM HEADERS FOR PAGE 2 
+       (Imágenes, Impresiones Diagnósticas, Pruebas Lab if targeted) 
+       Blue Bar Style: border-left: 5px solid blue, border-bottom: none
+    */
+
+    /* Pruebas de Laboratorio (Section 2) */
+    .clinical-review-form #hoja2 .form-section:nth-of-type(2) h4 {
+        display: block !important;
+        border-bottom: none !important;
+        border-left: 4px solid #007bff !important;
+        /* Blue bar */
+        padding-left: 10px !important;
+        margin-bottom: 10px !important;
+        position: static !important;
+        height: auto !important;
+        width: auto !important;
+    }
+
+    /* IMÁGENES (Section 3) - Middle Ground Spacing */
+    .clinical-review-form #hoja2 .form-section:nth-of-type(3) {
+        margin-bottom: 20px !important;
+        /* Reduced from 25px */
+    }
+
+    .clinical-review-form #hoja2 .form-section:nth-of-type(3) h4 {
+        display: block !important;
+        border-bottom: none !important;
+        border-left: 4px solid #007bff !important;
+        /* Blue bar */
+        padding-left: 10px !important;
+        margin-bottom: 8px !important;
+        position: static !important;
+        height: auto !important;
+        width: auto !important;
+    }
+
+    .clinical-review-form #hoja2 .form-section:nth-of-type(3) input {
+        height: 38px !important;
+        /* Reduced from 40px */
+        margin-bottom: 6px !important;
+    }
+
+    /* IMPRESIONES DIAGNÓSTICAS (Section 4) - Middle Ground Spacing */
+    .clinical-review-form #hoja2 .form-section:nth-of-type(4) {
+        margin-bottom: 12px !important;
+        /* Reduced from 15px */
+    }
+
+    .clinical-review-form #hoja2 .form-section:nth-of-type(4) h4 {
+        display: block !important;
+        border-bottom: none !important;
+        border-left: 4px solid #007bff !important;
+        /* Blue bar */
+        padding-left: 10px !important;
+        margin-bottom: 8px !important;
+        position: static !important;
+        height: auto !important;
+        width: auto !important;
+    }
+
+    .clinical-review-form #hoja2 .form-section:nth-of-type(4) textarea {
+        height: 48px !important;
+        /* Reduced from 50px */
+        min-height: 48px !important;
+    }
+
+    .clinical-review-form #hoja2 .lab-tests-grid {
+        display: grid;
+        grid-template-columns: repeat(6, 1fr);
+        column-gap: 8px !important;
+        margin-bottom: 10px !important;
+    }
+
+    .clinical-review-form #hoja2 .lab-tests-grid .form-group {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .clinical-review-form #hoja2 .lab-tests-grid input {
+        text-align: center;
+        width: 100% !important;
+        font-size: 8.5pt !important;
+    }
+
+    /* Other Textareas Page 2 */
+    .clinical-review-form #hoja2 textarea[rows="2"] {
+        height: 48px !important;
+        /* Reduced from 50px */
+        min-height: 48px !important;
+        margin-bottom: 6px !important;
+    }
+
+    .clinical-review-form #hoja2 .form-section {
+        margin-bottom: 15px !important;
+        /* Reduced from 18px */
+    }
+
+    /* 10. SIGNATURE SECTION (Centered) */
+    .clinical-review-form .signature-section {
+        margin-top: 20px !important;
+        /* Reduced from 25px */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        page-break-inside: avoid;
+        width: 100%;
+        padding-bottom: 20px !important;
+    }
+
+    .clinical-review-form .signature-block,
+    .clinical-review-form .signature-section .form-group {
+        width: 40% !important;
+        text-align: center !important;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .clinical-review-form .signature-input-dark {
+        height: 28px !important;
+        /* Reduced from 30px */
+        margin-bottom: 5px !important;
+        width: 100% !important;
+        border-bottom: 2px solid #000 !important;
+        text-align: center;
+    }
+}

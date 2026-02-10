@@ -1,0 +1,368 @@
+.sidebar {
+  width: 290px;
+  height: 100vh;
+  /* Ocupa toda la altura de la ventana */
+  background: linear-gradient(180deg, #1E88E5 0%, #1565C0 100%);
+  /* Azul oscuro con gradiente */
+  box-shadow: 4px 0 15px rgba(0, 0, 0, 0.1);
+  /* Sombra suave */
+  border-top-right-radius: 30px;
+  border-bottom-right-radius: 30px;
+  /* Rounded corners for iOS look */
+  color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  /* Smoother transition */
+  z-index: 1000;
+  position: sticky;
+  /* Se ancla en la vista */
+  top: 0;
+  /* Se pega en la parte superior */
+  overflow: hidden;
+  /* Ensures children (header/footer) respect the border radius */
+}
+
+.sidebar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 20px 25px;
+  /* Padding crucial para despegue de bordes */
+  flex-shrink: 0;
+}
+
+.sidebar-body {
+  flex-grow: 1;
+  /* Ocupa el espacio restante */
+  overflow-y: auto;
+  /* Solo esta área tiene scroll */
+  scrollbar-width: none;
+  /* Firefox */
+}
+
+.sidebar-body::-webkit-scrollbar {
+  display: none;
+  /* Chrome, Safari, Opera */
+}
+
+.sidebar-brand {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  /* Matches menu item gap */
+  font-size: 1.8rem;
+  /* Slightly refined text size */
+  font-weight: 800;
+  /* Bolder for logo feel */
+  padding-left: 5px;
+  /* Subtle alignment adjustment */
+}
+
+.close-btn {
+  display: none;
+  /* Oculto en escritorio por defecto */
+  background: none;
+  border: none;
+  color: #FFFFFF;
+  font-size: 24px;
+  /* Tamaño solicitado */
+  cursor: pointer;
+}
+
+.sidebar-brand span[role="img"] {
+  font-size: 2.5rem;
+}
+
+.brand-icon-wrapper {
+  margin-right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  /* Increased width for larger icon */
+}
+
+.sidebar-nav {
+  padding: 20px 25px;
+  /* Padding para alinear los links con el header */
+}
+
+.sidebar-nav li a {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  text-decoration: none;
+  color: #ffffff;
+  font-size: 16px;
+  /* Intermediate size */
+  padding: 14px 15px;
+  /* Intermediate padding */
+  /* Intermediate padding */
+  border-radius: 12px;
+  /* iOS Pill Shape */
+  margin: 0 12px 8px 12px;
+  /* Floating margins */
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  /* iOS smooth easing */
+  border-right: none;
+  /* Remove harsh border */
+}
+
+.sidebar-nav li a:hover,
+.menu-item-with-submenu:hover {
+  background-color: rgba(255, 255, 255, 0.15);
+  transform: scale(1.02);
+  /* Subtle scale up */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  /* Light shadow lift */
+}
+
+.sidebar-nav li a.active,
+.menu-item-with-submenu.active-section {
+  background-color: rgba(255, 255, 255, 0.2);
+  /* Glassmorphism */
+  backdrop-filter: blur(10px);
+  border-right: none;
+  font-weight: 600;
+  /* Semi-bold */
+  border-radius: 12px;
+  /* Full pill */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  /* Distinct elevation */
+  color: #ffffff;
+}
+
+.menu-item-with-submenu {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 15px;
+  /* Intermediate padding */
+  color: #ffffff;
+  cursor: pointer;
+  /* Intermediate padding */
+  color: #ffffff;
+  cursor: pointer;
+  border-radius: 12px;
+  /* iOS Pill */
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  font-size: 16px;
+  /* Intermediate size */
+  margin: 0 12px 8px 12px;
+  /* Floating margins */
+  border-right: none;
+}
+
+/* Icon Styles */
+.menu-icon {
+  font-size: 1.2rem;
+  margin-right: 15px;
+  width: 24px;
+  /* Fixed width for alignment */
+  text-align: center;
+  opacity: 1;
+  /* More visibility for colors */
+  transition: filter 0.3s ease, transform 0.3s ease, color 0.3s ease;
+}
+
+/* Specific Icon Colors with Glow */
+.icon-brand {
+  color: #FFFFFF;
+  filter: drop-shadow(0 0 2px rgba(255, 255, 255, 0.5));
+  font-size: 2.0rem !important;
+  /* Larger prominent size */
+  margin-right: 0;
+  width: auto;
+  opacity: 1;
+  transition: filter 0.3s ease, transform 0.3s ease, color 0.3s ease;
+}
+
+.icon-home {
+  color: #FFD740;
+  /* Amber A200 */
+  filter: drop-shadow(0 0 2px rgba(255, 215, 64, 0.4));
+}
+
+.icon-patients {
+  color: #69F0AE;
+  /* Green A200 */
+  filter: drop-shadow(0 0 2px rgba(105, 240, 174, 0.4));
+}
+
+.icon-casualties {
+  color: #FF5252;
+  /* Red A200 */
+  filter: drop-shadow(0 0 2px rgba(255, 82, 82, 0.4));
+}
+
+.icon-history {
+  color: #40C4FF;
+  /* Light Blue A200 */
+  filter: drop-shadow(0 0 2px rgba(64, 196, 255, 0.4));
+}
+
+.icon-forms {
+  color: #FFAB40;
+  /* Orange A200 */
+  filter: drop-shadow(0 0 2px rgba(255, 171, 64, 0.4));
+}
+
+.icon-reports {
+  color: #E040FB;
+  /* Purple A200 */
+  filter: drop-shadow(0 0 2px rgba(224, 64, 251, 0.4));
+}
+
+.icon-notifications {
+  color: #FFFF00;
+  /* Yellow A200 */
+  filter: drop-shadow(0 0 2px rgba(255, 255, 0, 0.4));
+}
+
+.icon-profile {
+  color: #18FFFF;
+  /* Cyan A200 */
+  filter: drop-shadow(0 0 2px rgba(24, 255, 255, 0.4));
+}
+
+.icon-logout {
+  color: #FF8A80;
+  /* Red A100 */
+  filter: drop-shadow(0 0 2px rgba(255, 138, 128, 0.4));
+}
+
+/* Hover Effects for Icons */
+.sidebar-nav li a:hover .menu-icon,
+.menu-item-with-submenu:hover .menu-icon,
+.logout-btn:hover .icon-logout {
+  filter: drop-shadow(0 0 5px currentColor);
+  transform: scale(1.1);
+}
+
+/* Submenu Styles */
+.menu-link {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  flex-grow: 1;
+}
+
+.chevron {
+  font-size: 0.8rem;
+  transition: transform 0.3s ease;
+}
+
+.menu-item-with-submenu.open .chevron {
+  transform: rotate(180deg);
+}
+
+.submenu {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  margin-left: 26px;
+  /* Alinear con el icono/texto */
+  border-left: 1px solid rgba(255, 255, 255, 0.3);
+  /* Linea vertical sutil */
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease-out;
+  background-color: transparent;
+  /* Removed gray background */
+  border-radius: 0 0 8px 8px;
+}
+
+.submenu.open {
+  max-height: 300px;
+  /* Suficiente para los items */
+}
+
+.submenu li a {
+  padding: 12px 10px 12px 34px;
+  /* Increased padding */
+  /* Indentación ajustada */
+  font-size: 15px;
+  /* Slightly smaller */
+  margin: 0 12px 4px 12px;
+  /* Consistent margins */
+  border-radius: 12px;
+  /* Rounded for subitems too */
+  transition: all 0.2s ease;
+}
+
+.submenu li a.active {
+  border-right: none;
+  border-left: none;
+  /* No borders */
+  border-radius: 12px;
+  /* Pill */
+  background-color: rgba(255, 255, 255, 0.25);
+  /* Slightly brighter */
+  font-weight: 600;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.sidebar-nav li a span[role="img"] {
+  font-size: 1.5rem;
+  /* Increased size */
+}
+
+/* Media query para móvil y tablet */
+@media (max-width: 1100px) {
+  .sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    transform: translateX(-100%);
+    box-sizing: border-box;
+    /* overflow-y: auto; <-- REMOVED */
+  }
+
+  .sidebar-header {
+    position: sticky;
+    top: 0;
+    background: #1E88E5;
+    z-index: 1;
+  }
+
+  .sidebar.open {
+    transform: translateX(0);
+  }
+
+  .close-btn {
+    display: block;
+    /* Visible en móvil y tablet */
+  }
+}
+
+.sidebar-footer {
+  padding: 20px 25px;
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+  margin-top: auto;
+  /* Pushes footer to the bottom */
+}
+
+.logout-btn {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+}
+
+.logout-btn:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: translateY(-2px);
+}

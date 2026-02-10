@@ -1,0 +1,244 @@
+/* src/styles/ClinicalReviewForm.css */
+
+/* --- Contenedor Principal y Encabezado --- */
+.clinical-review-form {
+  padding: 20px;
+  background-color: #fff;
+}
+
+.clinical-review-form .form-header {
+  text-align: center;
+  margin-bottom: 2rem;
+  width: 100%;
+}
+
+.clinical-review-form .form-header p,
+.clinical-review-form .form-header h3 {
+  margin: 0;
+  padding: 0;
+}
+
+.clinical-review-form .header-main-title {
+  font-size: 1.2rem;
+  color: #333;
+  /* Dark grey */
+}
+
+.clinical-review-form .header-subtitle {
+  font-size: 1rem;
+  color: #666;
+  /* Softer grey */
+  margin-top: 4px;
+}
+
+.clinical-review-form .header-divider {
+  width: 90%;
+  margin: 12px auto;
+  border: 0;
+  border-top: 1px solid #ccc;
+}
+
+.clinical-review-form .header-form-title {
+  font-size: 1.1rem;
+  font-weight: bold;
+  color: #222;
+  /* Dark color */
+}
+
+.clinical-review-form .page-title {
+  font-size: 1rem;
+  color: #666;
+  text-align: right;
+  border-bottom: 1px solid #eee;
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.5rem;
+}
+
+
+/* --- Estilos de Formularios (Inputs y Textareas) --- */
+.clinical-review-form .form-input,
+.clinical-review-form .form-textarea {
+  width: 100%;
+  border: none;
+  border-bottom: 1px solid #ccc;
+  background-color: transparent;
+  padding: 8px 4px;
+  font-size: 0.95rem;
+  transition: border-color 0.3s;
+}
+
+.clinical-review-form .form-input:focus,
+.clinical-review-form .form-textarea:focus {
+  outline: none;
+  border-bottom-color: #007bff;
+}
+
+.clinical-review-form .form-textarea {
+  resize: vertical;
+  margin-top: 5px;
+  margin-bottom: 15px;
+  /* Espacio después de cada textarea de sistema */
+}
+
+.clinical-review-form .form-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1rem;
+}
+
+.clinical-review-form .form-group label {
+  font-size: 0.85rem;
+  color: #555;
+  margin-bottom: 4px;
+}
+
+
+/* --- Secciones y Grids de Layout --- */
+.clinical-review-form .form-section {
+  margin-bottom: 2rem;
+}
+
+.clinical-review-form .section-title {
+  font-size: 0.9rem;
+  font-weight: bold;
+  color: #333;
+  background-color: #f8f9fa;
+  padding: 10px 15px;
+  margin-bottom: 20px;
+  text-transform: uppercase;
+  border-left: 4px solid #007bff;
+  border-bottom: none;
+}
+
+.clinical-review-form .form-subsection {
+  margin-top: 1.5rem;
+}
+
+.clinical-review-form .form-subsection h5 {
+  font-size: 0.9rem;
+  font-weight: bold;
+  color: #444;
+  margin-bottom: 1rem;
+}
+
+.clinical-review-form .general-data-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 1rem 2rem;
+}
+
+.clinical-review-form .phys-constants {
+  display: flex;
+  justify-content: space-around;
+  gap: 1rem;
+}
+
+.clinical-review-form .phys-constants .form-group {
+  flex: 1;
+  max-width: 100px;
+}
+
+.clinical-review-form .lab-tests-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 0.5rem 2rem;
+}
+
+.clinical-review-form .signature-section {
+  margin-top: 3rem;
+  border-top: 1px solid #ccc;
+  padding-top: 1.5rem;
+}
+
+.clinical-review-form .signature-section .form-group {
+  max-width: 350px;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+
+/* Darker signature line as requested */
+.clinical-review-form .signature-input-dark {
+  width: 100%;
+  border: none;
+  border-bottom: 2px solid #000;
+  /* Distinct black line */
+  background-color: transparent;
+  padding: 8px 4px;
+  font-size: 0.95rem;
+  text-align: center;
+  transition: border-color 0.3s;
+}
+
+.clinical-review-form .signature-input-dark:focus {
+  outline: none;
+  border-bottom-color: #007bff;
+}
+
+
+/* --- Lógica de Paginación (Wizard) --- */
+.clinical-review-form .form-page {
+  display: none;
+  /* Oculta ambas páginas por defecto */
+}
+
+.clinical-review-form .form-page.active {
+  display: block;
+  /* Muestra solo la página activa */
+}
+
+
+/* --- Contenedores de Botones --- */
+.form-actions {
+  display: flex;
+  /* Keeping this global or scoped? Better to scope if possible, but used commonly. */
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 2rem;
+}
+
+/* Note: form-actions might be shared, but scoping helps avoid conflict if they differ. */
+.clinical-review-form .form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 2rem;
+}
+
+.clinical-review-form .next-button-container {
+  justify-content: flex-end;
+}
+
+
+
+/* --- Standardized Button Styles --- */
+.clinical-review-form .form-button {
+  padding: 10px 25px;
+  border: none;
+  border-radius: 5px;
+  /* Consistent rounded corners */
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: white;
+}
+
+.clinical-review-form .save-btn {
+  background-color: #007bff;
+}
+
+.clinical-review-form .save-btn:hover {
+  background-color: #0056b3;
+}
+
+.clinical-review-form .secondary-btn {
+  background-color: #6c757d;
+}
+
+.clinical-review-form .secondary-btn:hover {
+  background-color: #5a6268;
+}

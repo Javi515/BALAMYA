@@ -1,0 +1,35 @@
+.stat-card {
+  display: flex;
+  align-items: center;
+  padding: 12px 15px;
+  min-width: 0;
+}
+
+.stat-icon {
+  font-size: 2.2rem;
+  margin-right: 8px;
+  line-height: 1; /* Ayuda a alinear mejor el emoji */
+}
+
+.stat-card-info {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-width: 0;
+}
+
+.stat-card-title {
+  font-size: 0.8rem;
+  color: #6c757d;
+  margin-bottom: 4px;
+  line-height: 1.2;
+  padding-right: 10px;
+  white-space: pre-line;
+  word-wrap: break-word;
+}
+
+.stat-card-value {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #343a40;
+}

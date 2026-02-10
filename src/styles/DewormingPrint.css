@@ -1,0 +1,85 @@
+/* src/styles/DewormingPrint.css */
+
+/*
+  Print-specific styles for DewormingCalendar.
+  This block ensures the form prints cleanly without UI elements.
+*/
+@media print {
+
+    /* Hide interface elements that are not part of the form content */
+    .sidebar,
+    .topbar,
+    .back-button,
+    .form-actions,
+    .modal-overlay,
+    /* This selector targets the specific div container of the "Agregar Registro" button */
+    .deworming-card>div:not(.deworming-form-field)[style*="margin-bottom: 20px"] {
+        display: none !important;
+    }
+
+    /* Reset body and remove layout constraints */
+    body {
+        background-color: #FFFFFF !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        width: 100% !important;
+    }
+
+    /* Reset the main content area that wraps the page */
+    .main-layout .content {
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+
+    /* Add margin of safety for the header */
+    .deworming-header-flex {
+        padding-right: 30px;
+    }
+
+    /* Expand the form card and scale it to fit the page width safely */
+    .deworming-card {
+        width: 95% !important;
+        margin: 0 auto !important;
+        /* Center the card */
+        padding: 20px !important;
+        box-shadow: none !important;
+        border: none !important;
+        border-radius: 0 !important;
+        zoom: 0.9;
+        transform-origin: top left;
+        position: relative;
+        /* Use relative instead of absolute */
+        top: auto;
+        left: auto;
+    }
+
+    /* Ensure the table container uses the available space */
+    .table-container {
+        width: 98% !important;
+        overflow: visible;
+        /* Show content that might otherwise be clipped */
+    }
+
+    /* Ensure table borders are visible and reduce font size for print */
+    .deworming-table th,
+    .deworming-table td {
+        border: 1px solid #000 !important;
+        font-size: 10px;
+        /* Smaller font to help table fit */
+        padding: 8px;
+    }
+
+    /* Ensure text colors are print-friendly */
+    .deworming-header-title,
+    .deworming-header-subtitle,
+    h4,
+    .deworming-form-label,
+    .deworming-form-input {
+        color: #000 !important;
+    }
+
+    /* Ensure table header has a background for clarity in print */
+    .deworming-table th {
+        background-color: #f2f2f2 !important;
+    }
+}

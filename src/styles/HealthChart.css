@@ -1,0 +1,46 @@
+.health-chart-card {
+  flex: 1;
+  min-width: 300px;
+}
+
+.health-chart-title {
+  margin-top: 0;
+  margin-bottom: 24px;
+  font-size: 18px;
+  font-weight: 500;
+}
+
+.health-chart-container {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.health-chart {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+}
+
+.health-chart-legend {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+}
+
+.legend-color {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  margin-right: 8px;
+}
+
+.legend-color.healthy { background-color: #4CAF50; }
+.legend-color.stable { background-color: #FFC107; }
+.legend-color.critical { background-color: #F44336; }

@@ -1,0 +1,90 @@
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 24px;
+  background-color: #FFFFFF;
+  border-bottom: 1px solid #E0E0E0;
+  flex-shrink: 0;
+}
+
+.topbar-left {
+  display: none; /* Oculto en escritorio */
+}
+
+.hamburger-menu {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+}
+
+.hamburger-menu svg {
+  fill: #555;
+}
+
+.topbar-right {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.topbar-right span {
+  font-weight: 500;
+}
+
+.topbar-icon {
+  width: 24px;
+  height: 24px;
+  fill: #555;
+  cursor: pointer;
+  transition: fill 0.2s ease-in-out;
+}
+
+.topbar-icon:hover {
+  fill: #1E88E5;
+}
+
+.profile-icon-container {
+  background-color: #F0F2F5;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 10px;
+  cursor: pointer;
+}
+
+.profile-icon-container .topbar-icon {
+  width: 24px; /* Explicitly set size for the icon inside */
+  height: 24px;
+}
+
+.profile-icon-container:hover {
+    background-color: #e0e0e0;
+}
+
+.profile-icon-container:hover .topbar-icon {
+    fill: #1E88E5;
+}
+
+@media (max-width: 1024px) {
+  .topbar {
+    padding: 12px 16px;
+    justify-content: space-between;
+  }
+  .topbar-left {
+    display: flex;
+  }
+  .topbar-right {
+    justify-content: center;
+  }
+}
+
+@media (max-width: 400px) {
+  .topbar-right span {
+    display: none;
+  }
+}

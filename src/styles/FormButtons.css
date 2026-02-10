@@ -1,0 +1,64 @@
+/* src/styles/FormButtons.css */
+
+.back-button {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 24px;
+  color: #333;
+}
+
+.add-record-button {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 1rem;
+}
+
+.add-record-button button {
+  background-color: #4CAF50; /* Example color */
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 2rem;
+  gap: 1rem;
+}
+
+.form-actions button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.save-button {
+  background-color: #007bff; /* Primary color */
+  color: white;
+}
+
+.print-button {
+  background-color: #6c757d; /* Secondary color */
+  color: white;
+}
+
+/* --- Print Styles --- */
+@media print {
+  .back-button,
+  .form-actions {
+    display: none !important;
+  }
+}
