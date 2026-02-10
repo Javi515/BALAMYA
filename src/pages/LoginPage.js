@@ -72,7 +72,7 @@ const LoginPage = () => {
             </div>
             <div className="flex-1 flex flex-col items-center p-8 right-pattern relative min-h-screen">
                 <div className="absolute inset-0 animal-watermark opacity-40 pointer-events-none"></div>
-                <div className="lg:hidden absolute top-8 left-8 flex items-center gap-2 text-primary">
+                <div className="lg:hidden w-full flex justify-start items-center gap-2 text-primary mb-6 z-20">
                     <span className="material-symbols-outlined text-3xl">pets</span>
                     <span className="font-bold tracking-widest text-lg">BALAMYA</span>
                 </div>
