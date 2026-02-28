@@ -1,37 +1,41 @@
 import React from 'react';
 import StatCard from './StatCard';
-import '../../styles/StatGrid.css';
+import styles from '../../styles/StatGrid.module.css';
 
 const StatGrid = () => {
   return (
-    <div className="stat-grid">
-      <StatCard 
-        title="Población Total" 
-        value="150" 
-        styleType="primary"
+    <div className={styles['stat-grid']}>
+      <StatCard
+        title="Población Total"
+        value="150"
+        iconType="primary"
         icon='🐾'
       />
-      <StatCard 
-        title="Sanos" 
-        value="125" 
+      <StatCard
+        title="Sanos"
+        value="125"
         subtitle="83%"
+        iconType="success"
         icon='💓'
       />
-      <StatCard 
-        title="En Tratamiento" 
-        value="15" 
+      <StatCard
+        title="En Tratamiento"
+        value="15"
         subtitle="10%"
+        iconType="info"
         icon='🩺'
       />
-     <StatCard 
-    title={"Cuarentena/\nHospital"} 
-    value="10" 
-    subtitle="7%" 
-    icon='⚠️' 
-/>
-      <StatCard 
-        title="Fallecidos" 
-        value="3" 
+      <StatCard
+        title={"Cuarentena/\nHospital"}
+        value="10"
+        subtitle="7%"
+        iconType="warning"
+        icon='⚠️'
+      />
+      <StatCard
+        title="Fallecidos"
+        value="3"
+        iconType="danger"
         icon='🕊️'
       />
     </div>

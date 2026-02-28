@@ -2,12 +2,12 @@ import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom'; // Import useLocation
 import Sidebar from './Sidebar';
 import Topbar from './Topbar';
-import '../../styles/MainLayout.css';
+import styles from '../../styles/MainLayout.module.css';
 
 const MainLayout = ({ children }) => {
-  const [sidebarOpen, setSidebarOpen] = useState(true);
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 1024);
-  const location = useLocation(); // Get current location
+  const [sidebarOpen, setSidebarOpen] = useState(window.innerWidth > 1024);
+  const location = useLocation();
 
   const toggleSidebar = () => {
     setSidebarOpen(!sidebarOpen);
@@ -19,6 +19,8 @@ const MainLayout = ({ children }) => {
       setIsMobile(mobile);
       if (!mobile) {
         setSidebarOpen(true);
+      } else {
+        setSidebarOpen(false); // Close on resize to mobile
       }
     };
 
@@ -43,17 +45,22 @@ const MainLayout = ({ children }) => {
   }, [isMobile, sidebarOpen]);
 
   return (
-    <div className={`main-layout ${sidebarOpen ? 'sidebar-open' : 'sidebar-closed'}`}>
+    <div className={`${styles['main-layout']} ${sidebarOpen ? styles['sidebar-open'] : styles['sidebar-closed']}`}>
       <Sidebar isOpen={sidebarOpen} toggle={toggleSidebar} />
-      <div className="main-content">
+      <div className={styles['main-content']}>
         <Topbar toggleSidebar={toggleSidebar} />
-        <main className="content-area">
-          <div key={location.pathname} className="page-content-transition">
+        <main className={styles['content-area']}>
+          <div key={location.pathname} className={styles['page-content-transition']}>
             {children}
           </div>
         </main>
       </div>
-      {isMobile && sidebarOpen && <div className="overlay" onClick={toggleSidebar}></div>}
+      {isMobile && sidebarOpen && (
+        <div
+          className="fixed inset-0 bg-black/50 z-40"
+          onClick={toggleSidebar}
+        ></div>
+      )}
     </div>
   );
 };

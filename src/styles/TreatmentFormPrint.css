@@ -1,0 +1,138 @@
+/* TreatmentFormPrint.css - Estilos de impresión */
+/* Archivo separado para mantener el código organizado */
+/* Optimizado para caber en 1 hoja tamaño carta */
+
+@media print {
+
+    /* === CONFIGURACIÓN DE PÁGINA === */
+    @page {
+        size: letter;
+        margin: 1cm;
+    }
+
+    /* === OCULTAR TODO EXCEPTO EL FORMULARIO === */
+    body * {
+        visibility: hidden;
+    }
+
+    .treatment-form,
+    .treatment-form * {
+        visibility: visible;
+    }
+
+    .treatment-form {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        max-width: 100% !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        font-size: 11px !important;
+    }
+
+    /* === OCULTAR ELEMENTOS NO IMPRIMIBLES === */
+    .treatment-form .form-actions,
+    .treatment-form .form-buttons,
+    .treatment-form .variant-toggle {
+        display: none !important;
+    }
+
+    /* === ELIMINAR TODOS LOS FONDOS === */
+    .treatment-form,
+    .treatment-form .form-section,
+    .card {
+        background-color: transparent !important;
+        background: none !important;
+        box-shadow: none !important;
+        border: none !important;
+    }
+
+    .treatment-form .form-section {
+        padding: 0 !important;
+        margin-bottom: 6px !important;
+    }
+
+    /* === ENCABEZADO COMPACTO === */
+    .treatment-header {
+        margin-bottom: 6px !important;
+    }
+
+    .treatment-header h1 {
+        font-size: 13px !important;
+        margin: 0 !important;
+    }
+
+    .treatment-header h2 {
+        font-size: 11px !important;
+        margin: 0 0 2px 0 !important;
+    }
+
+    .treatment-header h3 {
+        font-size: 12px !important;
+        margin: 0 !important;
+    }
+
+    .treatment-header hr {
+        margin: 3px 0 4px 0 !important;
+    }
+
+    /* === TÍTULOS DE SECCIÓN === */
+    .treatment-form .section-title {
+        border-bottom: 1px solid #333 !important;
+        font-size: 9px !important;
+        margin: 0 0 4px 0 !important;
+        padding-bottom: 1px !important;
+        color: #000 !important;
+    }
+
+    /* === INPUTS COMPACTOS === */
+    .treatment-form .form-group label {
+        font-size: 8px !important;
+    }
+
+    .treatment-form .form-input {
+        border: 1px solid #aaa !important;
+        padding: 2px 4px !important;
+        font-size: 9px !important;
+        background: transparent !important;
+    }
+
+    /* === GRIDS COMPACTOS === */
+    .treatment-form .form-grid-2,
+    .treatment-form .form-grid-4 {
+        gap: 5px !important;
+        margin-bottom: 4px !important;
+    }
+
+    .treatment-form .form-group.compact label {
+        font-size: 8px !important;
+    }
+
+    /* === TABLAS COMPACTAS === */
+    .treatment-table th {
+        background-color: #e8e8e8 !important;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+        padding: 3px 2px !important;
+        font-size: 8px !important;
+    }
+
+    .treatment-table td {
+        padding: 2px !important;
+    }
+
+    .table-input {
+        font-size: 8px !important;
+        padding: 1px !important;
+    }
+
+    /* === OBSERVACIONES === */
+    .obs-label {
+        font-size: 7px !important;
+    }
+
+    .applied-table .observations-row td {
+        padding: 2px 4px !important;
+    }
+}

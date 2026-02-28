@@ -1,6 +1,6 @@
 import React from 'react';
 import { FaBox, FaCrow, FaBug, FaPaw, FaTint } from 'react-icons/fa';
-import '../../styles/CategoryTabs.css';
+import styles from '../../styles/CategoryTabs.module.css';
 
 const CategoryTabs = ({ user, selectedCategory, onSelectCategory }) => {
     // Only render if user is admin or has access to all
@@ -9,40 +9,40 @@ const CategoryTabs = ({ user, selectedCategory, onSelectCategory }) => {
     }
 
     return (
-        <div className="category-tabs">
+        <div className={styles['category-tabs']}>
             <div
-                className={`category-tab tab-all ${selectedCategory === 'all' ? 'active' : ''}`}
+                className={`${styles['category-tab']} ${styles['tab-all']} ${selectedCategory === 'all' ? styles['active'] : ''}`}
                 onClick={() => onSelectCategory('all')}
             >
-                <div className="tab-icon-circle"><FaBox /></div>
+                <div className={styles['tab-icon-circle']}><FaBox /></div>
                 <label>TODOS</label>
             </div>
             <div
-                className={`category-tab tab-aves ${selectedCategory === 'aves' ? 'active' : ''}`}
+                className={`${styles['category-tab']} ${styles['tab-aves']} ${selectedCategory === 'aves' ? styles['active'] : ''}`}
                 onClick={() => onSelectCategory('aves')}
             >
-                <div className="tab-icon-circle"><FaCrow /></div>
+                <div className={styles['tab-icon-circle']}><FaCrow /></div>
                 <label>AVES</label>
             </div>
             <div
-                className={`category-tab tab-reptiles ${selectedCategory === 'reptiles' ? 'active' : ''}`}
+                className={`${styles['category-tab']} ${styles['tab-reptiles']} ${selectedCategory === 'reptiles' ? styles['active'] : ''}`}
                 onClick={() => onSelectCategory('reptiles')}
             >
-                <div className="tab-icon-circle"><FaBug /></div>
+                <div className={styles['tab-icon-circle']}><FaBug /></div>
                 <label>REPTILES</label>
             </div>
             <div
-                className={`category-tab tab-mamiferos ${selectedCategory === 'mamiferos' ? 'active' : ''}`}
+                className={`${styles['category-tab']} ${styles['tab-mamiferos']} ${selectedCategory === 'mamiferos' ? styles['active'] : ''}`}
                 onClick={() => onSelectCategory('mamiferos')}
             >
-                <div className="tab-icon-circle"><FaPaw /></div>
+                <div className={styles['tab-icon-circle']}><FaPaw /></div>
                 <label>MAMÍFEROS</label>
             </div>
             <div
-                className={`category-tab tab-anfibios ${selectedCategory === 'anfibios' ? 'active' : ''}`}
+                className={`${styles['category-tab']} ${styles['tab-anfibios']} ${selectedCategory === 'anfibios' ? styles['active'] : ''}`}
                 onClick={() => onSelectCategory('anfibios')}
             >
-                <div className="tab-icon-circle"><FaTint /></div>
+                <div className={styles['tab-icon-circle']}><FaTint /></div>
                 <label>ANFIBIOS</label>
             </div>
         </div>

@@ -1,216 +1,99 @@
-import { NavLink, useNavigate, useLocation } from 'react-router-dom';
-import React, { useState } from 'react';
-import { FaPaw, FaHome, FaSkull, FaFileMedical, FaClipboardList, FaChartBar, FaBell, FaUserMd, FaSignOutAlt, FaChevronDown, FaChevronUp } from 'react-icons/fa';
-import Modal from '../common/Modal';
-import '../../styles/Sidebar.css';
+import { NavLink } from 'react-router-dom';
+import React from 'react';
+import { sidebarLinks } from './sidebar.config';
+import { FaPaw, FaTimes } from 'react-icons/fa';
+// import '../../styles/Sidebar.css'; // Removing CSS import
 
-import { useAuth } from '../../context/AuthContext';
+import useSidebar from '../../hooks/useSidebar';
 
 const Sidebar = ({ isOpen, toggle }) => {
-  const { user, logout, hasAccessToCategory } = useAuth();
-  const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false);
-  const [isPatientsOpen, setIsPatientsOpen] = useState(false);
-  const [isCasualtiesOpen, setIsCasualtiesOpen] = useState(false);
-  const navigate = useNavigate();
-  const location = useLocation();
-
-  const handleMobileClose = () => {
-    // Coincidir con el breakpoint del CSS para ocultar en clic
-    if (window.innerWidth <= 1100 && isOpen) {
-      toggle();
-    }
-  };
-
-  const handleLinkClick = () => {
-    setIsPatientsOpen(false); // Cierra el menú de pacientes al ir a otra sección
-    setIsCasualtiesOpen(false); // Cierra el menú de bajas al ir a otra sección
-    handleMobileClose();
-  };
-
-  const handleSubMenuClick = () => {
-    handleMobileClose();
-    // No cerramos el menú de pacientes/bajas aquí para mantener el contexto
-  };
-
-  const isPatientsSectionActive = location.pathname.startsWith('/patients');
-  const isCasualtiesSectionActive = location.pathname.startsWith('/casualties');
-
-  const confirmLogout = () => {
-    setIsLogoutModalOpen(false);
-    // Trigger transition
-    const overlay = document.createElement('div');
-    overlay.className = 'logout-overlay';
-    document.body.appendChild(overlay);
-
-    // Force reflow
-    void overlay.offsetWidth;
-
-    overlay.classList.add('active');
-
-    setTimeout(() => {
-      logout(); // Call auth logout
-      navigate('/');
-      // Cleanup happens on navigation (page unmount/remount), but good to be safe if SPA remains mounted
-      setTimeout(() => {
-        if (document.body.contains(overlay)) {
-          document.body.removeChild(overlay);
-        }
-      }, 100);
-    }, 500); // Wait for transition
-  };
+  const {
+    location,
+    handleLinkClick
+  } = useSidebar(isOpen, toggle);
 
   return (
     <>
-      <aside className={`sidebar ${isOpen ? 'open' : 'closed'}`}>
-        <div className="sidebar-header">
-          <div className="sidebar-brand">
-            <span className="brand-icon-wrapper">
-              <FaPaw className="icon-brand" />
+      <aside
+        className={`
+          flex flex-col flex-shrink-0 z-50
+          h-screen overflow-hidden 
+          bg-gradient-to-b from-blue-800 to-blue-950 text-white shadow-[4px_0_15px_rgba(0,0,0,0.1)]
+          transition-transform duration-300 ease-[cubic-bezier(0.25,0.8,0.25,1)]
+          fixed inset-y-0 left-0 w-[290px]
+          lg:static lg:translate-x-0
+          ${isOpen ? 'translate-x-0' : '-translate-x-full'}
+        `}
+      >
+        {/* Header del Sidebar interactivo (Logo) */}
+        <div className="flex justify-between items-center px-6 py-5 border-b border-white/20 shrink-0 bg-transparent cursor-default">
+          <div className="flex items-center gap-4 text-[1.8rem] font-extrabold pl-1 text-white">
+            <span className="flex items-center justify-center w-10 mr-0">
+              <FaPaw className="text-white text-[2.0rem] transition-all duration-500 ease-[cubic-bezier(0.34,1.56,0.64,1)]" />
             </span>
-            <span>BALAMYA</span>
+            <span className="tracking-wide">BALAMYA</span>
           </div>
-          <button className="close-btn" onClick={toggle}>&times;</button>
+          <button
+            className="lg:hidden text-white text-2xl cursor-pointer bg-none border-none"
+            onClick={toggle}
+          >
+            <FaTimes />
+          </button>
         </div>
-        <div className="sidebar-body">
-          <nav className="sidebar-nav">
-            <ul>
-              <li>
-                <NavLink to="/dashboard" onClick={handleLinkClick} className={({ isActive }) => isActive ? "active" : ""}>
-                  <FaHome className="menu-icon icon-home" />
-                  Inicio
-                </NavLink>
-              </li>
-              <li>
-                <div className={`menu-item-with-submenu ${isPatientsOpen ? 'open' : ''} ${isPatientsSectionActive ? 'active-section' : ''}`} onClick={() => setIsPatientsOpen(!isPatientsOpen)}>
-                  <div className="menu-link">
-                    <FaPaw className="menu-icon icon-patients" />
-                    Pacientes
-                  </div>
-                  <span className="chevron">{isPatientsOpen ? <FaChevronUp /> : <FaChevronDown />}</span>
-                </div>
-                <ul className={`submenu ${isPatientsOpen ? 'open' : ''}`}>
-                  {hasAccessToCategory('all') && (
-                    <li>
-                      <NavLink to="/patients" end onClick={handleSubMenuClick} className={({ isActive }) => isActive && !window.location.search.includes('category=') ? "active" : ""}>
-                        Todos los animales
-                      </NavLink>
-                    </li>
-                  )}
-                  {hasAccessToCategory('aves') && (
-                    <li>
-                      <NavLink to="/patients?category=aves" onClick={handleSubMenuClick} className={({ isActive }) => isActive && window.location.search.includes('aves') ? "active" : ""}>
-                        Aves
-                      </NavLink>
-                    </li>
-                  )}
-                  {hasAccessToCategory('mamiferos') && (
-                    <li>
-                      <NavLink to="/patients?category=mamiferos" onClick={handleSubMenuClick} className={({ isActive }) => isActive && window.location.search.includes('mamiferos') ? "active" : ""}>
-                        Mamíferos
-                      </NavLink>
-                    </li>
-                  )}
-                  {hasAccessToCategory('reptiles') && (
-                    <li>
-                      <NavLink to="/patients?category=reptiles" onClick={handleSubMenuClick} className={({ isActive }) => isActive && window.location.search.includes('reptiles') ? "active" : ""}>
-                        Reptiles
-                      </NavLink>
-                    </li>
-                  )}
-                  {hasAccessToCategory('anfibios') && (
-                    <li>
-                      <NavLink to="/patients?category=anfibios" onClick={handleSubMenuClick} className={({ isActive }) => isActive && window.location.search.includes('anfibios') ? "active" : ""}>
-                        Anfibios
-                      </NavLink>
-                    </li>
-                  )}
-                </ul>
-              </li>
-              <li>
-                <div className={`menu-item-with-submenu ${isCasualtiesOpen ? 'open' : ''} ${isCasualtiesSectionActive ? 'active-section' : ''}`} onClick={() => setIsCasualtiesOpen(!isCasualtiesOpen)}>
-                  <div className="menu-link">
-                    <FaSkull className="menu-icon icon-casualties" />
-                    Bajas
-                  </div>
-                  <span className="chevron">{isCasualtiesOpen ? <FaChevronUp /> : <FaChevronDown />}</span>
-                </div>
-                <ul className={`submenu ${isCasualtiesOpen ? 'open' : ''}`}>
-                  <li>
-                    <NavLink to="/casualties?reason=1" onClick={handleSubMenuClick} className={({ isActive }) => isActive && window.location.search.includes('reason=1') ? "active" : ""}>
-                      Razón 1
-                    </NavLink>
-                  </li>
-                  <li>
-                    <NavLink to="/casualties?reason=2" onClick={handleSubMenuClick} className={({ isActive }) => isActive && window.location.search.includes('reason=2') ? "active" : ""}>
-                      Razón 2
-                    </NavLink>
-                  </li>
-                  <li>
-                    <NavLink to="/casualties?reason=3" onClick={handleSubMenuClick} className={({ isActive }) => isActive && window.location.search.includes('reason=3') ? "active" : ""}>
-                      Razón 3
-                    </NavLink>
-                  </li>
-                </ul>
-              </li>
-              <li>
-                <NavLink to="/medical-history" onClick={handleLinkClick} className={({ isActive }) => isActive ? "active" : ""}>
-                  <FaFileMedical className="menu-icon icon-history" />
-                  Historial Clínico
-                </NavLink>
-              </li>
-              <li>
-                <NavLink to="/forms" onClick={handleLinkClick} className={({ isActive }) => isActive ? "active" : ""}>
-                  <FaClipboardList className="menu-icon icon-forms" />
-                  Herramientas
-                </NavLink>
-              </li>
 
-              <li>
-                <NavLink to="/reports" onClick={handleLinkClick} className={({ isActive }) => isActive ? "active" : ""}>
-                  <FaChartBar className="menu-icon icon-reports" />
-                  Reportes
-                </NavLink>
-              </li>
-              <li>
-                <NavLink to="/alerts" onClick={handleLinkClick} className={({ isActive }) => isActive ? "active" : ""}>
-                  <FaBell className="menu-icon icon-notifications" />
-                  Notificaciones
-                </NavLink>
-              </li>
-              <li>
-                <NavLink to="/profile" onClick={handleLinkClick} className={({ isActive }) => isActive ? "active" : ""}>
-                  <FaUserMd className="menu-icon icon-profile" />
-                  Mi Perfil
-                </NavLink>
-              </li>
+        <div className="flex-grow overflow-y-auto no-scrollbar scrollbar-hide">
+          <nav className="px-6 py-5">
+            <ul className="flex flex-col">
+              {sidebarLinks.map((link) => {
+                const Icon = link.icon;
+                return (
+                  <li key={link.path} className="mb-2">
+                    <NavLink
+                      to={link.path}
+                      onClick={handleLinkClick}
+                      className={({ isActive }) => `
+                        flex items-center gap-4 no-underline text-white text-base p-3.5 rounded-xl
+                        transition-all duration-300 ease-[cubic-bezier(0.25,0.8,0.25,1)]
+                        mx-3 border-r-0
+                        ${isActive
+                          ? 'bg-gradient-to-r from-white/10 to-transparent font-semibold active-glow text-white relative overflow-hidden rounded-l-[4px]'
+                          : 'hover:bg-white/15 hover:scale-[1.02] hover:translate-x-1 hover:shadow-[0_4px_12px_rgba(0,0,0,0.05)] text-white'}
+                      `}
+                    >
+                      {({ isActive }) => (
+                        <>
+                          {isActive && (
+                            <span className="absolute left-0 top-0 bottom-0 w-1 bg-[#00E5FF] shadow-[0_0_10px_#00E5FF,0_0_20px_#00E5FF] rounded-r"></span>
+                          )}
+                          <Icon className={`text-[1.2rem] w-6 text-center transition-all duration-300 ${isActive ? 'text-white' : 'text-white hover:drop-shadow-[0_0_5px_currentColor] hover:scale-110'}`} />
+                          {link.label}
+                        </>
+                      )}
+                    </NavLink>
+                  </li>
+                );
+              })}
             </ul>
           </nav>
         </div>
-        <div className="sidebar-footer">
-          <button className="logout-btn" onClick={() => setIsLogoutModalOpen(true)}>
-            <FaSignOutAlt className="menu-icon icon-logout" />
-            Cerrar Sesión
-          </button>
+
+        {/* Mini-User Profile Footer */}
+        <div className="shrink-0 p-5 border-t border-white/10 bg-white/5 mx-3 mb-4 rounded-xl backdrop-blur-sm cursor-pointer hover:bg-white/10 transition-colors duration-300">
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 rounded-full bg-gradient-to-tr from-[#00E5FF] to-blue-500 p-[2px]">
+              <img
+                src="https://lh3.googleusercontent.com/aida-public/AB6AXuDjfRZ3q9uYGH-kgN8cgEX9FC3N2lKsw19D3gKe-cirCL8TLeYtqMW0s_ZKLo2PMQT4-ktj3SYJmxoiIwuzWS9SO1NExx6cFBUfqmz7Baf4hcP-OiKDdZ2seuAV9Z1m6Yo-XC9VxGmNPWfPbhpH7aVeNQrlvuQ_rwKF-Cki5dlwgEnlBvyqP_g1cZN3Gk-Buy64WDQ9e03Zjjmy47RYdv__X_9VvdHGOOW63Yc_Ep6roe_1hyp7ygvsnG_jHyu_GW0zouD_lcB12_Q"
+                alt="Usuario"
+                className="w-full h-full rounded-full object-cover border border-blue-900"
+              />
+            </div>
+            <div className="flex flex-col">
+              <span className="text-white font-semibold text-sm leading-tight">Dr. Alejandro Vera</span>
+              <span className="text-blue-300 text-xs font-medium">Administrador</span>
+            </div>
+          </div>
         </div>
       </aside>
-
-      <Modal
-        isOpen={isLogoutModalOpen}
-        onClose={() => setIsLogoutModalOpen(false)}
-        title="Confirmar Cierre de Sesión"
-        footer={
-          <>
-            <button className="btn-modal btn-cancel" onClick={() => setIsLogoutModalOpen(false)}>
-              Cancelar
-            </button>
-            <button className="btn-modal btn-confirm" onClick={confirmLogout}>
-              Cerrar Sesión
-            </button>
-          </>
-        }
-      >
-        <p>¿Está seguro de que desea salir del sistema?</p>
-      </Modal>
     </>
   );
 };

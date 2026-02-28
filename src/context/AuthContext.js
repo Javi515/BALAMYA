@@ -69,23 +69,37 @@ export const AuthProvider = ({ children }) => {
         setLoading(false);
     }, []);
 
-    const login = (email, password) => {
-        return new Promise((resolve, reject) => {
-            // Simulate API delay
-            setTimeout(() => {
-                const foundUser = MOCK_USERS.find(u => u.email.toLowerCase() === email.toLowerCase() && u.password === password);
+    const login = async (email, password) => {
+        try {
+            const response = await fetch('http://localhost:5000/api/auth/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ email, password }),
+            });
 
-                if (foundUser) {
-                    // Remove password from state for security (even if mock)
-                    const { password, ...userWithoutPass } = foundUser;
-                    setUser(userWithoutPass);
-                    localStorage.setItem('balamya_user', JSON.stringify(userWithoutPass));
-                    resolve(userWithoutPass);
-                } else {
-                    reject('Credenciales inválidas. Por favor verifique.');
-                }
-            }, 800);
-        });
+            const data = await response.json();
+
+            if (!response.ok) {
+                throw new Error(data.message || 'Error en la autenticación');
+            }
+
+            // Compatibilidad con frontend legado: Mapear role -> specialty
+            if (!data.specialty) {
+                data.specialty = (data.role === 'admin' || data.role === 'mamiferos') ? 'all' : data.role;
+                // Nota: mamiferos tiene acceso a todo en la app original? 
+                // Ajuste rápido: si es admin -> all. Si es otro -> su propio rol.
+                if (data.role === 'admin') data.specialty = 'all';
+            }
+
+            setUser(data);
+            localStorage.setItem('balamya_user', JSON.stringify(data));
+            return data;
+        } catch (error) {
+            console.error('Login error:', error);
+            throw error;
+        }
     };
 
     const logout = () => {
@@ -96,8 +110,9 @@ export const AuthProvider = ({ children }) => {
     const hasAccessToCategory = (category) => {
         if (!user) return false;
         if (user.role === 'admin') return true;
-        if (user.specialty === 'all') return true;
-        return user.specialty === category;
+        if (category === 'all' && user.role === 'admin') return true; // Solo admin ve "Todos" (o ajustar segun logica)
+        // Ahora el rol ES la categoría (aves, reptiles, etc.)
+        return user.role === category;
     };
 
     const value = {

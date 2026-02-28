@@ -1,29 +1,29 @@
 import React from 'react';
-import '../../styles/PatientRow.css';
+import styles from '../../styles/PatientRow.module.css';
 
 const PatientRow = ({ patient }) => {
   const getStatusClass = (status) => {
     switch (status.toLowerCase()) {
       case 'estable':
-        return 'status-stable';
+        return styles['status-stable'];
       case 'saludable':
-        return 'status-healthy';
+        return styles['status-healthy'];
       case 'crítico':
-        return 'status-critical';
+        return styles['status-critical'];
       default:
         return '';
     }
   };
 
   return (
-    <tr className="patient-row">
+    <tr className={styles['patient-row']}>
       <td>{patient.id}</td>
 
       <td>{patient.species}</td>
       <td>{patient.breed}</td>
       <td>{patient.age}</td>
       <td>
-        <span className={`status-badge ${getStatusClass(patient.status)}`}>
+        <span className={`${styles['status-badge']} ${getStatusClass(patient.status)}`}>
           {patient.status}
         </span>
       </td>

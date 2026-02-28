@@ -1,51 +1,53 @@
-import React, { useState } from 'react';
-import '../../styles/NecropsyReportForm.css';
+import React from 'react';
+import styles from '../../styles/NecropsyReportForm.module.css';
 import '../../styles/NecropsyPrint.css';
-import '../../styles/FormButtons.css';
-import '../../styles/FormButtons.css';
+
 import { FaSave, FaPrint, FaArrowLeft, FaArrowRight } from 'react-icons/fa';
 
-const NecropsyReportForm = ({ onBack }) => {
-    const [step, setStep] = useState(1);
+import useNecropsyReportForm from '../../hooks/useNecropsyReportForm';
+import ImageUploader from '../common/ImageUploader';
 
-    const handleNext = () => setStep(2);
-    const handleBack = () => setStep(1);
-    const handlePrint = () => window.print();
+const NecropsyReportForm = ({ onBack }) => {
+    const { step, isSaved, handleNext, handleBack, handlePrint, handleSave } = useNecropsyReportForm();
 
     return (
-        <div className="necropsy-report-form">
+        <div className={styles['necropsy-report-form']}>
 
             {/* Page 1 */}
-            <div className={`form-page ${step === 1 ? 'active' : ''}`} id="hoja1">
+            <div className={`${styles['form-page']} ${step === 1 ? styles['active'] : ''}`} id="hoja1">
 
                 {/* Header - Only on Page 1 */}
-                <div className="form-header">
-                    <h4 className="header-subtitle">Coordinacion Estatal para el mejoramiento del zooMAT</h4>
-                    <h1 className="header-title">DIRECCIÓN DEL ZOOLÓGICO MIGUEL ÁLVAREZ DEL TORO</h1>
-                    <h2 className="header-department">CLÍNICA VETERINARIA</h2>
-                    <h3 className="header-form-name">REPORTE DE NECROPSIA</h3>
+                <div className={styles['form-header']} style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '20px', width: '100%' }}>
+                    <ImageUploader placeholderText="Logo" className="header-logo-left no-print-placeholder" />
+                    <div style={{ flex: 1, textAlign: 'center' }}>
+                        <h4 className={styles['header-subtitle']} style={{ margin: '0 0 5px 0' }}>Coordinacion Estatal para el mejoramiento del zooMAT</h4>
+                        <h1 className={styles['header-title']} style={{ margin: '0 0 5px 0' }}>DIRECCIÓN DEL ZOOLÓGICO MIGUEL ÁLVAREZ DEL TORO</h1>
+                        <h2 className={styles['header-department']} style={{ margin: '0 0 5px 0' }}>CLÍNICA VETERINARIA</h2>
+                        <h3 className={styles['header-form-name']} style={{ margin: '0' }}>REPORTE DE NECROPSIA</h3>
+                    </div>
+                    <ImageUploader placeholderText="Logo" className="header-logo-right no-print-placeholder" />
                 </div>
 
                 {/* Header Info Grid */}
-                <div className="form-section">
-                    <div className="form-row header-info-row">
-                        <div className="form-group inline">
+                <div className={styles['form-section']}>
+                    <div className={`${styles['form-row']} ${styles['header-info-row']}`}>
+                        <div className={`${styles['form-group']} ${styles['inline']}`}>
                             <label>FOLIO NO:</label>
-                            <input type="text" className="form-input underline-input" placeholder="0000" />
+                            <input type="text" className={`${styles['form-input']} ${styles['underline-input']}`} placeholder="0000" />
                         </div>
-                        <div className="form-group inline">
+                        <div className={`${styles['form-group']} ${styles['inline']}`}>
                             <label>FECHA DE MUERTE:</label>
                             <input
                                 type="date"
-                                className="form-input underline-input"
+                                className={`${styles['form-input']} ${styles['underline-input']}`}
                                 required
                             />
                         </div>
-                        <div className="form-group inline">
+                        <div className={`${styles['form-group']} ${styles['inline']}`}>
                             <label>FECHA DE NECROPSIA:</label>
                             <input
                                 type="date"
-                                className="form-input underline-input"
+                                className={`${styles['form-input']} ${styles['underline-input']}`}
                                 required
                             />
                         </div>
@@ -53,87 +55,87 @@ const NecropsyReportForm = ({ onBack }) => {
                 </div>
 
                 {/* Animal Data */}
-                <div className="form-section">
-                    <h4 className="section-title">DATOS DEL EJEMPLAR</h4>
-                    <div className="form-row">
-                        <div className="form-col">
-                            <div className="form-group">
+                <div className={styles['form-section']}>
+                    <h4 className={styles['section-title']}>DATOS DEL EJEMPLAR</h4>
+                    <div className={styles['form-row']}>
+                        <div className={styles['form-col']}>
+                            <div className={styles['form-group']}>
                                 <label>NOMBRE CIENTÍFICO</label>
-                                <input type="text" className="form-input professional-text-input" />
+                                <input type="text" className={`${styles['form-input']} ${styles['professional-text-input']}`} />
                             </div>
-                            <div className="form-group">
+                            <div className={styles['form-group']}>
                                 <label>NOMBRE COMÚN</label>
-                                <input type="text" className="form-input professional-text-input" />
+                                <input type="text" className={`${styles['form-input']} ${styles['professional-text-input']}`} />
+                            </div>
+                            <div className={styles['form-row']} style={{ marginBottom: 0 }}>
+                                <div className={styles['form-group']} style={{ flex: 1 }}>
+                                    <label>PESO</label>
+                                    <input type="text" className={`${styles['form-input']} ${styles['professional-text-input']}`} style={{ width: '100%' }} />
+                                </div>
+                                <div className={styles['form-group']} style={{ flex: 1 }}>
+                                    <label>SEXO</label>
+                                    <input type="text" className={`${styles['form-input']} ${styles['professional-text-input']}`} style={{ width: '100%' }} />
+                                </div>
                             </div>
                         </div>
-                        <div className="form-col">
-                            <div className="form-group">
+                        <div className={styles['form-col']}>
+                            <div className={styles['form-group']}>
                                 <label>GRUPO TAXONÓMICO</label>
-                                <div className="radio-group">
+                                <div className={styles['radio-group']} style={{ marginTop: '10px' }}>
                                     <label><input type="radio" name="taxon" /> Ave</label>
                                     <label><input type="radio" name="taxon" /> Mamífero</label>
                                     <label><input type="radio" name="taxon" /> Reptil</label>
                                 </div>
                             </div>
-                            <div className="form-row">
-                                <div className="form-group">
-                                    <label>PESO</label>
-                                    <input type="text" className="form-input professional-text-input" style={{ width: '100px' }} />
-                                </div>
-                                <div className="form-group">
-                                    <label>SEXO</label>
-                                    <input type="text" className="form-input professional-text-input" style={{ width: '100px' }} />
-                                </div>
-                            </div>
                         </div>
                     </div>
-                    <div className="form-group">
+                    <div className={styles['form-group']}>
                         <label>IDENTIFICACIÓN</label>
-                        <input type="text" className="form-input professional-text-input" />
+                        <input type="text" className={`${styles['form-input']} ${styles['professional-text-input']}`} />
                     </div>
                 </div>
 
                 {/* Clinical History */}
-                <div className="form-section">
-                    <h4 className="section-title">Historia Clínica</h4>
-                    <textarea className="form-textarea" rows="4" placeholder="Describa los antecedentes clínicos relevantes..."></textarea>
+                <div className={styles['form-section']}>
+                    <h4 className={styles['section-title']}>Historia Clínica</h4>
+                    <textarea className={styles['form-textarea']} rows="4" placeholder="Describa los antecedentes clínicos relevantes..."></textarea>
                 </div>
 
                 {/* Otros / Observaciones */}
-                <div className="form-section" style={{ border: 'none', paddingLeft: 0 }}>
-                    <div className="form-group">
+                <div className={styles['form-section']} style={{ border: 'none', paddingLeft: 0 }}>
+                    <div className={styles['form-group']}>
                         <label>OTROS / OBSERVACIONES</label>
-                        <textarea className="form-textarea simple-textarea"></textarea>
+                        <textarea className={`${styles['form-textarea']} ${styles['simple-textarea']}`}></textarea>
                     </div>
                 </div>
 
                 {/* Findings */}
-                <div className="form-section">
-                    <h4 className="section-title">Hallazgos Macroscópicos</h4>
+                <div className={styles['form-section']}>
+                    <h4 className={styles['section-title']}>Hallazgos Macroscópicos</h4>
 
-                    <div className="form-group">
+                    <div className={styles['form-group']}>
                         <label>Sistema Tegumentario</label>
-                        <textarea className="form-textarea" rows="3"></textarea>
+                        <textarea className={styles['form-textarea']} rows="3"></textarea>
                     </div>
 
-                    <div className="form-group">
+                    <div className={styles['form-group']}>
                         <label>Sistema Cardio Respiratorio</label>
-                        <textarea className="form-textarea" rows="3"></textarea>
+                        <textarea className={styles['form-textarea']} rows="3"></textarea>
                     </div>
 
-                    <div className="form-group">
+                    <div className={styles['form-group']}>
                         <label>Sistema Digestivo</label>
-                        <textarea className="form-textarea" rows="3"></textarea>
+                        <textarea className={styles['form-textarea']} rows="3"></textarea>
                     </div>
 
-                    <div className="form-group">
+                    <div className={styles['form-group']}>
                         <label>Sistema Urogenital</label>
-                        <textarea className="form-textarea" rows="3"></textarea>
+                        <textarea className={styles['form-textarea']} rows="3"></textarea>
                     </div>
                 </div>
 
-                <div className="form-actions next-button-container">
-                    <button className="form-button save-btn" onClick={handleNext}>
+                <div className={`${styles['form-actions']} no-print`}>
+                    <button className={`${styles['form-button']} ${styles['save-btn']}`} onClick={handleNext}>
                         Siguiente <FaArrowRight />
                     </button>
                 </div>
@@ -142,76 +144,76 @@ const NecropsyReportForm = ({ onBack }) => {
             <div className="page-break"></div>
 
             {/* Page 2 */}
-            <div className={`form-page ${step === 2 ? 'active' : ''}`} id="hoja2">
+            <div className={`${styles['form-page']} ${step === 2 ? styles['active'] : ''}`} id="hoja2">
 
-                <div className="form-section">
-                    <h4 className="section-title">HALLAZGOS MACROSCÓPICOS (CONT.)</h4>
+                <div className={styles['form-section']}>
+                    <h4 className={styles['section-title']}>HALLAZGOS MACROSCÓPICOS (CONT.)</h4>
 
-                    <div className="form-group">
+                    <div className={styles['form-group']}>
                         <label>SISTEMA MUSCULOESQUELÉTICO</label>
-                        <textarea className="form-textarea" rows="3"></textarea>
+                        <textarea className={styles['form-textarea']} rows="3"></textarea>
                     </div>
 
-                    <div className="form-group">
+                    <div className={styles['form-group']}>
                         <label>SISTEMA NERVIOSO</label>
-                        <textarea className="form-textarea" rows="3"></textarea>
+                        <textarea className={styles['form-textarea']} rows="3"></textarea>
                     </div>
 
-                    <div className="form-group">
+                    <div className={styles['form-group']}>
                         <label>SISTEMA LINFÁTICO</label>
-                        <textarea className="form-textarea" rows="3"></textarea>
+                        <textarea className={styles['form-textarea']} rows="3"></textarea>
                     </div>
                 </div>
 
-                <div className="form-section">
-                    <h4 className="section-title">IMPRESIONES Y/O POSIBLE DIAGNÓSTICO</h4>
-                    <textarea className="form-textarea" rows="5" placeholder="Escriba sus conclusiones..."></textarea>
+                <div className={styles['form-section']}>
+                    <h4 className={styles['section-title']}>IMPRESIONES Y/O POSIBLE DIAGNÓSTICO</h4>
+                    <textarea className={styles['form-textarea']} rows="5" placeholder="Escriba sus conclusiones..."></textarea>
                 </div>
 
-                <div className="form-section">
-                    <h4 className="section-title">CONTROL DE MUESTRAS</h4>
+                <div className={styles['form-section']}>
+                    <h4 className={styles['section-title']}>CONTROL DE MUESTRAS</h4>
 
-                    <div className="form-row">
-                        <div className="form-group inline">
+                    <div className={styles['form-row']}>
+                        <div className={`${styles['form-group']} ${styles['inline']}`}>
                             <label>MUESTRAS REMITIDAS:</label>
-                            <div className="radio-group">
+                            <div className={styles['radio-group']}>
                                 <label><input type="radio" name="samples" /> SI</label>
                                 <label><input type="radio" name="samples" /> NO</label>
                             </div>
                         </div>
-                        <div className="form-group inline" style={{ flexGrow: 1 }}>
+                        <div className={`${styles['form-group']} ${styles['inline']}`} style={{ flexGrow: 1 }}>
                             <label>LABORATORIO:</label>
-                            <input type="text" className="form-input underline-input" style={{ width: '100%' }} />
+                            <input type="text" className={`${styles['form-input']} ${styles['underline-input']}`} style={{ width: '100%' }} />
                         </div>
                     </div>
 
-                    <div className="form-group">
-                        <h4 className="section-title" style={{ fontSize: '0.85rem', marginBottom: '15px' }}>MÉTODO DE CONSERVACIÓN</h4>
-                        <div className="sample-grid">
-                            <div className="sample-item">
+                    <div className={styles['form-group']}>
+                        <h4 className={styles['section-title']} style={{ fontSize: '0.85rem', marginBottom: '15px' }}>MÉTODO DE CONSERVACIÓN</h4>
+                        <div className={styles['sample-grid']}>
+                            <div className={styles['sample-item']}>
                                 <label>Formol 10%</label>
                                 <input type="checkbox" />
                             </div>
-                            <div className="sample-item">
+                            <div className={styles['sample-item']}>
                                 <label>Congelación</label>
                                 <input type="checkbox" />
                             </div>
-                            <div className="sample-item">
+                            <div className={styles['sample-item']}>
                                 <label>Refrigeración</label>
                                 <input type="checkbox" />
                             </div>
-                            <div className="sample-item">
+                            <div className={styles['sample-item']}>
                                 <label>Alcohol 70%</label>
                                 <input type="checkbox" />
                             </div>
                         </div>
                     </div>
 
-                    <div className="form-group">
-                        <h4 className="section-title" style={{ fontSize: '0.85rem', marginBottom: '15px' }}>TEJIDOS COLECTADOS</h4>
-                        <div className="sample-grid">
+                    <div className={styles['form-group']}>
+                        <h4 className={styles['section-title']} style={{ fontSize: '0.85rem', marginBottom: '15px' }}>TEJIDOS COLECTADOS</h4>
+                        <div className={styles['sample-grid']}>
                             {['Corazón', 'Riñón', 'Espina Dorsal', 'Pulmón', 'Intestino', 'Nódulo Linfático', 'Hígado', 'Cerebro', 'Bazo', 'Ojo'].map(item => (
-                                <div className="sample-item" key={item}>
+                                <div className={styles['sample-item']} key={item}>
                                     <label>{item}</label>
                                     <input type="checkbox" />
                                 </div>
@@ -219,39 +221,42 @@ const NecropsyReportForm = ({ onBack }) => {
                         </div>
                     </div>
 
-                    <div className="form-group">
-                        <h4 className="section-title" style={{ fontSize: '0.85rem', marginBottom: '15px' }}>OTROS</h4>
-                        <textarea className="form-textarea" rows="2"></textarea>
+                    <div className={styles['form-group']}>
+                        <h4 className={styles['section-title']} style={{ fontSize: '0.85rem', marginBottom: '15px' }}>OTROS</h4>
+                        <textarea className={styles['form-textarea']} rows="2"></textarea>
                     </div>
 
-                    <div className="form-group">
-                        <h4 className="section-title" style={{ fontSize: '0.85rem', marginBottom: '15px' }}>OBSERVACIONES</h4>
-                        <textarea className="form-textarea" rows="3"></textarea>
+                    <div className={styles['form-group']}>
+                        <h4 className={styles['section-title']} style={{ fontSize: '0.85rem', marginBottom: '15px' }}>OBSERVACIONES</h4>
+                        <textarea className={styles['form-textarea']} rows="3"></textarea>
                     </div>
                 </div>
 
                 {/* Signatures */}
-                <div className="signature-section" style={{ borderTop: 'none', paddingTop: 0 }}>
-                    <div className="signature-block">
-                        <input type="text" className="signature-input" placeholder="" />
+                <div className={styles['signature-section']} style={{ borderTop: 'none', paddingTop: 0 }}>
+                    <div className={styles['signature-block']}>
+                        <input type="text" className={styles['signature-input']} placeholder="" />
                         <label>Realizó Necropsia</label>
                     </div>
-                    <div className="signature-block">
-                        <input type="text" className="signature-input" placeholder="" />
+                    <div className={styles['signature-block']}>
+                        <input type="text" className={styles['signature-input']} placeholder="" />
                         <label>Firma</label>
                     </div>
                 </div>
 
-                <div className="form-actions next-button-container">
-                    <button className="form-button secondary-btn" onClick={handleBack}>
+                <div className={`${styles['form-actions']} no-print`}>
+                    <button className={`${styles['form-button']} ${styles['secondary-btn']}`} onClick={handleBack}>
                         <FaArrowLeft /> Atrás
                     </button>
-                    <button className="form-button save-btn">
-                        <FaSave /> Guardar Reporte
-                    </button>
-                    <button className="form-button secondary-btn" onClick={handlePrint}>
-                        <FaPrint /> Imprimir
-                    </button>
+                    {!isSaved ? (
+                        <button className={`${styles['form-button']} ${styles['save-btn']}`} onClick={handleSave}>
+                            <FaSave /> Guardar Reporte
+                        </button>
+                    ) : (
+                        <button className={`${styles['form-button']} ${styles['secondary-btn']}`} onClick={handlePrint}>
+                            <FaPrint /> Imprimir
+                        </button>
+                    )}
                 </div>
             </div>
         </div>

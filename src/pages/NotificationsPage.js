@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
-import { FaSearch, FaPlus, FaBell, FaExclamationCircle, FaInfoCircle, FaCheckCircle, FaClock } from 'react-icons/fa';
-import '../styles/NotificationsPage.css';
+import { FaSearch, FaPlus, FaBell, FaExclamationCircle, FaInfoCircle, FaClock } from 'react-icons/fa';
+import styles from '../styles/NotificationsPage.module.css';
 
 const NotificationsPage = () => {
     const [searchTerm, setSearchTerm] = useState('');
     const [isModalOpen, setIsModalOpen] = useState(false);
-    const [activeTab, setActiveTab] = useState('all'); // not strictly used if showing all columns, but good for mobile switch if needed
+
 
     // Initial empty state as requested until user adds alerts
     const [notifications, setNotifications] = useState([]);
@@ -52,9 +52,9 @@ const NotificationsPage = () => {
 
     const getCardClass = (type) => {
         switch (type) {
-            case 'Crítica': return 'card-critical';
-            case 'Importante': return 'card-important';
-            case 'Informativa': return 'card-informative';
+            case 'Crítica': return styles['card-critical'];
+            case 'Importante': return styles['card-important'];
+            case 'Informativa': return styles['card-informative'];
             default: return '';
         }
     };
@@ -63,42 +63,42 @@ const NotificationsPage = () => {
         const notes = filteredNotifications.filter(n => n.type === type);
 
         return (
-            <div className={`kanban-column ${colorClass}`}>
-                <div className="column-header">
-                    <div className="column-title">
-                        <span className={`dot ${colorClass}-dot`}></span>
+            <div className={`${styles['kanban-column']} ${styles[colorClass]}`}>
+                <div className={styles['column-header']}>
+                    <div className={styles['column-title']}>
+                        <span className={`${styles['dot']} ${styles[`${colorClass}-dot`]}`}></span>
                         {title}
                     </div>
-                    <span className="notification-count">{notes.length}</span>
+                    <span className={styles['notification-count']}>{notes.length}</span>
                 </div>
 
-                <div className="column-content">
+                <div className={styles['column-content']}>
                     {notes.length === 0 ? (
                         <p style={{ color: '#9ca3af', fontSize: '0.9rem', textAlign: 'center', marginTop: '20px' }}>
                             No hay alertas {title.toLowerCase()}
                         </p>
                     ) : (
                         notes.map(note => (
-                            <div key={note.id} className={`notification-card ${getCardClass(note.type)}`}>
-                                <div className="card-header">
+                            <div key={note.id} className={`${styles['notification-card']} ${getCardClass(note.type)}`}>
+                                <div className={styles['card-header']}>
                                     <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                                         {/* Icon based on avatar placeholder or generic */}
                                         <div style={{ width: '30px', height: '30px', borderRadius: '50%', backgroundColor: '#e5e7eb', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                                             {getColumnIcon(note.type)}
                                         </div>
                                         <div>
-                                            <div className="card-title">{note.title}</div>
+                                            <div className={styles['card-title']}>{note.title}</div>
                                             <div style={{ fontSize: '0.75rem', color: '#6b7280' }}>Autor: Dr. Alejandro Vera</div>
                                         </div>
                                     </div>
-                                    <span className="card-time">{note.time || 'Ahora'}</span>
+                                    <span className={styles['card-time']}>{note.time || 'Ahora'}</span>
                                 </div>
 
-                                <div className="card-description">
+                                <div className={styles['card-description']}>
                                     {note.description}
                                 </div>
 
-                                <div className="card-footer">
+                                <div className={styles['card-footer']}>
                                     <FaClock size={12} />
                                     <span>{note.date || 'Hoy'}</span>
                                 </div>
@@ -111,34 +111,34 @@ const NotificationsPage = () => {
     };
 
     return (
-        <div className="notifications-page-container">
+        <div className={styles['notifications-page-container']}>
             {/* Header */}
-            <div className="notifications-header">
-                <div className="header-left">
+            <div className={styles['notifications-header']}>
+                <div className={styles['header-left']}>
                     <h1>Tablero de Prioridades</h1>
                     <p>Gestión de alertas clínicas y seguimiento de pacientes</p>
                 </div>
 
-                <div className="header-actions">
-                    <div className="search-wrapper-alerts">
-                        <FaSearch className="search-icon-alerts" />
+                <div className={styles['header-actions']}>
+                    <div className={styles['search-wrapper-alerts']}>
+                        <FaSearch className={styles['search-icon-alerts']} />
                         <input
                             type="text"
                             placeholder="Buscar por fecha o contenido..."
-                            className="search-input-alerts"
+                            className={styles['search-input-alerts']}
                             value={searchTerm}
                             onChange={(e) => setSearchTerm(e.target.value)}
                         />
                     </div>
 
-                    <button className="btn-new-alert" onClick={() => setIsModalOpen(true)}>
+                    <button className={styles['btn-new-alert']} onClick={() => setIsModalOpen(true)}>
                         <FaPlus /> Nueva Alerta
                     </button>
                 </div>
             </div>
 
             {/* Kanban Board */}
-            <div className="kanban-board">
+            <div className={styles['kanban-board']}>
                 {renderColumn('Críticas', 'Crítica', 'col-critical')}
                 {renderColumn('Importantes', 'Importante', 'col-important')}
                 {renderColumn('Informativas', 'Informativa', 'col-informative')}
@@ -146,11 +146,11 @@ const NotificationsPage = () => {
 
             {/* Modal Nueva Alerta */}
             {isModalOpen && ReactDOM.createPortal(
-                <div className="modal-overlay" onClick={() => setIsModalOpen(false)}>
-                    <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+                <div className={styles['modal-overlay']} onClick={() => setIsModalOpen(false)}>
+                    <div className={styles['modal-content']} onClick={(e) => e.stopPropagation()}>
                         <h2>Nueva Alerta</h2>
                         <form onSubmit={handleAddAlert}>
-                            <div className="form-group">
+                            <div className={styles['form-group']}>
                                 <label>Título / Paciente</label>
                                 <input
                                     type="text"
@@ -161,7 +161,7 @@ const NotificationsPage = () => {
                                 />
                             </div>
 
-                            <div className="form-group">
+                            <div className={styles['form-group']}>
                                 <label>Tipo de Prioridad</label>
                                 <select
                                     value={newAlert.type}
@@ -173,7 +173,7 @@ const NotificationsPage = () => {
                                 </select>
                             </div>
 
-                            <div className="form-group">
+                            <div className={styles['form-group']}>
                                 <label>Descripción</label>
                                 <textarea
                                     placeholder="Detalles de la alerta..."
@@ -184,7 +184,7 @@ const NotificationsPage = () => {
                             </div>
 
                             <div style={{ display: 'flex', gap: '15px' }}>
-                                <div className="form-group" style={{ flex: 1 }}>
+                                <div className={styles['form-group']} style={{ flex: 1 }}>
                                     <label>Hora</label>
                                     <input
                                         type="time"
@@ -192,7 +192,7 @@ const NotificationsPage = () => {
                                         onChange={(e) => setNewAlert({ ...newAlert, time: e.target.value })}
                                     />
                                 </div>
-                                <div className="form-group" style={{ flex: 1 }}>
+                                <div className={styles['form-group']} style={{ flex: 1 }}>
                                     <label>Fecha</label>
                                     <input
                                         type="date"
@@ -202,9 +202,9 @@ const NotificationsPage = () => {
                                 </div>
                             </div>
 
-                            <div className="modal-actions">
-                                <button type="button" className="btn-cancel" onClick={() => setIsModalOpen(false)}>Cancelar</button>
-                                <button type="submit" className="btn-save">Crear Alerta</button>
+                            <div className={styles['modal-actions']}>
+                                <button type="button" className={styles['btn-cancel']} onClick={() => setIsModalOpen(false)}>Cancelar</button>
+                                <button type="submit" className={styles['btn-save']}>Crear Alerta</button>
                             </div>
                         </form>
                     </div>

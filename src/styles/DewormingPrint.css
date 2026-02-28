@@ -1,85 +1,132 @@
-/* src/styles/DewormingPrint.css */
-
-/*
-  Print-specific styles for DewormingCalendar.
-  This block ensures the form prints cleanly without UI elements.
+﻿/* src/styles/DewormingPrint.css */
+/* ROOT CAUSES:
+   1. .main-content (MainLayout.css): height:100vh + overflow:hidden = clips all content
+   2. .form-entry-animation (FormsPage.css): animation fill-mode "both" keeps opacity:0
+   3. .table-container (DewormingCalendar.css): overflow-x:auto clips table in print
 */
 @media print {
+    @page { size: letter; margin: 10mm; }
 
-    /* Hide interface elements that are not part of the form content */
-    .sidebar,
-    .topbar,
-    .back-button,
-    .form-actions,
-    .modal-overlay,
-    /* This selector targets the specific div container of the "Agregar Registro" button */
-    .deworming-card>div:not(.deworming-form-field)[style*="margin-bottom: 20px"] {
-        display: none !important;
+    /* FIX 1: Override the scroll container that clips everything */
+    .main-content {
+        height: auto !important;
+        max-height: none !important;
+        overflow: visible !important;
+        overflow-x: visible !important;
+        overflow-y: visible !important;
+        flex: none !important;
     }
 
-    /* Reset body and remove layout constraints */
-    body {
-        background-color: #FFFFFF !important;
-        margin: 0 !important;
-        padding: 0 !important;
+    /* FIX 2: Override the animation wrapper that keeps opacity at 0 */
+    .form-entry-animation {
+        animation: none !important;
+        opacity: 1 !important;
+        transform: none !important;
+        visibility: visible !important;
+    }
+
+    /* FIX 3: Override the table overflow that clips content */
+    .table-container {
+        overflow: visible !important;
+        overflow-x: visible !important;
+        margin-top: 10px !important;
         width: 100% !important;
     }
 
-    /* Reset the main content area that wraps the page */
-    .main-layout .content {
+    /* Reset all other wrappers */
+    html, body, #root, .App, .main-layout,
+    .content-area, .forms-page-wrapper,
+    .page-content-transition {
+        height: auto !important;
+        max-height: none !important;
+        overflow: visible !important;
         margin: 0 !important;
         padding: 0 !important;
+        background: white !important;
+        position: static !important;
+        animation: none !important;
+        transform: none !important;
+        opacity: 1 !important;
+        visibility: visible !important;
     }
 
-    /* Add margin of safety for the header */
-    .deworming-header-flex {
-        padding-right: 30px;
+    /* Hide UI chrome */
+    .sidebar, .topbar, .back-button, .back-to-menu-btn,
+    .form-header-controls, .form-actions,
+    .modal-overlay, .no-print {
+        display: none !important;
     }
 
-    /* Expand the form card and scale it to fit the page width safely */
-    .deworming-card {
-        width: 95% !important;
+    /* Form card */
+    .deworming-container, .deworming-card {
+        width: 100% !important;
+        max-width: 100% !important;
         margin: 0 auto !important;
-        /* Center the card */
-        padding: 20px !important;
-        box-shadow: none !important;
+        padding: 0 10px !important;
         border: none !important;
-        border-radius: 0 !important;
-        zoom: 0.9;
-        transform-origin: top left;
-        position: relative;
-        /* Use relative instead of absolute */
-        top: auto;
-        left: auto;
+        box-shadow: none !important;
+        background: white !important;
+        position: static !important;
+        overflow: visible !important;
     }
 
-    /* Ensure the table container uses the available space */
-    .table-container {
-        width: 98% !important;
-        overflow: visible;
-        /* Show content that might otherwise be clipped */
-    }
-
-    /* Ensure table borders are visible and reduce font size for print */
-    .deworming-table th,
-    .deworming-table td {
-        border: 1px solid #000 !important;
-        font-size: 10px;
-        /* Smaller font to help table fit */
-        padding: 8px;
-    }
-
-    /* Ensure text colors are print-friendly */
-    .deworming-header-title,
-    .deworming-header-subtitle,
-    h4,
-    .deworming-form-label,
-    .deworming-form-input {
+    /* Typography */
+    .deworming-header-title {
+        font-size: 14pt !important;
         color: #000 !important;
+        text-align: center !important;
+    }
+    .deworming-header-subtitle { color: #000 !important; font-size: 10pt !important; }
+    h4 { color: #000 !important; margin: 8px 0 4px 0 !important; }
+
+    /* Data grid */
+    .deworming-form-grid {
+        display: grid !important;
+        grid-template-columns: repeat(3, 1fr) !important;
+        gap: 12px !important;
+        margin-bottom: 12px !important;
+        width: 100% !important;
+    }
+    .deworming-form-label {
+        font-size: 8pt !important;
+        margin-bottom: 2px !important;
+        color: #000 !important;
+        font-weight: bold !important;
+        text-transform: uppercase !important;
+    }
+    .deworming-form-input {
+        border-bottom: 1px solid #000 !important;
+        border-top: none !important;
+        border-left: none !important;
+        border-right: none !important;
+        font-size: 9pt !important;
+        padding: 2px 0 !important;
+        background: transparent !important;
+        color: #000 !important;
+        width: 100% !important;
+        height: auto !important;
+        border-radius: 0 !important;
     }
 
-    /* Ensure table header has a background for clarity in print */
+    /* Table */
+    .deworming-table {
+        width: 100% !important;
+        border-collapse: collapse !important;
+        page-break-inside: auto !important;
+    }
+    .deworming-table tr { page-break-inside: avoid !important; }
+    .deworming-table th, .deworming-table td {
+        border: 1px solid #000 !important;
+        font-size: 8pt !important;
+        padding: 4px !important;
+        color: #000 !important;
+        background: transparent !important;
+        word-wrap: break-word !important;
+    }
     .deworming-table th {
-        background-color: #f2f2f2 !important;
+        background-color: #eeeeee !important;
+        print-color-adjust: exact !important;
+        -webkit-print-color-adjust: exact !important;
+        font-weight: bold !important;
     }
 }

@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import PatientCard from './PatientCard';
-import '../../styles/PatientGrid.css';
+import { useNavigate } from 'react-router-dom';
+import { FaChevronLeft, FaChevronRight, FaAngleDoubleLeft, FaAngleDoubleRight, FaIdCard, FaClipboardList } from 'react-icons/fa';
+import styles from '../../styles/PatientGrid.module.css';
 
-const ITEMS_PER_PAGE = 9;
+const ITEMS_PER_PAGE = 10;
 
-const PatientGrid = ({ patients, searchTerm, category, location, group }) => {
+const PatientGrid = ({ patients, searchTerm, category, location, group, viewMode = 'grid', isCasualties = false }) => {
+    const navigate = useNavigate();
     const [currentPage, setCurrentPage] = useState(1);
     const [filteredPatients, setFilteredPatients] = useState([]);
 
@@ -27,16 +30,13 @@ const PatientGrid = ({ patients, searchTerm, category, location, group }) => {
         }
 
         // Filter by Category (if not "todos")
-        if (category && category.toLowerCase() !== 'todos') {
-            result = result.filter(p => p.category && p.category.toLowerCase() === category.toLowerCase());
+        if (category && category.length > 0 && !category.includes('todos')) {
+            result = result.filter(p => p.category && category.includes(p.category.toLowerCase()));
         }
 
-        // Filter by Species specific logic if needed, but usually covered by category or data structure
-        // If the "category" prop comes from the URL (e.g. ?category=aves), we filter by that.
-
         // Filter by Location
-        if (location && location !== 'Todas') {
-            result = result.filter(p => p.locationType === location);
+        if (location && location.length > 0 && !location.includes('Todas')) {
+            result = result.filter(p => location.includes(p.locationType));
         }
 
         // Filter by Group
@@ -68,41 +68,153 @@ const PatientGrid = ({ patients, searchTerm, category, location, group }) => {
 
     if (filteredPatients.length === 0) {
         return (
-            <div className="no-results">
+            <div className={styles['no-results']}>
                 <p>No se encontraron pacientes con los filtros seleccionados.</p>
             </div>
         );
     }
 
+    const getPageNumbers = (currentPage, totalPages) => {
+        const delta = 1;
+        const range = [];
+        const rangeWithDots = [];
+        let l;
+
+        for (let i = 1; i <= totalPages; i++) {
+            if (i === 1 || i === totalPages || (i >= currentPage - delta && i <= currentPage + delta)) {
+                range.push(i);
+            }
+        }
+
+        for (let i of range) {
+            if (l) {
+                if (i - l === 2) {
+                    rangeWithDots.push(l + 1);
+                } else if (i - l !== 1) {
+                    rangeWithDots.push('...');
+                }
+            }
+            rangeWithDots.push(i);
+            l = i;
+        }
+
+        return rangeWithDots;
+    };
+
     return (
-        <div className="patient-grid-container">
-            <div className="patient-grid">
-                {currentItems.map((patient) => (
-                    <PatientCard key={patient.id} patient={patient} />
-                ))}
-            </div>
+        <div className={styles['patient-grid-container']}>
+            {viewMode === 'grid' ? (
+                <div className={styles['patient-grid']}>
+                    {currentItems.map((patient) => (
+                        <PatientCard key={patient.id} patient={patient} isCasualties={isCasualties} />
+                    ))}
+                </div>
+            ) : (
+                <div className={`${styles['table-responsive-container']} ${styles['list-view-container']}`}>
+                    <table className={styles['patient-table']}>
+                        <thead>
+                            <tr>
+                                <th>Foto</th>
+                                <th>ID</th>
+                                <th>Nombre</th>
+                                <th>Especie / Categoría</th>
+                                <th>Peso</th>
+                                <th>Edad / Sexo</th>
+                                <th>Ubicación</th>
+                                <th className="text-center">Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {currentItems.map((patient) => (
+                                <tr key={patient.id} className={styles['patient-table-row']}>
+                                    <td className={styles['table-img-cell']}>
+                                        <div className={styles['table-img-wrapper']}>
+                                            <img
+                                                src={patient.imageUrl || "https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?auto=format&fit=crop&q=80&w=800"}
+                                                alt={patient.name}
+                                            />
+                                        </div>
+                                    </td>
+                                    <td className={styles['table-id-cell']}>{patient.id}</td>
+                                    <td>
+                                        <div className={styles['table-name']}>{patient.name}</div>
+                                        <div className={styles['table-subtext']}>{patient.commonName}</div>
+                                    </td>
+                                    <td>
+                                        <div className={styles['table-species']}>{patient.species}</div>
+                                        <div className={styles['table-subtext']} style={{ textTransform: 'capitalize' }}>{patient.category}</div>
+                                    </td>
+                                    <td>
+                                        <div className={styles['table-weight']}>{patient.weight ? `${patient.weight} kg` : 'N/A'}</div>
+                                    </td>
+                                    <td>
+                                        <div className={styles['table-age']}>{patient.age} años</div>
+                                        <div className={styles['table-subtext']}>{patient.sex}</div>
+                                    </td>
+                                    <td>
+                                        <span className={`${styles['table-badge']} ${styles[`badge-${patient.locationType === 'Cuarentena' ? 'quarantine' : 'normal'}`]}`}>
+                                            {patient.location}
+                                        </span>
+                                    </td>
+                                    <td className={styles['table-actions-cell']}>
+                                        <div className="flex justify-center flex-row gap-2">
+                                            <button
+                                                className="bg-transparent border-none cursor-pointer p-2 rounded-lg text-gray-500 transition-all duration-200 hover:bg-gray-100 hover:text-gray-900"
+                                                title="Expediente"
+                                                onClick={() => navigate(`/${isCasualties ? 'casualties' : 'patients'}/${patient.id}`)}
+                                            >
+                                                <FaIdCard size={18} />
+                                            </button>
+                                            <button
+                                                className="bg-transparent border-none cursor-pointer p-2 rounded-lg text-gray-500 transition-all duration-200 hover:bg-gray-100 hover:text-gray-900"
+                                                title="Historia Clínica"
+                                                onClick={() => navigate(`/${isCasualties ? 'casualties' : 'patients'}/${patient.id}`, { state: { initialTab: 'history' } })}
+                                            >
+                                                <FaClipboardList size={18} />
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                </div>
+            )}
 
             {totalPages > 1 && (
-                <div className="pagination-controls">
-                    <button
-                        className="pagination-btn"
-                        onClick={() => handlePageChange(currentPage - 1)}
-                        disabled={currentPage === 1}
-                    >
-                        Anterior
-                    </button>
+                <div className={styles.pagination}>
+                    <div className={styles['pagination-controls']}>
+                        <button
+                            className={styles['page-btn-nav']}
+                            disabled={currentPage === 1}
+                            onClick={() => handlePageChange(currentPage - 1)}
+                        >
+                            <FaChevronLeft style={{ marginRight: '6px', fontSize: '0.8rem' }} />
+                            Anterior
+                        </button>
 
-                    <span className="pagination-info">
-                        Página {currentPage} de {totalPages}
-                    </span>
+                        <div className={styles['pagination-numbers']}>
+                            {getPageNumbers(currentPage, totalPages).map((pageNumber, index) => (
+                                <button
+                                    key={index}
+                                    className={`${styles['page-btn']} ${pageNumber === currentPage ? styles.active : ''} ${pageNumber === '...' ? styles.dots : ''}`}
+                                    disabled={pageNumber === '...'}
+                                    onClick={() => pageNumber !== '...' && handlePageChange(pageNumber)}
+                                >
+                                    {pageNumber}
+                                </button>
+                            ))}
+                        </div>
 
-                    <button
-                        className="pagination-btn"
-                        onClick={() => handlePageChange(currentPage + 1)}
-                        disabled={currentPage === totalPages}
-                    >
-                        Siguiente
-                    </button>
+                        <button
+                            className={styles['page-btn-nav']}
+                            disabled={currentPage === totalPages}
+                            onClick={() => handlePageChange(currentPage + 1)}
+                        >
+                            Siguiente
+                            <FaChevronRight style={{ marginLeft: '6px', fontSize: '0.8rem' }} />
+                        </button>
+                    </div>
                 </div>
             )}
         </div>

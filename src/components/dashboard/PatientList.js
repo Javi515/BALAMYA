@@ -2,18 +2,17 @@ import React from 'react';
 import Card from '../common/Card';
 import PatientRow from './PatientRow';
 import { patients } from '../../data/mockData';
-import '../../styles/PatientList.css';
+import styles from '../../styles/PatientList.module.css';
 
 const PatientList = () => {
   return (
-    <Card className="patient-list-card">
-      <h3 className="patient-list-title">Pacientes Recientes</h3>
-      <div className="table-responsive-container">
-        <table className="patient-table">
+    <Card className={styles['patient-list-card']}>
+      <h3 className={styles['dashboard-section-title']}>Pacientes Recientes</h3>
+      <div className={styles['table-responsive-container']}>
+        <table className={styles['patient-list-table']}>
           <thead>
             <tr>
               <th>ID</th>
-
               <th>Especie</th>
               <th>Raza</th>
               <th>Edad</th>

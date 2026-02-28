@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import ReactDOM from 'react-dom';
-import './Modal.css';
+import styles from '../../styles/Modal.module.css';
 
 const Modal = ({ isOpen, onClose, title, children, footer }) => {
     // Prevent body scroll when modal is open
@@ -18,15 +18,15 @@ const Modal = ({ isOpen, onClose, title, children, footer }) => {
     if (!isOpen) return null;
 
     return ReactDOM.createPortal(
-        <div className="modal-overlay" onClick={onClose}>
-            <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-                <div className="modal-header">
-                    <h3 className="modal-title">{title}</h3>
+        <div className={styles['modal-overlay']} onClick={onClose}>
+            <div className={styles['modal-content']} onClick={(e) => e.stopPropagation()}>
+                <div className={styles['modal-header']}>
+                    <h3 className={styles['modal-title']}>{title}</h3>
                 </div>
-                <div className="modal-body">
+                <div className={styles['modal-body']}>
                     {children}
                 </div>
-                {footer && <div className="modal-footer">{footer}</div>}
+                {footer && <div className={styles['modal-footer']}>{footer}</div>}
             </div>
         </div>,
         document.body
