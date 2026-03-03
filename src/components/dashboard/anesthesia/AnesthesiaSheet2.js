@@ -1,74 +1,73 @@
 import React from 'react';
-import { FaSave, FaPrint, FaArrowLeft } from 'react-icons/fa';
-import ImageUploader from '../../common/ImageUploader';
 import styles from '../../../styles/AnesthesiaForm.module.css';
 
 const AnesthesiaSheet2 = ({
-    step,
-    isSaved,
-    handleBack,
-    handleSave,
-    handlePrint
+    monitoringRows,
+    addMonitoringRow,
+    removeMonitoringRow
 }) => {
     return (
-        <div className={`${styles['form-page']} ${step === 2 ? styles.active : ''}`} id="anesthesia-hoja2">
-            <div className={styles['anesthesia-header']} style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '20px', width: '100%' }}>
-                <ImageUploader placeholderText="Logo" className="header-logo-left no-print-placeholder" />
-                <div style={{ flex: 1, textAlign: 'center' }}>
-                    <h1 style={{ fontSize: '1.2rem', margin: '0 0 5px 0' }}>Zoológico Regional Miguel Álvarez del Toro</h1>
-                    <h2 style={{ fontSize: '1rem', fontStyle: 'italic', margin: '0 0 10px 0', color: '#555' }}>Clínica Veterinaria</h2>
-                    <h3 style={{ fontSize: '1.1rem', fontWeight: 'bold', margin: '0' }}>REGISTRO DE ANESTESIA</h3>
-                </div>
-                <ImageUploader placeholderText="Logo" className="header-logo-right no-print-placeholder" />
-            </div>
-
-            <p className={styles['page-indicator']}>Registro de Anestesia - Hoja 2</p>
-
+        <div className={styles['form-page']} id="anesthesia-hoja2">
             {/* Monitorización */}
-            <div className={styles['form-section']}>
+            <div className={`${styles['form-section']} form-section`}>
                 <h4 className={styles['section-title']}>Monitorización</h4>
-                <table className={`${styles['anesthesia-table']} ${styles['monitoring-table']}`}>
+                <table className={styles['anesthesia-table']}>
                     <thead>
                         <tr>
-                            <th>Hora</th>
+                            <th>HORA</th>
                             <th>F.C.</th>
                             <th>F.R.</th>
-                            <th>T.LLC./seg.</th>
+                            <th>T.LLC./SEG.</th>
                             <th>T (°C)</th>
-                            <th>Sat. O₂ (%)</th>
-                            <th>Observaciones</th>
+                            <th>SAT. O₂ (%)</th>
+                            <th>OBSERVACIONES</th>
+                            <th className={`${styles['action-col']} `}></th>
                         </tr>
                     </thead>
                     <tbody>
-                        {[...Array(8)].map((_, i) => (
-                            <tr key={`monitor-${i}`}>
+                        {monitoringRows.map((row) => (
+                            <tr key={row.id} className={styles['protocol-row']}>
                                 <td><input type="time" className={styles['table-input']} /></td>
                                 <td><input type="text" className={styles['table-input']} /></td>
                                 <td><input type="text" className={styles['table-input']} /></td>
                                 <td><input type="text" className={styles['table-input']} /></td>
                                 <td><input type="text" className={styles['table-input']} /></td>
                                 <td><input type="text" className={styles['table-input']} /></td>
-                                <td><input type="text" className={`${styles['table-input']} ${styles.wide}`} /></td>
+                                <td><input type="text" className={`${styles['table-input']} ${styles['wide']}`} /></td>
+                                <td className={`${styles['action-col']} `}>
+                                    <button
+                                        className={styles['delete-row-btn']}
+                                        onClick={() => removeMonitoringRow(row.id)}
+                                        title="Eliminar fila"
+                                    >
+                                        -
+                                    </button>
+                                </td>
                             </tr>
                         ))}
                     </tbody>
                 </table>
+                <div className={`${styles['add-row-container']} `}>
+                    <button className={styles['add-row-btn']} onClick={addMonitoringRow}>
+                        + Agregar Fila
+                    </button>
+                </div>
             </div>
 
             {/* Toma de muestras */}
-            <div className={styles['form-section']}>
+            <div className={`${styles['form-section']} form-section`}>
                 <h4 className={styles['section-title']}>Toma de muestras y pruebas de diagnóstico</h4>
-                <table className={`${styles['anesthesia-table']} ${styles['samples-table']}`}>
+                <table className={styles['anesthesia-table']}>
                     <thead>
                         <tr>
-                            <th>Sangre</th>
-                            <th>Heces</th>
-                            <th>Piel/Pelo</th>
-                            <th>Orina</th>
+                            <th>SANGRE</th>
+                            <th>HECES</th>
+                            <th>PIEL/PELO</th>
+                            <th>ORINA</th>
                             <th>LCR</th>
-                            <th>Parásitos</th>
+                            <th>PARÁSITOS</th>
                             <th>RX</th>
-                            <th>Endoscopía</th>
+                            <th>ENDOSCOPÍA</th>
                             <th>US</th>
                         </tr>
                     </thead>
@@ -89,27 +88,11 @@ const AnesthesiaSheet2 = ({
             </div>
 
             {/* Médico Responsable */}
-            <div className={`${styles['form-section']} ${styles['signature-section']}`}>
+            <div className={`${styles['form-section']} form-section ${styles['signature-section']} signature-section`} style={{ marginTop: '40px' }}>
                 <div className={styles['signature-block']}>
-                    <div className={styles['signature-line']}></div>
-                    <label>Médico Responsable</label>
+                    <input type="text" className={styles['form-input']} style={{ textAlign: 'center', borderBottom: '1px solid #333', borderRadius: '0', borderLeft: 'none', borderRight: 'none', borderTop: 'none', background: 'transparent' }} placeholder="Nombre del Médico" />
+                    <label style={{ display: 'block', marginTop: '5px' }}>Médico Responsable</label>
                 </div>
-            </div>
-
-            {/* Botones Hoja 2 */}
-            <div className="form-actions">
-                <button className="form-button secondary-btn" onClick={handleBack}>
-                    <FaArrowLeft /> Atrás
-                </button>
-                {!isSaved ? (
-                    <button className="form-button save-btn" onClick={handleSave}>
-                        <FaSave /> Guardar
-                    </button>
-                ) : (
-                    <button className="form-button secondary-btn" onClick={handlePrint}>
-                        <FaPrint /> Imprimir
-                    </button>
-                )}
             </div>
         </div>
     );

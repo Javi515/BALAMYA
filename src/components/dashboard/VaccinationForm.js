@@ -1,10 +1,11 @@
 import React, { useState, useRef } from 'react';
 import ReactDOM from 'react-dom';
 import styles from '../../styles/VaccinationForm.module.css';
-import '../../styles/VaccinationPrint.css';
+
+import '../../styles/FloatingActions.css';
 import { FaPlus, FaFilePdf, FaSave } from 'react-icons/fa';
 import ImageUploader from '../common/ImageUploader';
-import { exportElementToPDF } from '../../utils/exportPDF';
+import { generateVaccinationPDF } from '../../utils/exportVaccinationPDF';
 
 const VaccinationForm = () => {
     const formRef = useRef(null);
@@ -68,15 +69,30 @@ const VaccinationForm = () => {
         setIsSaved(true);
     };
 
-    const handleExportPDF = () => exportElementToPDF(formRef.current, 'Formato_Vacunacion.pdf', 'landscape');
+    const handleExportPDF = () => {
+        const el = formRef.current;
+        if (!el) return;
+
+        const getLogoSrc = (selector) => {
+            const img = el.querySelector(`${selector} img[class*="uploaded-image"]`);
+            return img ? img.src : null;
+        };
+
+        const formRefs = {
+            logoLeft: getLogoSrc('.header-logo-left'),
+            logoRight: getLogoSrc('.header-logo-right'),
+        };
+
+        generateVaccinationPDF(patientData, records, formRefs);
+    };
 
     return (
-        <div className={styles['vaccination-card']} ref={formRef}>
+        <div className={`${styles['vaccination-card']} global-form-width`} ref={formRef}>
             <div className={styles['vaccination-header']}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px', width: '100%' }}>
                     <ImageUploader
                         placeholderText="Logo"
-                        className="header-logo-left no-print-placeholder"
+                        className="header-logo-left"
                     />
 
                     <div className={`${styles['header-titles']} text-center`} style={{ flex: 1 }}>
@@ -86,7 +102,7 @@ const VaccinationForm = () => {
 
                     <ImageUploader
                         placeholderText="Logo"
-                        className="header-logo-right no-print-placeholder"
+                        className="header-logo-right"
                     />
                 </div>
             </div>
@@ -104,7 +120,7 @@ const VaccinationForm = () => {
             </div>
 
             {/* Action Button to show the modal */}
-            <div className={`no-print ${styles['add-record-button-container']}`}>
+            <div className={`${styles['add-record-button-container']}`}>
                 <button onClick={openModal} className={styles['add-record-button']}>
                     <FaPlus /> Agregar Registro
                 </button>
@@ -142,15 +158,15 @@ const VaccinationForm = () => {
                 </table>
             </div>
 
-            {/* Footer Buttons */}
-            <div className={`no-print ${styles['form-footer']}`}>
+            {/* Floating action buttons */}
+            <div className="floating-actions ">
                 {!isSaved ? (
-                    <button onClick={handleSave} className={`${styles['form-button']} ${styles['save-btn']}`}>
-                        <FaSave /> Guardar
+                    <button className="floating-btn save-btn" onClick={handleSave} title="Guardar">
+                        <FaSave />
                     </button>
                 ) : (
-                    <button onClick={handleExportPDF} className={`${styles['form-button']} ${styles['secondary-btn']}`}>
-                        <FaFilePdf /> Descargar PDF
+                    <button className="floating-btn pdf-btn" onClick={handleExportPDF} title="Descargar PDF">
+                        <FaFilePdf />
                     </button>
                 )}
             </div>

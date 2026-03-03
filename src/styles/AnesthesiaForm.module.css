@@ -1,8 +1,6 @@
 /* AnesthesiaForm.css */
 
 .anesthesia-form {
-    max-width: 960px;
-    margin: 0 auto;
     padding: 15px;
 }
 
@@ -49,11 +47,12 @@
 
 /* Form Pages */
 .anesthesia-form .form-page {
-    display: none;
-}
-
-.anesthesia-form .form-page.active {
-    display: block;
+    background-color: #ffffff;
+    padding: 30px 40px;
+    border-radius: 8px;
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+    margin-bottom: 30px;
+    position: relative;
 }
 
 /* Sections */

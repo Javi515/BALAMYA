@@ -4,14 +4,14 @@ const AuthContext = createContext(null);
 
 export const useAuth = () => useContext(AuthContext);
 
-// Mock Users Database
+// Mock Users Database (Solo para Referencia)
 const MOCK_USERS = [
     {
         email: 'admin@balamya.org',
         password: 'admin',
         name: 'Administrador Principal',
         role: 'admin',
-        specialty: 'all', // Can see everything
+        specialty: 'all',
         avatar: 'admin-avatar.jpg'
     },
     {
@@ -51,7 +51,7 @@ const MOCK_USERS = [
         password: 'assist',
         name: 'Asistente General',
         role: 'assistant',
-        specialty: 'all', // Can see all lists but maybe restricted actions (in future)
+        specialty: 'all',
         avatar: 'assistant.jpg'
     }
 ];

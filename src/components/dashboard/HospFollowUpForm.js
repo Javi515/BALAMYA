@@ -1,13 +1,16 @@
 import React, { useState } from 'react';
-import { FaSave, FaPrint } from 'react-icons/fa';
+import { FaSave, FaFilePdf } from 'react-icons/fa';
+import { generateHospFollowUpPDF } from '../../utils/exportHospFollowUpPDF';
 import styles from '../../styles/HospFollowUpForm.module.css';
-import '../../styles/HospFollowUpFormPrint.css';
+import cardStyles from '../../styles/Card.module.css';
+
+import '../../styles/FloatingActions.css';
 
 import useHospFollowUpForm from '../../hooks/useHospFollowUpForm';
 import ImageUploader from '../common/ImageUploader';
 
 const HospFollowUpForm = ({ onBack, patient }) => {
-    const { isSaved, handlePrint, handleSave } = useHospFollowUpForm();
+    const { isSaved, handleSave } = useHospFollowUpForm();
 
     // Dynamic Rows for Seguimiento Hospitalizado
     const [hospRows, setHospRows] = useState([
@@ -18,13 +21,47 @@ const HospFollowUpForm = ({ onBack, patient }) => {
     const addHospRow = () => setHospRows([...hospRows, { id: Date.now() }]);
     const removeHospRow = (idToRemove) => setHospRows(hospRows.filter(row => row.id !== idToRemove));
 
+    const formRef = React.useRef(null);
+
+    const handleExportPDF = () => {
+        const el = formRef.current;
+        if (!el) return;
+
+        const getLogoSrc = (selector) => {
+            const img = el.querySelector(`${selector} img[class*="uploaded-image"]`);
+            return img ? img.src : null;
+        };
+
+        const getTableData = (tableSelector) => {
+            const table = el.querySelector(tableSelector);
+            if (!table) return [];
+            const rows = Array.from(table.querySelectorAll('tbody tr'));
+            return rows.map(row => {
+                const inputs = Array.from(row.querySelectorAll('input'));
+                return inputs.map(input => input.value || '');
+            });
+        };
+
+        const topInputs = Array.from(el.querySelectorAll(`div[class*="hosp-field"] input`));
+
+        const formRefs = {
+            logoLeft: getLogoSrc('.header-logo-left'),
+            logoRight: getLogoSrc('.header-logo-right'),
+            fecha: topInputs[0]?.value || '',
+            responsable: topInputs[1]?.value || '',
+            tableData: getTableData('table')
+        };
+
+        generateHospFollowUpPDF(formRefs);
+    };
+
     return (
-        <div className={styles['card']}>
+        <div className={`${cardStyles['card']} form-container-standard`} ref={formRef}>
             <div className={styles['hosp-followup-form']}>
 
                 {/* Encabezado */}
                 <div className={styles['hosp-header']} style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '20px', width: '100%' }}>
-                    <ImageUploader placeholderText="Logo" className="header-logo-left no-print-placeholder" />
+                    <ImageUploader placeholderText="Logo" className="header-logo-left" />
                     <div className={styles['hosp-header-center']} style={{ flex: 1, textAlign: 'center' }}>
                         <div style={{ fontSize: '0.8rem', color: '#666', marginBottom: '5px' }}>
                             COORDINACIÓN ESTATAL<br />
@@ -35,7 +72,7 @@ const HospFollowUpForm = ({ onBack, patient }) => {
                             Calzada Cerro Hueco S/N, Col. El Zapotal, C.P. 29094, Tuxtla Gutiérrez, Chiapas
                         </div>
                     </div>
-                    <ImageUploader placeholderText="Logo" className="header-logo-right no-print-placeholder" />
+                    <ImageUploader placeholderText="Logo" className="header-logo-right" />
                 </div>
 
                 {/* Datos del formulario */}
@@ -65,7 +102,7 @@ const HospFollowUpForm = ({ onBack, patient }) => {
                                 <th>Mucosas</th>
                                 <th>TLLC</th>
                                 <th className={styles['th-obs']}>Observaciones</th>
-                                <th className={`no-print ${styles['action-col']}`}></th>
+                                <th className={`${styles['action-col']}`}></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -83,29 +120,29 @@ const HospFollowUpForm = ({ onBack, patient }) => {
                                     <td><input type="text" className={styles['table-input']} /></td>
                                     <td><input type="text" className={styles['table-input']} /></td>
                                     <td><input type="text" className={`${styles['table-input']} ${styles['wide']}`} /></td>
-                                    <td className={`no-print ${styles['action-col']}`} style={{ verticalAlign: 'middle' }}>
+                                    <td className={`${styles['action-col']}`} style={{ verticalAlign: 'middle' }}>
                                         <button className={styles['delete-row-btn']} onClick={() => removeHospRow(row.id)} title="Eliminar fila">-</button>
                                     </td>
                                 </tr>
                             ))}
                         </tbody>
                     </table>
-                    <div className={`no-print ${styles['add-row-container']}`}>
+                    <div className={`${styles['add-row-container']}`}>
                         <button className={styles['add-row-btn']} onClick={addHospRow}>
                             + Agregar fila
                         </button>
                     </div>
                 </div>
 
-                {/* Botones */}
-                <div className={styles['form-actions']}>
+                {/* Botones Flotantes */}
+                <div className="floating-actions ">
                     {!isSaved ? (
-                        <button className={`${styles['form-button']} ${styles['save-btn']}`} onClick={handleSave}>
-                            <FaSave /> Guardar
+                        <button className="floating-btn save-btn" onClick={handleSave} title="Guardar">
+                            <FaSave />
                         </button>
                     ) : (
-                        <button className={`${styles['form-button']} ${styles['secondary-btn']}`} onClick={handlePrint}>
-                            <FaPrint /> Imprimir
+                        <button className="floating-btn pdf-btn" onClick={handleExportPDF} title="Descargar PDF">
+                            <FaFilePdf />
                         </button>
                     )}
                 </div>

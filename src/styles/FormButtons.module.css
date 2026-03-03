@@ -1,63 +1,50 @@
-/* src/styles/FormButtons.css */
+/* src/styles/FormButtons.module.css */
 
-.back-button {
-  position: absolute;
-  top: 20px;
-  left: 20px;
-  background: none;
-  border: none;
-  cursor: pointer;
-  font-size: 24px;
-  color: #333;
-}
-
-.add-record-button {
-  display: flex;
-  justify-content: flex-end;
-  margin-bottom: 1rem;
-}
-
-.add-record-button button {
-  background-color: #4CAF50; /* Example color */
-  color: white;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 16px;
-}
-
+/* --- Form Action Container --- */
 .form-actions {
   display: flex;
   justify-content: flex-end;
-  margin-top: 2rem;
-  gap: 1rem;
+  gap: 15px;
+  margin-top: 30px;
+  padding-top: 20px;
+  border-top: 1px solid #eee;
 }
 
-.form-actions button {
-  padding: 10px 20px;
+/* --- Base Button --- */
+.form-button {
+  padding: 10px 25px;
   border: none;
-  border-radius: 20px;
+  border-radius: 5px;
+  font-size: 1rem;
+  font-weight: 500;
   cursor: pointer;
-  font-size: 16px;
+  transition: all 0.3s ease;
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 8px;
+  color: white;
+  font-family: inherit;
 }
 
-.save-button {
-  background-color: #007bff; /* Primary color */
-  color: white;
+/* --- Variants --- */
+.save-btn {
+  background-color: #007bff;
 }
 
-.print-button {
-  background-color: #6c757d; /* Secondary color */
-  color: white;
+.save-btn:hover {
+  background-color: #0056b3;
+}
+
+.secondary-btn {
+  background-color: #6c757d;
+}
+
+.secondary-btn:hover {
+  background-color: #5a6268;
 }
 
 /* --- Print Styles --- */
 @media print {
-  .back-button,
   .form-actions {
     display: none !important;
   }

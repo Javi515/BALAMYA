@@ -3,8 +3,9 @@ import ReactDOM from 'react-dom';
 import { FaPlus, FaSave, FaFilePdf } from 'react-icons/fa';
 import ImageUploader from '../common/ImageUploader';
 import styles from '../../styles/DewormingCalendar.module.css';
-import '../../styles/DewormingPrint.css';
-import { exportElementToPDF } from '../../utils/exportPDF';
+
+import '../../styles/FloatingActions.css';
+import { generateDewormingPDF } from '../../utils/exportDewormingPDF';
 
 const DewormingCalendar = () => {
     const formRef = useRef(null);
@@ -27,7 +28,22 @@ const DewormingCalendar = () => {
         setIsSaved(true);
     };
 
-    const handleExportPDF = () => exportElementToPDF(formRef.current, 'Calendario_Desparasitacion.pdf', 'landscape');
+    const handleExportPDF = () => {
+        const el = formRef.current;
+        if (!el) return;
+
+        const getLogoSrc = (selector) => {
+            const img = el.querySelector(`${selector} img[class*="uploaded-image"]`);
+            return img ? img.src : null;
+        };
+
+        const formRefs = {
+            logoLeft: getLogoSrc('.header-logo-left'),
+            logoRight: getLogoSrc('.header-logo-right'),
+        };
+
+        generateDewormingPDF(generalData, records, formRefs);
+    };
 
     const openModal = () => setIsModalOpen(true);
     const closeModal = () => setIsModalOpen(false);
@@ -58,12 +74,12 @@ const DewormingCalendar = () => {
 
     return (
         <div className={styles['deworming-container']}>
-            <div className={styles['deworming-card']} ref={formRef}>
+            <div className={`${styles['deworming-card']} global-form-width`} ref={formRef}>
 
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px', width: '100%' }}>
                     <ImageUploader
                         placeholderText="Logo"
-                        className="header-logo-left no-print-placeholder"
+                        className="header-logo-left"
                     />
 
                     <div className={styles['deworming-header']} style={{ flex: 1, textAlign: 'center' }}>
@@ -75,7 +91,7 @@ const DewormingCalendar = () => {
 
                     <ImageUploader
                         placeholderText="Logo"
-                        className="header-logo-right no-print-placeholder"
+                        className="header-logo-right"
                     />
                 </div>
 
@@ -92,7 +108,7 @@ const DewormingCalendar = () => {
                     <div className={styles['deworming-form-field']}><label className={styles['deworming-form-label']}>IDENTIFICACIÓN</label><input type="text" name="identificacion" value={generalData.identificacion} onChange={handleDataChange} className={styles['deworming-form-input']} /></div>
                 </div>
 
-                <div className={`no-print ${styles['add-record-button-container']}`}>
+                <div className={`${styles['add-record-button-container']}`}>
                     <button onClick={openModal} className={styles['add-record-button']}>
                         <FaPlus /> Agregar Registro
                     </button>
@@ -135,69 +151,72 @@ const DewormingCalendar = () => {
                     </table>
                 </div>
 
-                <div className={`${styles['form-actions']} no-print`}>
+                <div className="floating-actions ">
                     {!isSaved ? (
-                        <button className={styles['save-button']} onClick={handleSave}>
-                            <FaSave /> Guardar
+                        <button className="floating-btn save-btn" onClick={handleSave} title="Guardar">
+                            <FaSave />
                         </button>
                     ) : (
-                        <button className={styles['print-button']} onClick={handleExportPDF}>
-                            <FaFilePdf /> Descargar PDF
+                        <button className="floating-btn pdf-btn" onClick={handleExportPDF} title="Descargar PDF">
+                            <FaFilePdf />
                         </button>
                     )}
                 </div>
 
-                {isModalOpen && ReactDOM.createPortal(
-                    <div className={styles['modal-overlay']} onClick={closeModal}>
-                        <div className={styles['modal-content']} onClick={(e) => e.stopPropagation()}>
-                            <h3 className={styles['modal-title']}>Agregar Registro de Desparasitación</h3>
-                            <form onSubmit={handleAddRecord}>
-                                <div className={styles['modal-form-grid']}>
-                                    {/* Reusing the same field, label, and input classes from the main form */}
-                                    <div className={styles['deworming-form-field']}>
-                                        <label className={styles['deworming-form-label']}>FECHA</label>
-                                        <input name="fecha" type="date" required className={styles['deworming-form-input']} />
+
+                {
+                    isModalOpen && ReactDOM.createPortal(
+                        <div className={styles['modal-overlay']} onClick={closeModal}>
+                            <div className={styles['modal-content']} onClick={(e) => e.stopPropagation()}>
+                                <h3 className={styles['modal-title']}>Agregar Registro de Desparasitación</h3>
+                                <form onSubmit={handleAddRecord}>
+                                    <div className={styles['modal-form-grid']}>
+                                        {/* Reusing the same field, label, and input classes from the main form */}
+                                        <div className={styles['deworming-form-field']}>
+                                            <label className={styles['deworming-form-label']}>FECHA</label>
+                                            <input name="fecha" type="date" required className={styles['deworming-form-input']} />
+                                        </div>
+                                        <div className={styles['deworming-form-field']}>
+                                            <label className={styles['deworming-form-label']}>PRINCIPIO ACTIVO</label>
+                                            <input name="principioActivo" type="text" required className={styles['deworming-form-input']} />
+                                        </div>
+                                        <div className={styles['deworming-form-field']}>
+                                            <label className={styles['deworming-form-label']}>DOSIS MG/KG</label>
+                                            <input name="dosisMgKg" type="text" required className={styles['deworming-form-input']} />
+                                        </div>
+                                        <div className={styles['deworming-form-field']}>
+                                            <label className={styles['deworming-form-label']}>PRODUCTO COMERCIAL</label>
+                                            <input name="productoComercial" type="text" required className={styles['deworming-form-input']} />
+                                        </div>
+                                        <div className={styles['deworming-form-field']}>
+                                            <label className={styles['deworming-form-label']}>DOSIS TOTAL (ml o tabletas)</label>
+                                            <input name="dosisTotal" type="text" required className={styles['deworming-form-input']} />
+                                        </div>
+                                        <div className={styles['deworming-form-field']}>
+                                            <label className={styles['deworming-form-label']}>VÍA DE ADMINISTRACIÓN</label>
+                                            <input name="via" type="text" required className={styles['deworming-form-input']} />
+                                        </div>
+                                        <div className={styles['deworming-form-field']}>
+                                            <label className={styles['deworming-form-label']}>FRECUENCIA</label>
+                                            <input name="frecuencia" type="text" required className={styles['deworming-form-input']} />
+                                        </div>
+                                        <div className={styles['deworming-form-field']}>
+                                            <label className={styles['deworming-form-label']}>PRÓXIMA DESPARASITACIÓN</label>
+                                            <input name="proxima" type="date" required className={styles['deworming-form-input']} />
+                                        </div>
                                     </div>
-                                    <div className={styles['deworming-form-field']}>
-                                        <label className={styles['deworming-form-label']}>PRINCIPIO ACTIVO</label>
-                                        <input name="principioActivo" type="text" required className={styles['deworming-form-input']} />
+                                    <div className={styles['modal-actions']}>
+                                        <button type="button" className={`${styles['footer-button']} ${styles['cancel-button']}`} onClick={closeModal}>Cancelar</button>
+                                        <button type="submit" className={`${styles['footer-button']} ${styles['save-button']}`}>Guardar Registro</button>
                                     </div>
-                                    <div className={styles['deworming-form-field']}>
-                                        <label className={styles['deworming-form-label']}>DOSIS MG/KG</label>
-                                        <input name="dosisMgKg" type="text" required className={styles['deworming-form-input']} />
-                                    </div>
-                                    <div className={styles['deworming-form-field']}>
-                                        <label className={styles['deworming-form-label']}>PRODUCTO COMERCIAL</label>
-                                        <input name="productoComercial" type="text" required className={styles['deworming-form-input']} />
-                                    </div>
-                                    <div className={styles['deworming-form-field']}>
-                                        <label className={styles['deworming-form-label']}>DOSIS TOTAL (ml o tabletas)</label>
-                                        <input name="dosisTotal" type="text" required className={styles['deworming-form-input']} />
-                                    </div>
-                                    <div className={styles['deworming-form-field']}>
-                                        <label className={styles['deworming-form-label']}>VÍA DE ADMINISTRACIÓN</label>
-                                        <input name="via" type="text" required className={styles['deworming-form-input']} />
-                                    </div>
-                                    <div className={styles['deworming-form-field']}>
-                                        <label className={styles['deworming-form-label']}>FRECUENCIA</label>
-                                        <input name="frecuencia" type="text" required className={styles['deworming-form-input']} />
-                                    </div>
-                                    <div className={styles['deworming-form-field']}>
-                                        <label className={styles['deworming-form-label']}>PRÓXIMA DESPARASITACIÓN</label>
-                                        <input name="proxima" type="date" required className={styles['deworming-form-input']} />
-                                    </div>
-                                </div>
-                                <div className={styles['modal-actions']}>
-                                    <button type="button" className={`${styles['footer-button']} ${styles['cancel-button']}`} onClick={closeModal}>Cancelar</button>
-                                    <button type="submit" className={`${styles['footer-button']} ${styles['save-button']}`}>Guardar Registro</button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>,
-                    document.body
-                )}
-            </div>
-        </div>
+                                </form>
+                            </div>
+                        </div>,
+                        document.body
+                    )
+                }
+            </div >
+        </div >
     );
 };
 

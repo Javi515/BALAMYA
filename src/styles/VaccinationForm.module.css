@@ -7,9 +7,6 @@
   padding: 30px;
   border-radius: 10px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  max-width: 1200px;
-  margin: 20px auto;
-  /* Centers the card */
   font-family: Arial, sans-serif;
 }
 
@@ -241,75 +238,3 @@ h4 {
     width: 95%;
   }
 }
-
-/* Modal action buttons container */
-.modal-actions {
-  display: flex;
-  justify-content: flex-end;
-  gap: 15px;
-  margin-top: 30px;
-  padding-top: 20px;
-  border-top: 1px solid #eee;
-}
-
-/* Generic button style for the footer */
-.footer-button {
-  padding: 10px 25px;
-  border: none;
-  border-radius: 5px;
-  font-size: 1rem;
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-/* Style for the primary save button (blue, rounded) */
-.footer-button.save-button,
-.save-btn {
-  background-color: #007bff;
-  color: white;
-}
-
-.footer-button.save-button:hover,
-.save-btn:hover {
-  background-color: #0056b3;
-}
-
-/* Style for the secondary cancel button (gray, discreet) */
-.footer-button.cancel-button {
-  background-color: #6c757d;
-  color: white;
-}
-
-.footer-button.cancel-button:hover {
-  background-color: #5a6268;
-}
-
-/* Form Footer Actions */
-.form-footer {
-  display: flex;
-  justify-content: flex-end;
-  gap: 15px;
-  margin-top: 30px;
-  padding-top: 20px;
-  border-top: 1px solid #eee;
-}
-
-.form-button {
-  padding: 10px 25px;
-  border: none;
-  border-radius: 5px;
-  font-size: 1rem;
-  font-weight: 500;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  color: white;
-}
-
-.secondary-btn {
-  background-color: #6c757d;
-}
-
-/* Print styles moved to VaccinationPrint.css */

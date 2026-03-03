@@ -1,5 +1,5 @@
 import React, { useRef, useState } from 'react';
-import { FaUpload, FaTimes } from 'react-icons/fa';
+import { FaUpload, FaTrash } from 'react-icons/fa';
 import styles from '../../styles/ImageUploader.module.css';
 
 const ImageUploader = ({
@@ -41,7 +41,7 @@ const ImageUploader = ({
 
     return (
         <div
-            className={`${styles['image-uploader-container']} ${imagePreview ? styles['has-image'] : `${styles['empty']} no-print`} ${className}`}
+            className={`${styles['image-uploader-container']} ${imagePreview ? styles['has-image'] : `${styles['empty']} `} ${className}`}
             onClick={handleContainerClick}
         >
             <input
@@ -56,15 +56,15 @@ const ImageUploader = ({
                 <>
                     <img src={imagePreview} alt="Uploaded logo" className={styles['uploaded-image']} />
                     <button
-                        className={`${styles['remove-btn']} no-print`}
+                        className={`${styles['remove-btn']} `}
                         onClick={handleRemoveImage}
                         title="Quitar imagen"
                     >
-                        <FaTimes />
+                        <FaTrash />
                     </button>
                 </>
             ) : (
-                <div className={`${styles['uploader-placeholder']} ${styles['no-print']} no-print`}>
+                <div className={`${styles['uploader-placeholder']} ${styles['']} `}>
                     <FaUpload className={styles['upload-icon']} />
                     <span className={styles['upload-text']}>{placeholderText}</span>
                 </div>

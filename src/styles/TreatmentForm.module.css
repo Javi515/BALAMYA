@@ -1,12 +1,19 @@
 /* TreatmentForm.css */
 
 .treatment-form {
-    max-width: 960px;
-    margin: 0 auto;
     padding: 15px;
 }
 
 /* Header */
+.treatment-form .form-page {
+    background-color: #ffffff;
+    padding: 30px 40px;
+    border-radius: 8px;
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+    margin-bottom: 30px;
+    position: relative;
+}
+
 .treatment-header {
     text-align: center;
     margin-bottom: 15px;

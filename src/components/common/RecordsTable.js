@@ -80,16 +80,7 @@ const RecordsTable = ({ records, viewMode = 'grid' }) => {
 
     // --- Grid View Card Render ---
     const renderCard = (record) => {
-        // Status Badge Styling Function
-        const getStatusBadge = (status) => {
-            if (!status) return null;
-            const s = status.toLowerCase();
-            if (s.includes('saludable') || s.includes('estable')) return 'bg-emerald-100/90 text-emerald-800';
-            if (s.includes('crítico') || s.includes('tratamiento')) return 'bg-red-100/90 text-red-800';
-            if (s.includes('observación')) return 'bg-amber-100/90 text-amber-800';
-            return 'bg-gray-100/90 text-gray-800';
-        };
-
+        const formKey = getFormKey(record.type);
         return (
             <div key={record.id} className="bg-white rounded-xl shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 border border-slate-100 flex flex-col overflow-hidden group">
                 {/* Image Section */}
@@ -141,8 +132,8 @@ const RecordsTable = ({ records, viewMode = 'grid' }) => {
                         <button
                             className="w-full flex justify-center items-center gap-2 py-2.5 px-4 bg-blue-50/50 hover:bg-blue-600 text-blue-600 hover:text-white rounded-xl text-sm font-bold transition-all duration-300 group/btn"
                             onClick={() => {
-                                const formKey = getFormKey(record.type);
-                                navigate(`/forms?form=${formKey}&animalName=${encodeURIComponent(record.name)}&origin=history`);
+                                const patientIdParam = record.patientId ? `&patientId=${record.patientId}` : '';
+                                navigate(`/forms?form=${formKey}&animalName=${encodeURIComponent(record.name)}&origin=history${patientIdParam}`);
                             }}
                         >
                             Ver Detalles
@@ -179,7 +170,7 @@ const RecordsTable = ({ records, viewMode = 'grid' }) => {
                 <table className={styles['records-table']}>
                     <thead>
                         <tr>
-                            <th>ID Expediente</th>
+                            <th>ID del Animal</th>
                             <th>Nombre Común</th>
                             <th>Especie</th>
                             <th>Ubicación</th>
@@ -216,8 +207,9 @@ const RecordsTable = ({ records, viewMode = 'grid' }) => {
                                             className={`${styles['view-record-btn']} flex items-center justify-center gap-1.5 px-3 py-1.5 text-blue-600 hover:text-blue-800 hover:bg-blue-50/50 rounded-lg transition-colors font-semibold group w-full`}
                                             onClick={() => {
                                                 const formKey = getFormKey(record.type);
+                                                const patientIdParam = record.patientId ? `&patientId=${record.patientId}` : '';
                                                 // Passing data via URL search params
-                                                navigate(`/forms?form=${formKey}&animalName=${encodeURIComponent(record.name)}&origin=history`);
+                                                navigate(`/forms?form=${formKey}&animalName=${encodeURIComponent(record.name)}&origin=history${patientIdParam}`);
                                             }}
                                         >
                                             Ver Detalles

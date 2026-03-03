@@ -1,4 +1,5 @@
 import React from 'react';
+import '../../../styles/FloatingActions.css';
 import { FaSave, FaFilePdf, FaArrowLeft, FaArrowRight } from 'react-icons/fa';
 import ImageUploader from '../../common/ImageUploader';
 import { SectionTitle, FormGroup, FormInput, FormTextArea } from './ClinicalHelpers';
@@ -16,9 +17,10 @@ const NormalAvesReviewVariant = ({
     return (
         <>
             {/* Hoja 1 */}
-            <div className={`${step === 1 ? 'block' : 'hidden'}`} id="hoja1">
+            {/* Hoja 1 */}
+            <div className="form-page block bg-white p-8 shadow-lg mb-8 rounded-sm" id="hoja1">
                 <div className="flex justify-between items-start w-full mb-3" style={{ gap: '16px' }}>
-                    <ImageUploader placeholderText="Logo" className="header-logo-left no-print-placeholder shrink-0" />
+                    <ImageUploader placeholderText="Logo" className="header-logo-left shrink-0" />
                     <div className="flex flex-col items-center justify-center text-center flex-1">
                         <h1 className="text-xl font-bold text-gray-800 m-0 mb-0.5">
                             Zoológico Regional Miguel Álvarez del Toro
@@ -31,7 +33,7 @@ const NormalAvesReviewVariant = ({
                             {getTitle()}
                         </h3>
                     </div>
-                    <ImageUploader placeholderText="Logo" className="header-logo-right no-print-placeholder shrink-0" />
+                    <ImageUploader placeholderText="Logo" className="header-logo-right shrink-0" />
                 </div>
 
                 {/* Datos Generales */}
@@ -104,20 +106,15 @@ const NormalAvesReviewVariant = ({
                     </div>
                 </div>
 
-                <div className="flex justify-end mt-4 no-print">
-                    <button className="flex items-center gap-2 px-6 py-2 bg-blue-600 text-white rounded font-medium hover:bg-blue-700 transition-colors" onClick={handleNext}>
-                        Siguiente <FaArrowRight />
-                    </button>
-                </div>
             </div>
 
             {/* Separador de página */}
-            <div className="page-break hidden print:block"></div>
+            <div className="page-separator"></div>
 
             {/* Hoja 2 */}
-            <div className={`${step === 2 ? 'block' : 'hidden'}`} id="hoja2">
+            <div className="form-page block bg-white p-8 shadow-lg mb-8 rounded-sm" id="hoja2">
                 <div className="mb-3">
-                    <SectionTitle>Revisión de Sistemas (Continuación)</SectionTitle>
+
                     <div className="mt-2">
                         <label className="text-sm text-gray-600 block mb-0.5">Digestivo</label>
                         <FormTextArea rows="3" />
@@ -186,17 +183,14 @@ const NormalAvesReviewVariant = ({
                     </div>
                 </div>
 
-                <div className="flex justify-end gap-3 mt-4 no-print">
-                    <button className="flex items-center gap-2 px-6 py-2 bg-gray-500 text-white rounded font-medium hover:bg-gray-600 transition-colors" onClick={handleBack}>
-                        <FaArrowLeft /> Atrás
-                    </button>
+                <div className="floating-actions ">
                     {!isSaved ? (
-                        <button className="flex items-center gap-2 px-6 py-2 bg-blue-600 text-white rounded font-medium hover:bg-blue-700 transition-colors" onClick={handleSave}>
-                            <FaSave /> Guardar
+                        <button className="floating-btn save-btn" onClick={handleSave} title="Guardar">
+                            <FaSave />
                         </button>
                     ) : (
-                        <button className="flex items-center gap-2 px-6 py-2 bg-gray-600 text-white rounded font-medium hover:bg-gray-700 transition-colors" onClick={handleExportPDF}>
-                            <FaFilePdf /> Descargar PDF
+                        <button className="floating-btn pdf-btn" onClick={handleExportPDF} title="Descargar PDF">
+                            <FaFilePdf />
                         </button>
                     )}
                 </div>

@@ -181,6 +181,31 @@
   border-top: 5px solid #28a745;
 }
 
+/* Anesthesia Card */
+.form-card-anesthesia {
+  border-top: 5px solid #8b5cf6;
+}
+
+/* Treatment Card */
+.form-card-treatment {
+  border-top: 5px solid #059669;
+}
+
+/* Group Treatment Card */
+.form-card-groupTreatment {
+  border-top: 5px solid #0891b2;
+}
+
+/* Hosp Follow-Up Card */
+.form-card-hospFollowUp {
+  border-top: 5px solid #dc2626;
+}
+
+/* Notificación de Alta Card */
+.form-card-notificacionAlta {
+  border-top: 5px solid #d97706;
+}
+
 /* --- Card Content --- */
 .form-card-content {
   display: flex;

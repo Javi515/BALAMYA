@@ -6,13 +6,12 @@ const useAnesthesiaForm = () => {
 
     const handleNext = () => setStep(2);
     const handleBack = () => setStep(1);
-    const handlePrint = () => window.print();
     const handleSave = () => {
         alert('Datos guardados (simulación).');
         setIsSaved(true);
     };
 
-    return { step, isSaved, handleNext, handleBack, handlePrint, handleSave };
+    return { step, isSaved, handleNext, handleBack, handleSave };
 };
 
 export default useAnesthesiaForm;

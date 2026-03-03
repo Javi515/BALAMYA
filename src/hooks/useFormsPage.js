@@ -52,8 +52,13 @@ const useFormsPage = () => {
 
     const backToMenu = () => {
         const origin = searchParams.get('origin');
+        const patientId = searchParams.get('patientId');
         if (origin === 'history') {
-            navigate('/medical-history');
+            if (patientId) {
+                navigate(`/patients/${patientId}`, { state: { initialTab: 'history' } });
+            } else {
+                navigate('/medical-history');
+            }
         } else {
             setViewState('menu');
             setTargetForm(null);

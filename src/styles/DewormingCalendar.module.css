@@ -8,10 +8,6 @@
   background-color: #FFFFFF;
   padding: 15px 30px;
   border-radius: 10px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  max-width: 1200px;
-  margin: 10px auto;
-  /* Centers the card */
 }
 
 /* New flex container for the header */
@@ -193,7 +189,6 @@ h4 {
   padding: 30px 40px;
   border-radius: 10px;
   width: 90%;
-  max-width: 900px;
   /* Adjusted for 3 columns */
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
 }
@@ -252,54 +247,4 @@ h4 {
 
 .footer-button.cancel-button:hover {
   background-color: #5a6268;
-}
-
-/* Print styles moved to DewormingPrint.css */
-
-/* --- Save and Print Buttons (bottom of form, inline with Agregar Registro) --- */
-.form-actions {
-  display: flex;
-  justify-content: flex-end;
-  gap: 12px;
-  margin-top: 16px;
-}
-
-.save-button {
-  background-color: #007bff;
-  color: white;
-  padding: 10px 22px;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  font-size: 0.95rem;
-  font-weight: 500;
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  transition: background-color 0.2s ease, transform 0.1s ease;
-}
-
-.save-button:hover {
-  background-color: #0056b3;
-  transform: translateY(-1px);
-}
-
-.print-button {
-  background-color: #6c757d;
-  color: white;
-  padding: 10px 22px;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  font-size: 0.95rem;
-  font-weight: 500;
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  transition: background-color 0.2s ease, transform 0.1s ease;
-}
-
-.print-button:hover {
-  background-color: #5a6268;
-  transform: translateY(-1px);
 }

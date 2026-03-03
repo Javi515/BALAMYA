@@ -1,5 +1,5 @@
 
-import { FaHome, FaPaw, FaHeartBroken, FaProcedures, FaFileMedical, FaClipboardList } from 'react-icons/fa';
+import { FaHome, FaPaw, FaHeartBroken, FaProcedures, FaFileMedical, FaClipboardList, FaStethoscope } from 'react-icons/fa';
 
 export const sidebarLinks = [
     {
@@ -27,8 +27,14 @@ export const sidebarLinks = [
         iconClass: 'icon-hospitalized'
     },
     {
+        path: '/treatments',
+        label: 'Tratamientos',
+        icon: FaStethoscope,
+        iconClass: 'icon-treatments'
+    },
+    {
         path: '/medical-history',
-        label: 'Historial Clínico',
+        label: 'Reportes Clínicos',
         icon: FaFileMedical,
         iconClass: 'icon-history'
     },

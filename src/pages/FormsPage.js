@@ -8,8 +8,9 @@ import AnesthesiaForm from '../components/dashboard/AnesthesiaForm';
 import TreatmentForm from '../components/dashboard/TreatmentForm';
 import GroupTreatmentForm from '../components/dashboard/GroupTreatmentForm';
 import HospFollowUpForm from '../components/dashboard/HospFollowUpForm';
+import NotificacionAltaForm from '../components/dashboard/NotificacionAltaForm';
 import AnimalSelector from '../components/dashboard/AnimalSelector';
-import { FaFileMedical, FaSyringe, FaCalendarAlt, FaArrowLeft, FaSkull, FaPaw, FaExchangeAlt, FaProcedures, FaNotesMedical, FaHospital, FaUsers, FaArrowRight } from 'react-icons/fa';
+import { FaFileMedical, FaSyringe, FaCalendarAlt, FaArrowLeft, FaSkull, FaPaw, FaExchangeAlt, FaProcedures, FaNotesMedical, FaHospital, FaUsers, FaArrowRight, FaSignOutAlt } from 'react-icons/fa';
 import styles from '../styles/FormsPage.module.css';
 
 import useFormsPage from '../hooks/useFormsPage';
@@ -76,14 +77,28 @@ const FormsPage = () => {
             icon: <FaHospital className={styles['form-card-icon']} style={{ color: '#dc2626' }} />,
             title: 'SEGUIMIENTO HOSPITALIZACIÓN',
             description: 'Formato de seguimiento de pacientes hospitalizados.',
+        },
+        {
+            key: 'notificacionAlta',
+            icon: <FaSignOutAlt className={styles['form-card-icon']} style={{ color: '#d97706' }} />,
+            title: 'NOTIFICACIÓN DE ALTA',
+            description: 'Formato oficial de notificación de alta del paciente.',
         }
     ];
 
     const renderContent = () => {
         // View 1: Menu
         if (viewState === 'menu') {
+            const isFromHistory = searchParams.get('origin') === 'history';
             return (
                 <div className={styles['forms-page-container']}>
+                    {isFromHistory && (
+                        <div className={styles['form-header-controls']} style={{ marginBottom: '20px' }}>
+                            <button onClick={backToMenu} className={styles['back-to-menu-btn']}>
+                                <FaArrowLeft /> Volver al Historial
+                            </button>
+                        </div>
+                    )}
                     <div className={styles['forms-page-header']}>
                         <h1 className={styles['forms-page-title']}>Herramientas Clínicas</h1>
                         <p className={styles['forms-page-subtitle']}>Formularios y herramientas para la gestión clínica veterinaria.</p>
@@ -154,6 +169,7 @@ const FormsPage = () => {
                     {targetForm === 'treatment' && <TreatmentForm onBack={backToSelection} patient={selectedAnimal} />}
                     {targetForm === 'groupTreatment' && <GroupTreatmentForm onBack={backToSelection} patient={selectedAnimal} />}
                     {targetForm === 'hospFollowUp' && <HospFollowUpForm onBack={backToSelection} patient={selectedAnimal} />}
+                    {targetForm === 'notificacionAlta' && <NotificacionAltaForm onBack={backToSelection} patient={selectedAnimal} />}
                 </div>
             );
         }

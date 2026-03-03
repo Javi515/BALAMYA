@@ -6,7 +6,6 @@ const useClinicalReviewForm = () => {
 
     const handleNext = () => setStep(2);
     const handleBack = () => setStep(1);
-    const handlePrint = () => window.print();
     const handleSave = () => {
         alert('Datos guardados (simulación).');
         setIsSaved(true);
@@ -17,7 +16,6 @@ const useClinicalReviewForm = () => {
         isSaved,
         handleNext,
         handleBack,
-        handlePrint,
         handleSave
     };
 };

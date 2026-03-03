@@ -64,7 +64,7 @@ const MOCK_HOSPITALIZED = Array.from({ length: 12 }, (_, i) => {
     };
 });
 
-const HospitalizationPage = () => {
+const TreatmentsPage = () => {
     const navigate = useNavigate();
     const [searchTerm, setSearchTerm] = useState('');
 
@@ -72,7 +72,7 @@ const HospitalizationPage = () => {
         const queryParams = new URLSearchParams({
             form: formKey,
             animalName: patient.id,
-            origin: 'hospitalization',
+            origin: 'treatments',
             patientId: patient.id
         }).toString();
         navigate(`/forms?${queryParams}`);
@@ -132,8 +132,8 @@ const HospitalizationPage = () => {
             {/* 1. Encabezado */}
             <div className={styles['hospitalization-header']}>
                 <div className={styles['header-title-group']}>
-                    <h1>Pacientes Hospitalizados</h1>
-                    <p>Listado de ejemplares en atención clínica activa</p>
+                    <h1>Tratamientos</h1>
+                    <p>Listado de ejemplares en tratamiento activo</p>
                 </div>
                 <button className={styles['btn-new-admission']}>
                     <FaPlus /> Nuevo Ingreso
@@ -280,7 +280,7 @@ const HospitalizationPage = () => {
                             </div>
                         </div>
                         <div className={styles['card-actions']}>
-                            <button className={styles['action-btn']} title="Seguimiento Hospitalizados" onClick={() => handleOpenForm('hospFollowUp', patient)}><FaEye /> Seguimiento</button>
+                            <button className={styles['action-btn']} title="Seguimiento Tratamientos" onClick={() => handleOpenForm('hospFollowUp', patient)}><FaEye /> Seguimiento</button>
                             <button className={styles['action-btn']} title="Revisión Clínica" onClick={() => handleOpenForm('clinicalReview', patient)}><FaNotesMedical /> Revisión</button>
                             <button className={`${styles['action-btn']} ${styles['btn-discharge']}`} title="Notificación de Alta" onClick={() => handleOpenForm('notificacionAlta', patient)}><FaSignOutAlt /> Alta</button>
                         </div>
@@ -291,4 +291,4 @@ const HospitalizationPage = () => {
     );
 };
 
-export default HospitalizationPage;
+export default TreatmentsPage;

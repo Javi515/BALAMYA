@@ -12,8 +12,8 @@
 /* Hero Section */
 /* Dedicated Back Button Class */
 .back-button-container {
-    padding-top: 62px;
-    margin-bottom: 20px;
+    padding-top: 24px;
+    margin-bottom: 10px;
     /* Mas separación del contenido */
 }
 
@@ -66,11 +66,11 @@
 .patient-hero {
     background-color: white;
     border-radius: 12px;
-    padding: 30px;
+    padding: 20px 30px;
     display: flex;
     gap: 30px;
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-    margin-bottom: 30px;
+    margin-bottom: 15px;
     align-items: center;
 }
 
@@ -140,6 +140,59 @@
     margin-top: 15px;
 }
 
+/* --- Action Buttons --- */
+.patient-actions-group {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-left: auto;
+    /* Push to the right */
+}
+
+.action-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 10px 16px;
+    border: none;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    min-width: 160px;
+}
+
+.btn-new {
+    background-color: #2563eb;
+    color: white;
+}
+
+.btn-new:hover {
+    background-color: #1d4ed8;
+}
+
+.btn-edit {
+    background-color: #f1f5f9;
+    color: #334155;
+    border: 1px solid #cbd5e1;
+}
+
+.btn-edit:hover {
+    background-color: #e2e8f0;
+}
+
+.btn-danger {
+    background-color: #dc2626;
+    color: white;
+    border: none;
+}
+
+.btn-danger:hover {
+    background-color: #b91c1c;
+}
+
 .status-stable {
     background-color: #d1fae5;
     color: #065f46;
@@ -203,7 +256,7 @@
     display: flex;
     gap: 20px;
     border-bottom: 2px solid #e5e7eb;
-    margin-bottom: 30px;
+    margin-bottom: 15px;
 }
 
 .tab-btn {
@@ -235,7 +288,7 @@
 /* Tab Content */
 .tab-content {
     background-color: white;
-    padding: 30px;
+    padding: 20px;
     border-radius: 12px;
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
 }

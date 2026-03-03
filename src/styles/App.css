@@ -36,3 +36,15 @@ body {
   opacity: 1;
   pointer-events: all;
 }
+
+.form-container-standard {
+  max-width: 960px !important;
+  margin: 0 auto !important;
+  width: 100% !important;
+}
+
+.global-form-width {
+  max-width: 960px !important;
+  margin: 0 auto !important;
+  width: 100% !important;
+}

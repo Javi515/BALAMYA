@@ -13,6 +13,7 @@ import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 import LabPage from './pages/LabPage';
 import HospitalizationPage from './pages/HospitalizationPage';
+import TreatmentsPage from './pages/TreatmentsPage';
 import WelfarePage from './pages/WelfarePage';
 import './styles/App.css';
 
@@ -48,6 +49,7 @@ function App() {
                     <Route path="/casualties" element={<PatientsPage />} />
                     <Route path="/casualties/:id" element={<PatientDetailsPage />} />
                     <Route path="/hospitalization" element={<HospitalizationPage />} />
+                    <Route path="/treatments" element={<TreatmentsPage />} />
                     <Route path="/lab" element={<LabPage />} />
                     <Route path="/welfare" element={<WelfarePage />} />
                   </Routes>
