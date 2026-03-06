@@ -27,6 +27,7 @@
   position: relative;
   width: 160px;
   height: 160px;
+  flex-shrink: 0;
   filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.05));
 }
 
@@ -111,12 +112,17 @@
   box-shadow: 0 0 0 3px #d1fae5;
 }
 
-.legend-color.stable {
+.legend-color.in-treatment {
+  background-color: #3b82f6;
+  box-shadow: 0 0 0 3px #dbeafe;
+}
+
+.legend-color.quarantine {
   background-color: #f59e0b;
   box-shadow: 0 0 0 3px #fef3c7;
 }
 
-.legend-color.critical {
+.legend-color.deceased {
   background-color: #ef4444;
   box-shadow: 0 0 0 3px #fee2e2;
 }

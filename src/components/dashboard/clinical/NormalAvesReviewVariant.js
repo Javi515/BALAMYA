@@ -5,6 +5,7 @@ import ImageUploader from '../../common/ImageUploader';
 import { SectionTitle, FormGroup, FormInput, FormTextArea } from './ClinicalHelpers';
 
 const NormalAvesReviewVariant = ({
+    patient,
     step,
     getTitle,
     isSaved,
@@ -44,28 +45,28 @@ const NormalAvesReviewVariant = ({
                         <>
                             <div className="grid grid-cols-3 gap-x-6 gap-y-2 mb-1">
                                 <FormGroup label="Familia"><FormInput /></FormGroup>
-                                <FormGroup label="Nombre Científico"><FormInput /></FormGroup>
-                                <FormGroup label="Nombre Común"><FormInput /></FormGroup>
+                                <FormGroup label="Nombre Científico"><FormInput defaultValue={patient?.scientificName || ''} /></FormGroup>
+                                <FormGroup label="Nombre Común"><FormInput defaultValue={patient?.commonName || ''} /></FormGroup>
                             </div>
                             <div className="grid grid-cols-5 gap-x-6 gap-y-2">
-                                <FormGroup label="Ubicación"><FormInput /></FormGroup>
-                                <FormGroup label="Identificación"><FormInput /></FormGroup>
-                                <FormGroup label="Edad"><FormInput /></FormGroup>
-                                <FormGroup label="Peso"><FormInput /></FormGroup>
-                                <FormGroup label="Sexo"><FormInput /></FormGroup>
+                                <FormGroup label="Ubicación"><FormInput defaultValue={patient?.location || ''} /></FormGroup>
+                                <FormGroup label="Identificación"><FormInput defaultValue={patient?.id || ''} /></FormGroup>
+                                <FormGroup label="Edad"><FormInput defaultValue={patient?.age ? `${patient.age} años` : ''} /></FormGroup>
+                                <FormGroup label="Peso"><FormInput defaultValue={patient?.weight ? `${patient.weight} kg` : ''} /></FormGroup>
+                                <FormGroup label="Sexo"><FormInput defaultValue={patient?.sex || ''} /></FormGroup>
                             </div>
                         </>
                     ) : (
                         /* Formato General Ejemplares */
                         <div className="grid grid-cols-2 md:grid-cols-4 gap-x-6 gap-y-2">
                             <FormGroup label="Fecha"><input type="date" className="w-full border-b border-gray-300 bg-transparent py-1 px-1 text-sm focus:outline-none focus:border-blue-500" /></FormGroup>
-                            <FormGroup label="Nombre Científico"><FormInput /></FormGroup>
-                            <FormGroup label="Nombre Común"><FormInput /></FormGroup>
-                            <FormGroup label="Ubicación"><FormInput /></FormGroup>
-                            <FormGroup label="Identificación"><FormInput /></FormGroup>
-                            <FormGroup label="Edad"><FormInput /></FormGroup>
-                            <FormGroup label="Peso"><FormInput /></FormGroup>
-                            <FormGroup label="Sexo"><FormInput /></FormGroup>
+                            <FormGroup label="Nombre Científico"><FormInput defaultValue={patient?.scientificName || ''} /></FormGroup>
+                            <FormGroup label="Nombre Común"><FormInput defaultValue={patient?.commonName || ''} /></FormGroup>
+                            <FormGroup label="Ubicación"><FormInput defaultValue={patient?.location || ''} /></FormGroup>
+                            <FormGroup label="Identificación"><FormInput defaultValue={patient?.id || ''} /></FormGroup>
+                            <FormGroup label="Edad"><FormInput defaultValue={patient?.age ? `${patient.age} años` : ''} /></FormGroup>
+                            <FormGroup label="Peso"><FormInput defaultValue={patient?.weight ? `${patient.weight} kg` : ''} /></FormGroup>
+                            <FormGroup label="Sexo"><FormInput defaultValue={patient?.sex || ''} /></FormGroup>
                         </div>
                     )}
                 </div>

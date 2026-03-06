@@ -7,11 +7,11 @@ import buttonStyles from '../../styles/FormButtons.module.css';
 import cardStyles from '../../styles/Card.module.css';
 import { useAuth } from '../../context/AuthContext';
 
-import useTreatmentForm from '../../hooks/useTreatmentForm';
+import useFormState from '../../hooks/useFormState';
 import ImageUploader from '../common/ImageUploader';
 
 const TreatmentForm = ({ onBack, patient }) => {
-    const { isSaved, handleSave } = useTreatmentForm();
+    const { isSaved, handleSave } = useFormState();
     const { user } = useAuth();
 
     // Determine which variant(s) the user can see

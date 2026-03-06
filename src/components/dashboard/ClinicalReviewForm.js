@@ -2,16 +2,16 @@ import React, { useState, useRef } from 'react';
 import { FaDove, FaFileAlt, FaLeaf } from 'react-icons/fa';
 
 import { useAuth } from '../../context/AuthContext';
-import useClinicalReviewForm from '../../hooks/useClinicalReviewForm';
+import useFormState from '../../hooks/useFormState';
 import { generateClinicalReviewPDF } from '../../utils/exportClinicalReviewPDF';
 
 // Import subcomponents
 import ReptilesReviewVariant from './clinical/ReptilesReviewVariant';
 import NormalAvesReviewVariant from './clinical/NormalAvesReviewVariant';
 
-const ClinicalReviewForm = () => {
+const ClinicalReviewForm = ({ patient, existingRecord, onSave }) => {
   const formRef = useRef(null);
-  const { step, isSaved, handleNext, handleBack, handleSave } = useClinicalReviewForm();
+  const { step, isSaved, handleNext, handleBack, handleSave: originalHandleSave } = useFormState(1);
   const { user } = useAuth();
 
   const userRole = user?.role || '';
@@ -185,6 +185,38 @@ const ClinicalReviewForm = () => {
     generateClinicalReviewPDF(formRefs, variant);
   };
 
+  const handleFormSave = () => {
+    const el = formRef.current;
+    if (!el) {
+      originalHandleSave();
+      return;
+    }
+
+    const dateInput = el.querySelector('input[type="date"]');
+    const fecha = dateInput ? dateInput.value : new Date().toISOString().split('T')[0];
+
+    let responsable = '';
+    const textInputs = Array.from(el.querySelectorAll('input[type="text"]'));
+    if (variant === 'aves') {
+      responsable = textInputs[19] ? textInputs[19].value : '';
+    } else if (variant === 'reptiles') {
+      responsable = textInputs[14] ? textInputs[14].value : '';
+    } else {
+      responsable = textInputs[19] ? textInputs[19].value : '';
+    }
+
+    const recordMeta = {
+      fecha,
+      responsable,
+      variante: variant
+    };
+
+    originalHandleSave();
+    if (onSave) {
+      onSave(recordMeta);
+    }
+  };
+
   return (
     <div className="flex flex-col gap-4">
       {/* Premium Floating Variant Selector (only for admin) */}
@@ -229,19 +261,21 @@ const ClinicalReviewForm = () => {
         <div className="block">
           {variant === 'reptiles' ? (
             <ReptilesReviewVariant
+              patient={patient}
               getTitle={getTitle}
               isSaved={isSaved}
-              handleSave={handleSave}
+              handleSave={handleFormSave}
               handleExportPDF={handleExportPDF}
             />
           ) : (
             <NormalAvesReviewVariant
+              patient={patient}
               step={step}
               getTitle={getTitle}
               isSaved={isSaved}
               handleNext={handleNext}
               handleBack={handleBack}
-              handleSave={handleSave}
+              handleSave={handleFormSave}
               handleExportPDF={handleExportPDF}
               isAves={variant === 'aves'}
             />

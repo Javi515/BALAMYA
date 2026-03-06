@@ -18,6 +18,13 @@
   overflow-x: auto;
   max-height: 250px;
   overflow-y: auto;
+  /* Firefox */
+  scrollbar-width: none;
+}
+
+/* Chrome, Edge, Safari */
+.table-responsive-container::-webkit-scrollbar {
+  display: none;
 }
 
 .patient-list-table {

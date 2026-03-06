@@ -15,6 +15,10 @@ import LabPage from './pages/LabPage';
 import HospitalizationPage from './pages/HospitalizationPage';
 import TreatmentsPage from './pages/TreatmentsPage';
 import WelfarePage from './pages/WelfarePage';
+import DewormingPage from './pages/DewormingPage';
+import VaccinationsPage from './pages/VaccinationsPage';
+import ClinicalReviewsPage from './pages/ClinicalReviewsPage';
+import AnesthesiaPage from './pages/AnesthesiaPage';
 import './styles/App.css';
 
 import { AuthProvider } from './context/AuthContext';
@@ -52,6 +56,10 @@ function App() {
                     <Route path="/treatments" element={<TreatmentsPage />} />
                     <Route path="/lab" element={<LabPage />} />
                     <Route path="/welfare" element={<WelfarePage />} />
+                    <Route path="/deworming" element={<DewormingPage />} />
+                    <Route path="/vaccinations" element={<VaccinationsPage />} />
+                    <Route path="/clinical-reviews" element={<ClinicalReviewsPage />} />
+                    <Route path="/anesthesia" element={<AnesthesiaPage />} />
                   </Routes>
                 </MainLayout>
               }

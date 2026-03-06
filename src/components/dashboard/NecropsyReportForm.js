@@ -4,13 +4,13 @@ import '../../styles/FloatingActions.css';
 
 import { FaSave, FaFilePdf } from 'react-icons/fa';
 
-import useNecropsyReportForm from '../../hooks/useNecropsyReportForm';
+import useFormState from '../../hooks/useFormState';
 import ImageUploader from '../common/ImageUploader';
 import { generateNecropsyReportPDF } from '../../utils/exportNecropsyReportPDF';
 
 const NecropsyReportForm = ({ onBack }) => {
     const formRef = useRef(null);
-    const { isSaved, handleSave } = useNecropsyReportForm();
+    const { isSaved, handleSave } = useFormState();
 
     const handleExportPDF = () => {
         const el = formRef.current;

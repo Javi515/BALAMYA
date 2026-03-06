@@ -47,7 +47,6 @@
     }
 
     .list-wrapper {
-        flex: 2;
-        /* Approx 66% */
+        flex: 1.2;
     }
 }

@@ -1,5 +1,5 @@
 
-import { FaHome, FaPaw, FaHeartBroken, FaProcedures, FaFileMedical, FaClipboardList, FaStethoscope } from 'react-icons/fa';
+import { FaHome, FaPaw, FaHeartBroken, FaProcedures, FaFileMedical, FaClipboardList, FaStethoscope, FaBug, FaSyringe, FaNotesMedical, FaSyringe as FaSyringeAnaesthesia } from 'react-icons/fa';
 
 export const sidebarLinks = [
     {
@@ -31,6 +31,30 @@ export const sidebarLinks = [
         label: 'Tratamientos',
         icon: FaStethoscope,
         iconClass: 'icon-treatments'
+    },
+    {
+        path: '/deworming',
+        label: 'Desparasitaciones',
+        icon: FaBug,
+        iconClass: 'icon-deworming'
+    },
+    {
+        path: '/vaccinations',
+        label: 'Vacunaciones',
+        icon: FaSyringe,
+        iconClass: 'icon-vaccinations'
+    },
+    {
+        path: '/clinical-reviews',
+        label: 'Revisiones Clínicas',
+        icon: FaNotesMedical,
+        iconClass: 'icon-clinical-reviews'
+    },
+    {
+        path: '/anesthesia',
+        label: 'Anestesias',
+        icon: FaSyringeAnaesthesia,
+        iconClass: 'icon-anesthesia'
     },
     {
         path: '/medical-history',

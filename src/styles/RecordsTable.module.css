@@ -1,165 +1,132 @@
-/* --- Records List --- */
+/* Records Section — renders inside parent's white card */
 .records-container {
-    background: white;
-    border-radius: 15px;
-    padding: 20px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03);
-    overflow-x: auto;
+    background: transparent;
+    padding: 0;
 }
 
-.records-header-info {
+.records-header {
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    margin-bottom: 15px;
+    gap: 12px;
+    margin-bottom: 18px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid #edf0f4;
 }
 
 .records-title {
-    font-size: 1.25rem;
-    font-weight: 700;
-    color: #374151;
-    /* gray-700 */
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: #1e293b;
+    margin: 0;
 }
 
 .records-count-badge {
-    background: #e3f2fd;
-    color: #1976d2;
-    padding: 5px 12px;
-    border-radius: 20px;
-    font-size: 0.85rem;
-    font-weight: bold;
+    background: #eef4fb;
+    color: #2563eb;
+    padding: 3px 10px;
+    border-radius: 12px;
+    font-size: 0.75rem;
+    font-weight: 600;
 }
 
-/* --- Table Styles (Fluid Layout with Wrapping) --- */
+/* Table */
 .records-table {
     width: 100%;
-    border-collapse: separate;
-    border-spacing: 0;
-    table-layout: auto;
-    /* Allow browser to adjust based on content */
+    border-collapse: collapse;
 }
 
+/* Headers — sentence case, muted, thin border */
 .records-table th {
     text-align: left;
-    padding: 10px 8px;
-    color: #7f8c8d;
-    font-size: 0.75rem;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    border-bottom: 2px solid #eee;
+    padding: 10px 14px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: #7c8a9a;
+    text-transform: none;
+    letter-spacing: 0;
+    border-bottom: 1px solid #e5e9ee;
     white-space: nowrap;
-    /* Keep headers single line if possible */
+    background: transparent;
 }
 
+/* All data cells — uniform, clean, no decorations */
 .records-table td {
-    padding: 10px 8px;
-    border-bottom: 1px solid #f5f5f5;
-    color: #333;
+    padding: 13px 14px;
+    border-bottom: 1px solid #f2f4f7;
+    color: #374151;
     font-size: 0.85rem;
-    vertical-align: top;
-    /* Align to top for wrapped text consistency */
-    white-space: normal;
-    /* Allow text wrapping! */
-    line-height: 1.3;
+    font-weight: 400;
+    font-style: normal;
+    text-transform: none;
+    vertical-align: middle;
+    line-height: 1.45;
 }
 
-.records-table tr:hover {
-    background-color: #f9f9f9;
+.records-table tr:last-child td {
+    border-bottom: none;
 }
 
-/* Column Specifics */
-/* ID: Keep it compact but allow wrap if absolutely necessary (e.g. mobile), usually nowrap is better for IDs */
+.records-table tbody tr:hover td {
+    background-color: #fafbfc;
+}
+
+/* ID column — slightly smaller */
 .records-table td:nth-child(1) {
     white-space: nowrap;
-    font-weight: 600;
-    font-size: 0.8rem;
+    font-size: 0.82rem;
+    color: #64748b;
 }
 
-/* Date: Always keep on one line */
+/* Date — keep on one line */
 .records-table td:nth-child(5) {
     white-space: nowrap;
 }
 
-/* Action: Ensure button has space */
+/* Action column */
 .records-table td:last-child {
     text-align: center;
     white-space: nowrap;
-    min-width: 120px;
 }
 
-/* Styling Classes for Content */
-.record-id {
-    font-weight: 700;
-    color: #111827;
-    background: transparent;
-    padding: 0;
-    border-radius: 0;
-    font-size: 0.85rem;
-}
 
-.species-info {
-    display: flex;
-    align-items: center;
-}
-
-.common-name {
-    font-weight: bold;
-}
-
-.scientific-name {
-    font-style: italic;
-    color: #555;
-}
-
-.record-location {
-    font-size: 0.9rem;
-    color: #4b5563;
-    /* gray-600 */
-    background: transparent;
-    padding: 0;
-}
-
-.doctor-name {
-    font-weight: 500;
-}
-
-.procedure-info {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-}
-
+/* Action button */
 .view-record-btn {
-    color: #3f51b5;
-    font-weight: bold;
-    border: none;
-    background: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    color: #2563eb;
+    background: transparent;
+    border: 1px solid #dbeafe;
+    padding: 5px 12px;
+    border-radius: 6px;
+    font-size: 0.8rem;
+    font-weight: 500;
     cursor: pointer;
-    font-size: 0.9rem;
-    width: 100%;
-    text-align: center;
-    transition: color 0.2s;
+    transition: all 0.15s ease;
+    font-family: inherit;
 }
 
 .view-record-btn:hover {
-    color: #303f9f;
-    text-decoration: underline;
+    background: #eff6ff;
+    color: #1d4ed8;
+    border-color: #bfdbfe;
 }
 
+/* Empty */
 .empty-state {
     text-align: center;
-    padding: 40px;
-    color: #888;
+    padding: 48px 20px;
+    color: #94a3b8;
+    font-size: 0.9rem;
 }
 
-/* Badges & Icons */
+/* Status badges (kept for grid view) */
 .status-badge {
-    padding: 4px 8px;
-    border-radius: 6px;
+    padding: 3px 8px;
+    border-radius: 5px;
     font-size: 0.7rem;
-    font-weight: 700;
+    font-weight: 600;
     display: inline-block;
-    text-align: center;
     white-space: nowrap;
 }
 
@@ -193,47 +160,77 @@
     color: #c62828;
 }
 
+/* Species icon circle (kept for grid view) */
 .species-icon-circle {
-    width: 28px;
-    height: 28px;
+    width: 26px;
+    height: 26px;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 0.9rem;
+    font-size: 0.85rem;
     margin-right: 8px;
     flex-shrink: 0;
 }
 
-/* Location Badge Style */
-.records-table td:nth-child(4) span {
-    display: inline-block;
-    white-space: normal;
-    /* Allow location badges to wrap text internally */
-    text-align: center;
+.species-info {
+    display: flex;
+    align-items: center;
 }
 
+.common-name {
+    font-weight: 600;
+    color: #1e293b;
+}
+
+.scientific-name {
+    font-style: italic;
+    color: #64748b;
+    font-size: 0.82rem;
+}
+
+.record-location {
+    color: #475569;
+}
+
+.doctor-name {
+    font-weight: 500;
+}
+
+.record-id {
+    font-weight: 500;
+    color: #64748b;
+    font-size: 0.82rem;
+}
+
+.procedure-info {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+/* Category colors (grid view) */
 .bg-aves {
-    background-color: #e1f5fe;
+    background: #e1f5fe;
     color: #0288d1;
 }
 
 .bg-mamiferos {
-    background-color: #fff3e0;
+    background: #fff3e0;
     color: #ef6c00;
 }
 
 .bg-reptiles {
-    background-color: #e8f5e9;
+    background: #e8f5e9;
     color: #2e7d32;
 }
 
 .bg-anfibios {
-    background-color: #f3e5f5;
+    background: #f3e5f5;
     color: #7b1fa2;
 }
 
-/* Helper Text Classes */
+/* Icon helpers (grid view) */
 .text-blue-500 {
     color: #3b82f6;
 }

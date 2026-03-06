@@ -1,12 +1,23 @@
 import React from 'react';
-import Card from '../common/Card';
-import PatientRow from './PatientRow';
+import cardStyles from '../../styles/Card.module.css';
 import { patients } from '../../data/mockData';
 import styles from '../../styles/PatientList.module.css';
+import rowStyles from '../../styles/PatientRow.module.css';
+
+const PatientRow = ({ patient }) => {
+  return (
+    <tr className={rowStyles['patient-row']}>
+      <td>{patient.id}</td>
+      <td>{patient.species}</td>
+      <td>{patient.breed}</td>
+      <td>{patient.age}</td>
+    </tr>
+  );
+};
 
 const PatientList = () => {
   return (
-    <Card className={styles['patient-list-card']}>
+    <div className={`${cardStyles.card} ${styles['patient-list-card']}`}>
       <h3 className={styles['dashboard-section-title']}>Pacientes Recientes</h3>
       <div className={styles['table-responsive-container']}>
         <table className={styles['patient-list-table']}>
@@ -16,7 +27,6 @@ const PatientList = () => {
               <th>Especie</th>
               <th>Raza</th>
               <th>Edad</th>
-              <th>Estado</th>
             </tr>
           </thead>
           <tbody>
@@ -26,7 +36,7 @@ const PatientList = () => {
           </tbody>
         </table>
       </div>
-    </Card>
+    </div>
   );
 };
 

@@ -149,11 +149,9 @@ const RecordsTable = ({ records, viewMode = 'grid' }) => {
 
     return (
         <div className={styles['records-container']}>
-            <div className="flex items-center justify-between mb-4">
-                <div className="flex items-center gap-3">
-                    <h3 className={styles['records-title']} style={{ margin: 0 }}>Registros Encontrados</h3>
-                    <span className={styles['records-count-badge']}>{records.length} RESULTADOS</span>
-                </div>
+            <div className={styles['records-header']}>
+                <h3 className={styles['records-title']}>Registros Encontrados</h3>
+                <span className={styles['records-count-badge']}>{records.length} resultados</span>
             </div>
 
             {viewMode === 'grid' ? (
@@ -184,38 +182,23 @@ const RecordsTable = ({ records, viewMode = 'grid' }) => {
                         {currentItems.length > 0 ? (
                             currentItems.map((record) => (
                                 <tr key={record.id}>
-                                    <td><span className={styles['record-id']}>{record.id}</span></td>
-                                    <td>
-                                        <div className={styles['species-info']}>
-                                            <div className={styles['common-name']}>{record.commonName || 'Sin Nombre Común'}</div>
-                                        </div>
-                                    </td>
-                                    <td className={styles['scientific-name']}>{record.scientificName}</td>
-                                    <td><span className={styles['record-location']}>{record.location}</span></td>
+                                    <td>{record.id}</td>
+                                    <td>{record.commonName || 'Sin Nombre Común'}</td>
+                                    <td>{record.scientificName}</td>
+                                    <td>{record.location}</td>
                                     <td>{record.date}</td>
-                                    <td>
-                                        <div className={styles['doctor-name']}>{record.doctor}</div>
-                                    </td>
-                                    <td>
-                                        <div className={styles['procedure-info']}>
-                                            {getProcedureIcon(record.type)}
-                                            {record.type}
-                                        </div>
-                                    </td>
+                                    <td>{record.doctor}</td>
+                                    <td>{(record.type || '').toLowerCase().split(' ').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ')}</td>
                                     <td>
                                         <button
-                                            className={`${styles['view-record-btn']} flex items-center justify-center gap-1.5 px-3 py-1.5 text-blue-600 hover:text-blue-800 hover:bg-blue-50/50 rounded-lg transition-colors font-semibold group w-full`}
+                                            className={styles['view-record-btn']}
                                             onClick={() => {
                                                 const formKey = getFormKey(record.type);
                                                 const patientIdParam = record.patientId ? `&patientId=${record.patientId}` : '';
-                                                // Passing data via URL search params
                                                 navigate(`/forms?form=${formKey}&animalName=${encodeURIComponent(record.name)}&origin=history${patientIdParam}`);
                                             }}
                                         >
-                                            Ver Detalles
-                                            <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 transform group-hover:translate-x-0.5 transition-transform" viewBox="0 0 20 20" fill="currentColor">
-                                                <path fillRule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clipRule="evenodd" />
-                                            </svg>
+                                            Ver detalles
                                         </button>
                                     </td>
                                 </tr>
@@ -230,6 +213,7 @@ const RecordsTable = ({ records, viewMode = 'grid' }) => {
                     </tbody>
                 </table>
             )}
+
 
             {totalPages > 1 && (
                 <div className={gridStyles.pagination}>

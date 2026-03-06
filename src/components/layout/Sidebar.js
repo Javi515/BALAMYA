@@ -41,18 +41,18 @@ const Sidebar = ({ isOpen, toggle }) => {
           </button>
         </div>
 
-        <div className="flex-grow overflow-y-auto no-scrollbar scrollbar-hide">
-          <nav className="px-6 py-5">
+        <div className="flex-grow overflow-y-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+          <nav className="px-5 py-4">
             <ul className="flex flex-col">
               {sidebarLinks.map((link) => {
                 const Icon = link.icon;
                 return (
-                  <li key={link.path} className="mb-2">
+                  <li key={link.path} className="mb-1.5">
                     <NavLink
                       to={link.path}
                       onClick={handleLinkClick}
                       className={({ isActive }) => `
-                        flex items-center gap-4 no-underline text-white text-base p-3.5 rounded-xl
+                        flex items-center gap-3.5 no-underline text-white text-[0.95rem] p-3 rounded-xl
                         transition-all duration-300 ease-[cubic-bezier(0.25,0.8,0.25,1)]
                         mx-3 border-r-0
                         ${isActive
@@ -65,7 +65,7 @@ const Sidebar = ({ isOpen, toggle }) => {
                           {isActive && (
                             <span className="absolute left-0 top-0 bottom-0 w-1 bg-[#00E5FF] shadow-[0_0_10px_#00E5FF,0_0_20px_#00E5FF] rounded-r"></span>
                           )}
-                          <Icon className={`text-[1.2rem] w-6 text-center transition-all duration-300 ${isActive ? 'text-white' : 'text-white hover:drop-shadow-[0_0_5px_currentColor] hover:scale-110'}`} />
+                          <Icon className={`text-[1.15rem] w-5 text-center transition-all duration-300 ${isActive ? 'text-white' : 'text-white hover:drop-shadow-[0_0_5px_currentColor] hover:scale-110'}`} />
                           {link.label}
                         </>
                       )}

@@ -4,7 +4,7 @@
     padding: 0 30px 30px;
     margin-top: -24px;
     /* Offset the 24px padding from MainLayout content-area */
-    background-color: #f8f9fa;
+    background-color: transparent;
     min-height: 100vh;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }

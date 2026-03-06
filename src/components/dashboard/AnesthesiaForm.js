@@ -4,18 +4,18 @@ import '../../styles/FloatingActions.css';
 import { useLocation } from 'react-router-dom';
 import { FaSave, FaFilePdf } from 'react-icons/fa';
 
-import useAnesthesiaForm from '../../hooks/useAnesthesiaForm';
+import useFormState from '../../hooks/useFormState';
 
 // Import subcomponents
 import AnesthesiaSheet1 from './anesthesia/AnesthesiaSheet1';
 import AnesthesiaSheet2 from './anesthesia/AnesthesiaSheet2';
 import { generateAnesthesiaPDF } from '../../utils/exportAnesthesiaPDF';
 
-const AnesthesiaForm = () => {
+const AnesthesiaForm = ({ patient: patientProp, existingRecord, onSave }) => {
     const formRef = useRef(null);
-    const { isSaved, handleSave } = useAnesthesiaForm();
+    const { isSaved, handleSave: originalHandleSave } = useFormState();
     const location = useLocation();
-    const patient = location.state?.patient;
+    const patient = patientProp || location.state?.patient;
 
     // State for Anesthesia Protocol Table
     const [protocolRows, setProtocolRows] = useState([
@@ -138,6 +138,30 @@ const AnesthesiaForm = () => {
         generateAnesthesiaPDF(patient, protocolRows, monitoringRows, formRefs);
     };
 
+    const handleFormSave = () => {
+        const el = formRef.current;
+        if (!el) {
+            originalHandleSave();
+            return;
+        }
+
+        const generalTextInputs = Array.from(el.querySelectorAll('input[type="text"]')).filter(i => !i.closest('table'));
+        const generalSelects = Array.from(el.querySelectorAll('select')).filter(i => !i.closest('table'));
+
+        const recordMeta = {
+            fecha: el.querySelector('input[type="date"]')?.value || new Date().toISOString().split('T')[0],
+            procedimiento: el.querySelector('textarea')?.value || '',
+            metodo: generalSelects[1] ? generalSelects[1].options[generalSelects[1].selectedIndex]?.text : '',
+            tiempoTotal: el.querySelectorAll('input[type="text"]')[8]?.value || '',
+            medico: el.querySelector('.signature-block input[type="text"]')?.value || '',
+        };
+
+        originalHandleSave();
+        if (onSave) {
+            onSave(recordMeta);
+        }
+    };
+
     return (
         <div className="flex flex-col gap-4">
             <div
@@ -161,7 +185,7 @@ const AnesthesiaForm = () => {
             {/* Floating actions */}
             <div className="floating-actions ">
                 {!isSaved ? (
-                    <button className="floating-btn save-btn" onClick={handleSave} title="Guardar">
+                    <button className="floating-btn save-btn" onClick={handleFormSave} title="Guardar">
                         <FaSave />
                     </button>
                 ) : (

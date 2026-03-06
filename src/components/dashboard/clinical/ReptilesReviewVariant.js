@@ -4,7 +4,7 @@ import { FaSave, FaFilePdf } from 'react-icons/fa';
 import ImageUploader from '../../common/ImageUploader';
 import { SectionTitle, FormGroup, FormInput, FormTextArea } from './ClinicalHelpers';
 
-const ReptilesReviewVariant = ({ getTitle, isSaved, handleSave, handleExportPDF }) => {
+const ReptilesReviewVariant = ({ patient, getTitle, isSaved, handleSave, handleExportPDF }) => {
     const reptileSystems = [
         'Piel', 'Digestivo', 'Respiratorio', 'Cardiovascular',
         'Visual/auditivo', 'Musculoesquelético', 'Urinario/genital',
@@ -38,14 +38,14 @@ const ReptilesReviewVariant = ({ getTitle, isSaved, handleSave, handleExportPDF 
                     <SectionTitle>Datos Generales</SectionTitle>
                     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-x-8 gap-y-4">
                         <FormGroup label="Fecha"><input type="date" className="w-full border-b border-gray-300 bg-transparent py-2 px-1 text-sm focus:outline-none focus:border-blue-500" /></FormGroup>
-                        <FormGroup label="Especie"><FormInput /></FormGroup>
-                        <FormGroup label="N. común"><FormInput /></FormGroup>
-                        <FormGroup label="Identificación"><FormInput /></FormGroup>
-                        <FormGroup label="Ubicación"><FormInput /></FormGroup>
-                        <FormGroup label="Edad"><FormInput /></FormGroup>
-                        <FormGroup label="Sexo"><FormInput /></FormGroup>
-                        <FormGroup label="Peso"><FormInput /></FormGroup>
-                        <FormGroup label="Nombre"><FormInput /></FormGroup>
+                        <FormGroup label="Especie"><FormInput defaultValue={patient?.scientificName || ''} /></FormGroup>
+                        <FormGroup label="N. común"><FormInput defaultValue={patient?.commonName || ''} /></FormGroup>
+                        <FormGroup label="Identificación"><FormInput defaultValue={patient?.id || ''} /></FormGroup>
+                        <FormGroup label="Ubicación"><FormInput defaultValue={patient?.location || ''} /></FormGroup>
+                        <FormGroup label="Edad"><FormInput defaultValue={patient?.age ? `${patient.age} años` : ''} /></FormGroup>
+                        <FormGroup label="Sexo"><FormInput defaultValue={patient?.sex || ''} /></FormGroup>
+                        <FormGroup label="Peso"><FormInput defaultValue={patient?.weight ? `${patient.weight} kg` : ''} /></FormGroup>
+                        <FormGroup label="Nombre"><FormInput defaultValue={patient?.name || ''} /></FormGroup>
                     </div>
                 </div>
 

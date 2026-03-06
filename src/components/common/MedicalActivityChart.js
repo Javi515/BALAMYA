@@ -6,8 +6,8 @@ import {
     YAxis,
     CartesianGrid,
     Tooltip,
-    ResponsiveContainer,
-    Cell
+    Cell,
+    ResponsiveContainer
 } from 'recharts';
 
 const MedicalActivityChart = ({ records }) => {
@@ -76,7 +76,7 @@ const MedicalActivityChart = ({ records }) => {
             <h3 className="text-lg font-extrabold text-[#1e293b] mb-1">Volumen de Atenciones Clínicas</h3>
             <p className="text-sm text-gray-500 font-medium mb-6">Distribución de procedimientos según los filtros aplicados</p>
 
-            <div className="w-full h-[280px]">
+            <div className="w-full" style={{ height: 280, minHeight: 280 }}>
                 <ResponsiveContainer width="100%" height="100%">
                     <BarChart
                         data={data}

@@ -6,11 +6,11 @@ import cardStyles from '../../styles/Card.module.css';
 
 import '../../styles/FloatingActions.css';
 
-import useHospFollowUpForm from '../../hooks/useHospFollowUpForm';
+import useFormState from '../../hooks/useFormState';
 import ImageUploader from '../common/ImageUploader';
 
 const HospFollowUpForm = ({ onBack, patient }) => {
-    const { isSaved, handleSave } = useHospFollowUpForm();
+    const { isSaved, handleSave } = useFormState();
 
     // Dynamic Rows for Seguimiento Hospitalizado
     const [hospRows, setHospRows] = useState([

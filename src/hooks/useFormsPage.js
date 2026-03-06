@@ -41,8 +41,13 @@ const useFormsPage = () => {
     };
 
     const backToSelection = () => {
-        setViewState('selection');
-        setSelectedAnimal(null);
+        const origin = searchParams.get('origin');
+        if (origin) {
+            backToMenu();
+        } else {
+            setViewState('selection');
+            setSelectedAnimal(null);
+        }
     };
 
     const handleChangeAnimal = () => {
@@ -59,6 +64,14 @@ const useFormsPage = () => {
             } else {
                 navigate('/medical-history');
             }
+        } else if (origin === 'hospitalization') {
+            navigate('/hospitalization');
+        } else if (origin === 'treatments') {
+            navigate('/treatments');
+        } else if (origin === 'vaccinations') {
+            navigate('/vaccinations');
+        } else if (origin === 'deworming') {
+            navigate('/deworming');
         } else {
             setViewState('menu');
             setTargetForm(null);

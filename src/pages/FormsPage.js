@@ -142,12 +142,19 @@ const FormsPage = () => {
 
         // View 3: The Form itself
         if (viewState === 'form' && selectedAnimal) {
-            const isFromHistory = searchParams.get('origin') === 'history';
+            const originStr = searchParams.get('origin');
+            let backText = 'Volver al menú';
+            if (originStr === 'history') backText = 'Volver al Historial';
+            else if (originStr === 'hospitalization') backText = 'Volver a Hospitalizados';
+            else if (originStr === 'treatments') backText = 'Volver a Tratamientos';
+            else if (originStr === 'vaccinations') backText = 'Volver a Vacunaciones';
+            else if (originStr === 'deworming') backText = 'Volver a Desparasitaciones';
+
             return (
                 <div className={styles['form-entry-animation']}>
                     <div className={styles['form-header-controls']}>
                         <button onClick={backToMenu} className={styles['back-to-menu-btn']}>
-                            <FaArrowLeft /> {isFromHistory ? 'Volver al Historial' : 'Volver al menú'}
+                            <FaArrowLeft /> {backText}
                         </button>
 
                         <div className={`${styles['selected-animal-banner']} ${styles.compact}`}>

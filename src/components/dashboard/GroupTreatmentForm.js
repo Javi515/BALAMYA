@@ -6,11 +6,11 @@ import styles from '../../styles/TreatmentForm.module.css';
 import '../../styles/FloatingActions.css';
 import cardStyles from '../../styles/Card.module.css';
 
-import useTreatmentForm from '../../hooks/useTreatmentForm';
+import useFormState from '../../hooks/useFormState';
 import ImageUploader from '../common/ImageUploader';
 
 const GroupTreatmentForm = ({ onBack, patient }) => {
-    const { isSaved, handleSave } = useTreatmentForm();
+    const { isSaved, handleSave } = useFormState();
 
     // Dynamic Rows for Protocolo de Tratamiento
     const [protocolRows, setProtocolRows] = useState([

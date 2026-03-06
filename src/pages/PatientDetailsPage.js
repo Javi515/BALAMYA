@@ -3,6 +3,7 @@ import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import { FaPaw, FaSyringe, FaPrint, FaEdit, FaArrowLeft, FaSkull, FaPlus } from 'react-icons/fa';
 import { patients, MOCK_HISTORY } from '../data/mockData';
 import RecordsTable from '../components/common/RecordsTable';
+import Modal from '../components/common/Modal';
 import styles from '../styles/PatientDetails.module.css';
 
 const PatientDetailsPage = () => {
@@ -10,6 +11,8 @@ const PatientDetailsPage = () => {
     const navigate = useNavigate();
     const location = useLocation();
     const [activeTab, setActiveTab] = useState(location.state?.initialTab || 'summary');
+    const [isDischargeModalOpen, setIsDischargeModalOpen] = useState(false);
+    const [dischargeReason, setDischargeReason] = useState('');
 
     // Detectamos si la URL actual pertenece a la sección de "Bajas"
     const isBajasView = location.pathname.includes('/casualties') || location.pathname.includes('/bajas');
@@ -31,19 +34,63 @@ const PatientDetailsPage = () => {
         record => record.name === patient.name || record.commonName === patient.species
     ).map(record => ({ ...record, patientId: patient.id }));
 
-    // NUEVO: Función para manejar el clic en "Reportar Muerte"
+    // Función para manejar el clic en "Dar de baja"
     const handleReportDeath = () => {
-        // Usamos URLSearchParams para construir los parámetros de forma limpia y segura
-        const queryParams = new URLSearchParams({
-            form: 'necropsy',
-            animalName: patient.id, // CAMBIO: Usamos el ID para asegurar que useFormsPage lo encuentre
-            origin: 'history',
-            patientId: patient.id
-        }).toString();
-
-        // Navegamos a la ruta de formularios con los parámetros adjuntos
-        navigate(`/forms?${queryParams}`);
+        setIsDischargeModalOpen(true);
+        setDischargeReason(''); // Reset reason
     };
+
+    const confirmDischarge = () => {
+        if (!dischargeReason) {
+            alert("Por favor, selecciona un motivo de baja.");
+            return;
+        }
+
+        if (dischargeReason === 'Muerte') {
+            // Usamos URLSearchParams para construir los parámetros de forma limpia
+            const queryParams = new URLSearchParams({
+                form: 'necropsy',
+                animalName: patient.id,
+                origin: 'history',
+                patientId: patient.id
+            }).toString();
+
+            // Navegamos a la ruta de formularios
+            navigate(`/forms?${queryParams}`);
+        } else {
+            // "Préstamo", "Intercambio", "Donación"
+            // Guardamos el motivo y marcamos como dado de baja en el estado local (mock)
+            patient.status = 'Dado de baja';
+            patient.dischargeReason = dischargeReason;
+            patient.isActive = false; // Propiedad ilustrativa
+
+            // Cerramos el modal
+            setIsDischargeModalOpen(false);
+
+            // Opcional: Para reflejar el cambio inmediato en UI forzamos un update local si tuvieramos un state completo, 
+            // pero como react re-evalua al cambiar el modal state, puede que el status actualizado se muestre.
+        }
+    };
+
+    // Render footer del modal
+    const renderModalFooter = () => (
+        <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '15px' }}>
+            <button
+                onClick={() => setIsDischargeModalOpen(false)}
+                className={styles['btn-secondary']}
+                style={{ padding: '8px 16px', borderRadius: '6px', border: '1px solid #cbd5e1', backgroundColor: '#fff', cursor: 'pointer' }}
+            >
+                Cancelar
+            </button>
+            <button
+                onClick={confirmDischarge}
+                className={styles['btn-danger']}
+                style={{ padding: '8px 16px', borderRadius: '6px', border: 'none', backgroundColor: '#ef4444', color: '#fff', cursor: 'pointer', fontWeight: 'bold' }}
+            >
+                Confirmar Baja
+            </button>
+        </div>
+    );
 
     return (
         <div className={styles['patient-details-container']}>
@@ -149,12 +196,57 @@ const PatientDetailsPage = () => {
 
                 {activeTab === 'history' && (
                     <div>
-                        <h3 style={{ marginBottom: '10px', marginTop: 0 }}>Historial Clínico Completo</h3>
                         <RecordsTable records={patientHistory} viewMode="table" />
-                        {patientHistory.length === 0 && <p style={{ color: '#666', fontStyle: 'italic' }}>No hay registros médicos recientes para este paciente.</p>}
+                        {patientHistory.length === 0 && <p style={{ color: '#94a3b8', fontStyle: 'italic', textAlign: 'center', padding: '20px 0' }}>No hay registros médicos recientes para este paciente.</p>}
                     </div>
                 )}
             </div>
+
+            {/* Modal de Baja */}
+            <Modal
+                isOpen={isDischargeModalOpen}
+                onClose={() => setIsDischargeModalOpen(false)}
+                title="Confirmar Baja del Paciente"
+                footer={renderModalFooter()}
+            >
+                <div style={{ padding: '10px 0' }}>
+                    <p style={{ marginBottom: '15px', color: '#334155' }}>
+                        Está a punto de dar de baja al paciente <strong>{patient.commonName} ({patient.id})</strong>.
+                        Este proceso requiere un motivo oficial.
+                    </p>
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                        <label htmlFor="discharge-reason" style={{ fontWeight: '600', color: '#1e293b' }}>
+                            ¿Cuál es el motivo de la baja?
+                        </label>
+                        <select
+                            id="discharge-reason"
+                            value={dischargeReason}
+                            onChange={(e) => setDischargeReason(e.target.value)}
+                            style={{
+                                width: '100%',
+                                padding: '10px',
+                                borderRadius: '8px',
+                                border: '1px solid #cbd5e1',
+                                fontSize: '1rem',
+                                color: '#334155',
+                                backgroundColor: '#fff',
+                                outline: 'none'
+                            }}
+                        >
+                            <option value="" disabled>Seleccione un motivo</option>
+                            <option value="Muerte">Muerte (Requiere Necropsia)</option>
+                            <option value="Préstamo">Préstamo</option>
+                            <option value="Intercambio">Intercambio</option>
+                            <option value="Donación">Donación</option>
+                        </select>
+                        {dischargeReason === 'Muerte' && (
+                            <p style={{ marginTop: '10px', fontSize: '0.9rem', color: '#ef4444', fontWeight: '500' }}>
+                                Al confirmar, será redirigido al Formato de Reporte de Necropsia obligatoriamente.
+                            </p>
+                        )}
+                    </div>
+                </div>
+            </Modal>
         </div>
     );
 };
